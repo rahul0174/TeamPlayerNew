@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">TeamPlayer</string>
+
+    <string name="sign_in">Sign in</string>
+    <string name="new_user">New User</string>
+    <string name="demo_request">Demo Request</string>
+    <string name="participant">Participant</string>
+    <string name="orgnization">Orgnization</string>
+    <string name="do_you_have_an_im_enter_it_here">Do you have an \'IM\' Enter it here</string>
+    <string name="submit">Submit</string>
+
+    //signup
+    <string name="full_name">Enter full name</string>
+    <string name="enter_title">Enter Title</string>
+
+
+    <string-array name="selector">
+        <item>Product Designer</item>
+        <item>System Engineer</item>
+    </string-array>
+    <string-array name="occupation">
+        <item>Occupation</item>
+        <item>System Engineer</item>
+    </string-array>
+</resources>
