@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.cts.teamplayer.MainActivity
 import com.cts.teamplayer.R
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
@@ -30,11 +31,15 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
         when (v!!.id) {
             R.id.rl_new_user -> {
                 rl_new_user.setBackgroundResource(R.drawable.rounded_blue_btn)
+                rl_sign_in.setBackgroundResource(R.drawable.rounded_corner_blue)
+                tv_new_user.setTextColor(ContextCompat.getColor(this, R.color.white));
+                tv_signin.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
                 startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
-                finish()
 
             }
             R.id.rl_sign_in -> {
+                rl_sign_in.setBackgroundResource(R.drawable.rounded_blue_btn)
+                startActivity(Intent(this@WelcomeActivity, SignUpActivity::class.java))
 
             }
         }

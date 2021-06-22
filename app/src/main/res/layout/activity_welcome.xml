@@ -12,22 +12,17 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_200sdp"
-                        app:cardCornerRadius="@dimen/_10sdp"
-                        >
+
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/_200sdp"
                             android:src="@drawable/after_splash"
                             android:scaleType="fitXY"
                             />
-                    </androidx.cardview.widget.CardView>
                     <com.cts.teamplayer.customui.CustomTextviewBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_18sdp"
+                        android:textSize="@dimen/_15sdp"
                         android:layout_gravity="center"
                         android:textColor="@color/black"
                         android:textAllCaps="true"
@@ -37,23 +32,26 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_50sdp"
+                        android:layout_marginTop="@dimen/_70sdp"
                         android:orientation="horizontal"
                         android:layout_marginRight="@dimen/_30sdp"
                         android:layout_marginLeft="@dimen/_30sdp"
                         >
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:weightSum="2"
                             >
                             <RelativeLayout
                                 android:id="@+id/rl_sign_in"
-                                android:layout_width="@dimen/_120sdp"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/rounded_blue_btn"
                                 >
                                 <com.cts.teamplayer.customui.CustomTextviewBold
+                                    android:id="@+id/tv_signin"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
@@ -65,12 +63,14 @@
                             </RelativeLayout>
                             <RelativeLayout
                                 android:id="@+id/rl_new_user"
-                                android:layout_width="@dimen/_120sdp"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:background="@drawable/rounded_corner_blue"
                                 >
                                 <com.cts.teamplayer.customui.CustomTextviewBold
+                                    android:id="@+id/tv_new_user"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/light_blue"
@@ -107,12 +107,14 @@
                 </LinearLayout>
 
                 <com.cts.teamplayer.customui.CustomTextviewBold
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="http/ffbfbfbfb.com"
                     android:textSize="@dimen/_11sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     android:padding="@dimen/_10sdp"
+                  android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="@dimen/_35sdp"
                     android:layout_marginRight="@dimen/_35sdp"
                     android:layout_alignParentBottom="true"

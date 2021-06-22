@@ -5,10 +5,9 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.view.View
 import android.widget.Toast
-import com.chawtech.qccloud.util.FunctionHelper
-import com.chawtech.qccloud.util.MyConstants.BASE_URL
-import com.chawtech.qccloud.R
-
+import com.cts.teamplayer.R
+import com.cts.teamplayer.util.FunctionHelper
+import com.cts.teamplayer.util.MyConstants.BASE_URL
 
 import java.io.IOException
 import java.net.InetSocketAddress

@@ -29,7 +29,7 @@ class SplashActivity: AppCompatActivity() {
             val token = mpref!!.getAccessToken("")
             val isLogin = mpref!!.getLogin("")
 
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
             finish()
 
           /*  if (str==null||str.equals("null")) {

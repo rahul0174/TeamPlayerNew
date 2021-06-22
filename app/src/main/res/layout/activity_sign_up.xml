@@ -103,10 +103,13 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="full name"
+                        android:textColorHint="@color/light_grey_new"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
+
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,9 +122,10 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:background="@null"
+                        android:textColorHint="@color/light_grey_new"
                         android:hint="Title"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -137,9 +141,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Phone No"
+                        android:textColorHint="@color/light_grey_new"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -154,10 +159,11 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:background="@null"
+                        android:textColorHint="@color/light_grey_new"
                         android:hint="H.No Plot,Area"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -173,9 +179,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Road Landmark"
+                        android:textColorHint="@color/light_grey_new"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -196,6 +203,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:entries="@array/selector"
+                            android:theme="@style/mySpinnerItemStyle"
                             android:outlineSpotShadowColor="@color/light_grey1"
 
                             />
@@ -218,6 +226,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:entries="@array/selector"
+                            android:theme="@style/mySpinnerItemStyle"
                             android:outlineSpotShadowColor="@color/light_grey1"
 
                             />
@@ -240,6 +249,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:entries="@array/selector"
+                            android:theme="@style/mySpinnerItemStyle"
                             android:outlineSpotShadowColor="@color/light_grey1"
 
                             />
@@ -262,6 +272,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:entries="@array/selector"
+                            android:theme="@style/mySpinnerItemStyle"
                             android:outlineSpotShadowColor="@color/light_grey1"
 
                             />
@@ -284,6 +295,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:entries="@array/selector"
+                            android:theme="@style/mySpinnerItemStyle"
                             android:outlineSpotShadowColor="@color/light_grey1"
 
                             />
@@ -302,10 +314,11 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Zip"
+                        android:textColorHint="@color/light_grey_new"
                         android:maxLength="6"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -321,9 +334,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Email"
+                        android:textColorHint="@color/light_grey_new"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -339,9 +353,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Password"
+                        android:textColorHint="@color/light_grey_new"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
@@ -356,13 +371,15 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:background="@null"
+                        android:textColorHint="@color/light_grey_new"
                         android:hint="Road Landmark"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_upload_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -408,13 +425,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
+                        android:textColorHint="@color/light_grey_new"
                         android:background="@null"
                         android:hint="@string/do_you_have_an_im_enter_it_here"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/simpleCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/light_grey_new"
+                    android:text="@string/agree_to_terms_conditions_and_privacy_policy"/>
                 <com.cts.teamplayer.customui.CustomButton
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"

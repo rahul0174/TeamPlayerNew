@@ -30,7 +30,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener {
         setContentView(R.layout.activity_sign_up)
         mpref = TeamPlayerSharedPrefrence.getInstance(this)
 
-        uploadImage.setOnClickListener(this)
+       // uploadImage.setOnClickListener(this)
+        rl_upload_image.setOnClickListener(this)
         btn_submit.setOnClickListener(this)
 
         findId()
@@ -42,7 +43,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v!!.id) {
-            R.id.uploadImage -> {
+            R.id.rl_upload_image -> {
 
                 if (checkPermission())
                     CropImage.activity().setAutoZoomEnabled(true).setAspectRatio(1, 1)

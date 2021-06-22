@@ -1,8 +1,5 @@
 package com.cts.teamplayer.network
 
-import com.chawtech.qccloud.model.*
-import com.chawtech.qccloud.model.profile.ProfilePojo
-import com.chawtech.qccloud.model.searchAirport.SearchAirportPojo
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
@@ -12,7 +9,7 @@ import retrofit2.http.*
 
 
 interface ApiInterface {
-    @GET("api/v1/login/member_api/login_member")
+   /* @GET("api/v1/login/member_api/login_member")
     fun login(@Header("business-name") business_name: String,@Header("password") password: String,@Header("email") email: String): Call<JsonObject>
 
     @FormUrlEncoded
@@ -133,5 +130,5 @@ interface ApiInterface {
     @POST("api/v1/members/member_api/member/save_token")
     fun saveFcmToken(@FieldMap data: Map<String,String>, @Header("business-name") business_name: String, @Header("access-token") acessToken: String): Call<JsonObject>
 
-
+*/
 }
