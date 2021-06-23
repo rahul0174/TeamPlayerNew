@@ -55,6 +55,7 @@
                         app:cardCornerRadius="@dimen/_5sdp"
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:id="@+id/tv_signup"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="@dimen/_7sdp"
@@ -74,6 +75,7 @@
                         app:cardCornerRadius="@dimen/_5sdp"
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:id="@+id/tv_orgnization"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="@dimen/_7sdp"
@@ -103,6 +105,8 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="full name"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
@@ -122,6 +126,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:background="@null"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
                         android:hint="Title"
                         android:padding="@dimen/_10sdp"
@@ -141,6 +147,8 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Phone No"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
@@ -161,7 +169,8 @@
                         android:background="@null"
                         android:textColorHint="@color/light_grey_new"
                         android:hint="H.No Plot,Area"
-                        android:inputType="number"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
                         />
@@ -179,8 +188,9 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Road Landmark"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
-                        android:inputType="number"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
                         />
@@ -192,20 +202,30 @@
                     android:background="@drawable/rounded_doted_btn"
                     >
                     <RelativeLayout
+                        android:id="@+id/rl_sector"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10sdp"
                         >
-
-                        <Spinner
-                            android:id="@+id/designation_spinner"
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_sector"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="@string/sector"
                             android:padding="@dimen/_10sdp"
-                            android:entries="@array/selector"
-                            android:theme="@style/mySpinnerItemStyle"
-                            android:outlineSpotShadowColor="@color/light_grey1"
-
+                            android:textColorHint="@color/light_grey_new"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/down"
                             />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -216,19 +236,30 @@
                     android:background="@drawable/rounded_doted_btn"
                     >
                     <RelativeLayout
+                        android:id="@+id/rl_occupation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10sdp"
                         >
-
-                        <Spinner
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_occupation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColorHint="@color/light_grey_new"
+                            android:hint="Occupation"
                             android:padding="@dimen/_10sdp"
-                            android:entries="@array/selector"
-                            android:theme="@style/mySpinnerItemStyle"
-                            android:outlineSpotShadowColor="@color/light_grey1"
-
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/down"
                             />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -239,19 +270,32 @@
                     android:background="@drawable/rounded_doted_btn"
                     >
                     <RelativeLayout
+                        android:id="@+id/rl_country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10sdp"
                         >
 
-                        <Spinner
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_country"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=""
                             android:padding="@dimen/_10sdp"
-                            android:entries="@array/selector"
-                            android:theme="@style/mySpinnerItemStyle"
-                            android:outlineSpotShadowColor="@color/light_grey1"
-
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/light_grey_new"
+                            android:hint="@string/country"
+                            android:singleLine="true"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/down"
                             />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -262,19 +306,30 @@
                     android:background="@drawable/rounded_doted_btn"
                     >
                     <RelativeLayout
+                        android:id="@+id/rl_state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10sdp"
                         >
-
-                        <Spinner
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_state"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="State"
+                            android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
-                            android:entries="@array/selector"
-                            android:theme="@style/mySpinnerItemStyle"
-                            android:outlineSpotShadowColor="@color/light_grey1"
-
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/down"
                             />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -285,19 +340,30 @@
                     android:background="@drawable/rounded_doted_btn"
                     >
                     <RelativeLayout
+                        android:id="@+id/rl_city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_10sdp"
                         >
-
-                        <Spinner
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_city"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="@string/city"
+                            android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
-                            android:entries="@array/selector"
-                            android:theme="@style/mySpinnerItemStyle"
-                            android:outlineSpotShadowColor="@color/light_grey1"
-
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            />
+                        <ImageView
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/down"
                             />
                     </RelativeLayout>
                 </RelativeLayout>
@@ -314,6 +380,8 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Zip"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
                         android:maxLength="6"
                         android:inputType="number"
@@ -334,6 +402,8 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Email"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/_10sdp"
@@ -353,8 +423,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:hint="Password"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:textColorHint="@color/light_grey_new"
-                        android:inputType="number"
+                        android:inputType="numberPassword|textPassword"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
                         />
@@ -373,6 +445,8 @@
                         android:background="@null"
                         android:textColorHint="@color/light_grey_new"
                         android:hint="Road Landmark"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
@@ -427,6 +501,8 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/light_grey_new"
                         android:background="@null"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
                         android:hint="@string/do_you_have_an_im_enter_it_here"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"

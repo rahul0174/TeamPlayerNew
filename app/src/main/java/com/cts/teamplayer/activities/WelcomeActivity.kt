@@ -34,12 +34,16 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
                 rl_sign_in.setBackgroundResource(R.drawable.rounded_corner_blue)
                 tv_new_user.setTextColor(ContextCompat.getColor(this, R.color.white));
                 tv_signin.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
-                startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
+                startActivity(Intent(this@WelcomeActivity, SignUpActivity::class.java))
 
             }
             R.id.rl_sign_in -> {
                 rl_sign_in.setBackgroundResource(R.drawable.rounded_blue_btn)
-                startActivity(Intent(this@WelcomeActivity, SignUpActivity::class.java))
+                rl_new_user.setBackgroundResource(R.drawable.rounded_corner_blue)
+                tv_new_user.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
+                tv_signin.setTextColor(ContextCompat.getColor(this, R.color.white));
+
+                startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
 
             }
         }
