@@ -50,6 +50,33 @@
     <string name="sector">Sector</string>
     <string name="country">Country</string>
     <string name="city">City</string>
+    <string name="request_a_demo">Request a Demo</string>
+    <string name="company_name">Company name</string>
+    <string name="phone_num">Phone No.</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="profession">Profession</string>
+    <string name="address">Address</string>
+    <string name="select_profession">Select Profession</string>
+    <string name="save">Save</string>
+    <string name="home">Home</string>
+    <string name="how_it_works">How it Works</string>
+    <string name="vision_technology"><![CDATA[Vision & Technology]]></string>
+    <string name="contact_us">Contact Us</string>
+    <string name="news_">News</string>
+    <string name="faq_s">FAQ\'s</string>
+    <string name="signup">SignUp</string>
+    <string name="demo">Demo</string>
+    <string name="faq">Faq</string>
+    <string name="calculator">Calculator</string>
+    <string name="accept_all_privacy_privacy"><![CDATA[Accept all Privacy & privacy]]></string>
+    <string name="what_are_the_benefits">What are the benefits?</string>
+    <string name="employee_productivity">Employee Productivity</string>
+    <string name="how_we_are_different">How we are different</string>
+    <string name="reach_out_get_in_touch">Reach Out, Get in Touch</string>
+    <string name="what_s_is_group">What\'s is group?</string>
 
 
     <string-array name="selector">

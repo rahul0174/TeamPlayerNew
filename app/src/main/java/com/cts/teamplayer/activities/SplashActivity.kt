@@ -3,9 +3,7 @@ package com.cts.teamplayer.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.cts.teamplayer.MainActivity
 import com.cts.teamplayer.R
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 

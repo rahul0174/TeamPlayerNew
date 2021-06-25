@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.cts.teamplayer.MainActivity
 import com.cts.teamplayer.R
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import kotlinx.android.synthetic.main.activity_welcome.*
@@ -25,6 +24,8 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
     private fun findId() {
         rl_new_user.setOnClickListener(this)
         rl_sign_in.setOnClickListener(this)
+        rl_demo_request.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
@@ -44,6 +45,10 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
                 tv_signin.setTextColor(ContextCompat.getColor(this, R.color.white));
 
                 startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
+
+            }
+            R.id.rl_demo_request -> {
+                startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
 
             }
         }

@@ -96,6 +96,7 @@
                             android:layout_toLeftOf="@+id/iv_user_password"
                             android:textColor="@color/black"
                             android:background="@null"
+                            android:inputType="textPassword"
                             android:singleLine="true"
                             android:imeOptions="actionNext"
                             android:textColorHint="@color/light_grey_new"
@@ -127,6 +128,7 @@
                         android:background="@color/light_blue"
                         />
                     <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_forgot_pass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_25sdp"

@@ -62,6 +62,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var country_id:String?=""
     var city_id:String?=""
     var state_id:String?=""
+    var sector_id:String?=""
+    var occupation_id:String?=""
     var text_sector:String?=""
     var text_occupation:String?=""
     var ischeck = false
@@ -115,12 +117,14 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
             }
             R.id.btn_submit -> {
+
                 if (checkVAlidation()) {
-                    var requestBodyuser = JsonObject()
+                        var requestBodyuser = JsonObject()
                     requestBodyuser.addProperty("first_name", edit_full_name.text.toString().trim())
                     requestBodyuser.addProperty("last_name", edit_full_name.text.toString().trim())
                     requestBodyuser.addProperty("email", edit_email.text.toString().trim())
                     requestBodyuser.addProperty("title", edit_title.text.toString().trim())
+                    requestBodyuser.addProperty("phone", edit_phone.text.toString().trim())
                     requestBodyuser.addProperty("cv", userIamge)
                     requestBodyuser.addProperty(
                         "address_line_1",
@@ -130,8 +134,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                         "address_line_2",
                         edit_landmark.text.toString().trim()
                     )
-                    requestBodyuser.addProperty("sector", text_sector)
-                    requestBodyuser.addProperty("occupation", text_occupation)
+                    requestBodyuser.addProperty("sector", sector_id)
+                    requestBodyuser.addProperty("occupation", occupation_id)
                     requestBodyuser.addProperty("country", country_id)
                     requestBodyuser.addProperty("city", city_id)
                     requestBodyuser.addProperty("state", state_id)
@@ -147,7 +151,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     requestBodyuser.addProperty("agreeTerms", ischeck)
                     requestBodyuser.addProperty("agreePrivacy", ischeck)
 
-
+                    userSignup(requestBodyuser)
                 }
 
             }
@@ -208,21 +212,9 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             val jsonObject = JSONObject(response.body()!!.toString())
 
                             val message = jsonObject.optString("message")
-                            if (jsonObject.optBoolean("success") == false) {
+
                                 Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
                                     .show()
-
-                            } else {
-                                Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
-                                    .show()
-
-                                /*  val otpId = jsonObject.optString("otpId")
-                                val i = Intent(this@SignUpActivity, UserOtpNewActivity::class.java)
-                                i.putExtra("otpId",otpId)
-                                startActivity(i)*/
-                                finish()
-                            }
-
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -234,16 +226,16 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             "Internal server error",
                             Toast.LENGTH_LONG
                         ).show()
-                    } else if (response.code() == 404) {
+                    }
+                    if (response.code() == 404) {
                         try {
                             val jsonObject = JSONObject(response.body()!!.toString())
 
                             val message = jsonObject.optString("message")
-                            if (jsonObject.optBoolean("success") == false) {
                                 Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
                                     .show()
 
-                            }
+
 
 
                         } catch (e: JSONException) {
@@ -329,14 +321,14 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         }else  if (edit_landmark.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_mark), Toast.LENGTH_SHORT).show()
             return false
-        }else  if (text_sector.equals("")) {
+        }else  if (sector_id.equals("")) {
             Toast.makeText(
                 this@SignUpActivity,
                 getString(R.string.select_sector),
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        }else  if (text_occupation.equals("")) {
+        }else  if (occupation_id.equals("")) {
             Toast.makeText(
                 this@SignUpActivity,
                 getString(R.string.select_occupation),
@@ -532,7 +524,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     if (response.code() >= 200 && response.code() < 210) {
                         try {
                             val jsonObject = JSONObject(response.body()!!.toString())
-                            userIamge = jsonObject.optString("filename")
+                            userIamge = jsonObject.getJSONObject("data").optString("filename")
 
                             Log.e("userIamge", userIamge)
 
@@ -959,7 +951,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             progress.show()
             val apiInterface = ApiClient.getConnection(this)
             var call: Call<CityListResponse>? = null//apiInterface.profileImage(body,token);
-            call = apiInterface!!.getCity("1")
+            call = apiInterface!!.getCity(state_id!!)
             call!!.enqueue(object : Callback<CityListResponse> {
                 override fun onResponse(
                     call: Call<CityListResponse>,
@@ -1149,10 +1141,12 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
     override fun onClickItem(position: Int, requestcode: Int) {
         if(requestcode==1){
+            sector_id=sectotList!!.get(position).id.toString()
             tv_sector.text=sectotList!!.get(position).text
             dialog!!.dismiss()
         }
         if(requestcode==2){
+            occupation_id=occupationsList!!.get(position).id.toString()
             tv_occupation.text=occupationsList!!.get(position).text
             dialog!!.dismiss()
         }

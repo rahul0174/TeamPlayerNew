@@ -444,10 +444,10 @@
                         android:textColor="@color/black"
                         android:background="@null"
                         android:textColorHint="@color/light_grey_new"
-                        android:hint="Road Landmark"
+                        android:hint="password"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
-                        android:inputType="number"
+                        android:inputType="textPassword|numberPassword"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"
                         />

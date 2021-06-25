@@ -33,7 +33,6 @@ class CountryListAdapter(val mContext: Context, var data : ArrayList<CountryList
 
         fun bind(data: CountryList,position: Int) {
             itemView.tv_country.text=data.name
-            var  flagurl="http://35.160.227.253/SaharaGo/Flag/"+data.flag
            /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
 */
             itemView.setOnClickListener{
