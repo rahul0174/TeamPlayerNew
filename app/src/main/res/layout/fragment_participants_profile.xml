@@ -9,25 +9,203 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
         android:elevation="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
+            android:padding="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:orientation="vertical"
             >
             <RelativeLayout
-                android:layout_width="@dimen/_65sdp"
-                android:layout_height="@dimen/_65sdp"
+                android:id="@+id/rl_profile_edit"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
                 android:layout_gravity="center"
                 >
                 <ImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
                     android:src="@drawable/profile"
+                    android:layout_centerInParent="true"
                     />
+                <ImageView
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:src="@drawable/plus"
+                    />
+
             </RelativeLayout>
+            <com.cts.teamplayer.customui.CustomTextviewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp"
+                android:layout_gravity="center"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="JAMES LANAS"
+                />
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:text="@string/im_id"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_gravity="center_vertical"
+                    android:textAllCaps="true"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text="aaaaaaaaa"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/name"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text="aaaaaaaaa"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/email"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:textAllCaps="true"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text="aaaaaaaaa"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/phone"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text="aaaaaaaaa"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Profession"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text="aaaaaaaaa"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

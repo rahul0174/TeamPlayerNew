@@ -121,11 +121,12 @@
                 android:layout_marginTop="@dimen/_25sdp"
                android:paddingRight="@dimen/_20sdp"
                 android:paddingLeft="@dimen/_20sdp"
+                android:textStyle="bold"
                 android:text="@string/request_a_demo"
                 android:textAllCaps="false"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_12sdp"
                 android:background="@color/light_blue"
                 />
             <LinearLayout

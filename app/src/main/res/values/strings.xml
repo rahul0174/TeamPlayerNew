@@ -40,6 +40,8 @@
     <string name="skip">SKIP</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="enter_password_length">Password should be minimum 6 digit</string>
+    <string name="enter_subject">Enter our ubject</string>
+    <string name="enter_message">Enter youre message</string>
     <string name="agree_to_terms_conditions_and_privacy_policy"><![CDATA[Agree to Terms&Conditions and Privacy Policy]]></string>
 
   //FORGET  PASSWORD SCREEN
@@ -77,6 +79,32 @@
     <string name="how_we_are_different">How we are different</string>
     <string name="reach_out_get_in_touch">Reach Out, Get in Touch</string>
     <string name="what_s_is_group">What\'s is group?</string>
+    <string name="our_vision">Our Vision</string>
+    <string name="our_technology">Our Technology</string>
+    <string name="subject">Subject</string>
+    <string name="your_message">Your Message</string>
+    <string name="focus_on_recrutment_tools_artical_360_magazine">Focus on Recrutment Tools artical 360 Magazine</string>
+    <string name="im_id">IM ID</string>
+    <string name="name">Name</string>
+    <string name="decrease">Decrease the 20% to 30% lost productivity that companies suffer due to unhappy and poorly engaged employees</string>
+    <string name="team_assignments">Team Assignments</string>
+    <string name="savings_of_up_to_20_when_better_aligned_teams_are_operating_on_agile_initiatives">Savings of up to 20% when better aligned teams are operating on agile initiatives</string>
+    <string name="manage_focus">Management Focus</string>
+    <string name="management_focus_issue">Management Focus - A decrease of up to 20% of manager time focused on HR issues</string>
+    <string name="staff_hiring">Staff Hiring</string>
+    <string name="building_teams_an_increase_of_up_to_20_in_employee_productivity">Building Teams - An increase of up to 20% in employee productivity</string>
+    <string name="augmenting_teams_up_to_30_reduction_in_the_number_and_cost_of_bad_hir">Augmenting Teams - Up to 30% reduction in the number and cost of bad hir</string>
+    <string name="teamplayerhr_is_not_a_psychometric_test">TeamPlayerHR is not a psychometric test.</string>
+    <string name="teamplay">TeamPlayerHR patented technology quickly assesses how individuals will interact with each other and tells its users whether individuals will work together effectively by assessing their cultural compatibility so they can create high performing teams.</string>
+    <string name="search">Search...</string>
+
+    //How it work screen
+    <string name="put_the_results_graph_in_photo_area">Put the results graph in photo area .</string>
+    <string name="the_team_playerhr_is_simple_to_complete_you_will_be_asked_a_series_of_multiple_choice_questions_select_an_answer_you_should_answer_as_fast_as_you_can_because_questions_are_time_based_and_will_fade_out_after_a_period_of_time">The Team PlayerHR is simple to complete. You will be asked a series of multiple choice questions, select an answer. You should answer as fast as you can because questions are time based and will fade out after a period of time.</string>
+    <string name="just_be_as_honest_as_you_can_be_and_trust_your_first_response">Just be as honest as you can be and trust your first response.</string>
+    <string name="once_completed_you_ll_be_issued_an_im_intrinsic_matrix_to_be_compare_to_other_im_s_for_compatibly">Once completed you\'ll be issued an IM Intrinsic Matrix. To be compare to other IM\'s for compatibly.</string>
+    <string name="we_want_to_make_people_happy_they_spend_most_of_their_waking_hours_in_their_place_of_work_those_should_be_good_hours_compatibility_among_teams_produces_happier_workers_higher_productivity_and_a_stronger_bottom_line_for_employers_the_real_bottom_line_is_that_everyone_wins_with_teamplayerhr">We want to make people happy. They spend most of their waking hours in their place of work; those should be good hours. Compatibility among teams produces happier workers, higher productivity, and a stronger bottom line for employers. The real bottom line is that everyone wins with TeamPlayerHR.</string>
+    <string name="scientifically">Scientifically developed, consistent results designed by behavioural psychologists, the TeamPlayerHR solution statistically records how each participant perceives, interprets and approaches common workplace situations. TeamPlayerHR adds scientific objectivity to the team assignment and selection process because all participants are rated and compared by the same standardised measurements.</string>
 
 
     <string-array name="selector">

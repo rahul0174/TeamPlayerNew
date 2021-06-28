@@ -38,12 +38,12 @@ class CustomTextviewBold : AppCompatTextView {
 
     private fun selectTypeface(context: Context, fontName: String?, textStyle: Int): Typeface? {
         return if (fontName == null) {
-            FontCache.getTypeface("Poppins-Bold.ttf", context)
-        } else if (fontName.contentEquals("Poppins-Bold.ttf")) {
-            FontCache.getTypeface("Poppins-Bold.ttf", context)
+            FontCache.getTypeface("Roboto-Bold.ttf", context)
+        } else if (fontName.contentEquals("Roboto-Bold.ttf")) {
+            FontCache.getTypeface("Roboto-Bold.ttf", context)
 
         } else {
-            FontCache.getTypeface("Poppins-Bold.ttf", context)
+            FontCache.getTypeface("Roboto-Bold.ttf", context)
         }
     }
 

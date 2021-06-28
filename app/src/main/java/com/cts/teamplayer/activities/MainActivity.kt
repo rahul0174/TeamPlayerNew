@@ -6,10 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.cts.teamplayer.R
-import com.cts.teamplayer.fragments.CalculatorFragment
-import com.cts.teamplayer.fragments.FaqsFragment
-import com.cts.teamplayer.fragments.HomeFragment
-import com.cts.teamplayer.fragments.RequestDemoFragment
+import com.cts.teamplayer.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_bar.*
 import kotlinx.android.synthetic.main.nav_header.*
@@ -47,30 +44,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
             } R.id.rl_home -> {
             addHomeFragment()
+
             }R.id.rl_demo -> {
+
             addReqDemoFragment()
             }R.id.rl_faq -> {
             addFaqFragment()
             }R.id.rl_calcu -> {
-            addCalculatorFragment()
+            addParticipantsProfileFragment()
+         //   addCalculatorFragment()
             }R.id.tv_open_home -> {
+            drawer_layout.closeDrawers()
                 addHomeFragment()
                }
             R.id.tv_open_how_work -> {
-
+                drawer_layout.closeDrawers()
+                addHowItFragment()
             }R.id.tv_open_contact_us -> {
-            addCalculatorFragment()
+            drawer_layout.closeDrawers()
+            addContactUsFragment()
             }R.id.tv_open_vision_tech -> {
-            addCalculatorFragment()
+            drawer_layout.closeDrawers()
+                addAboutUsFragment()
             }R.id.tv_open_news -> {
-            addCalculatorFragment()
+            drawer_layout.closeDrawers()
+            addNewsFragment()
             }R.id.tv_open_faq -> {
-            addCalculatorFragment()
+            drawer_layout.closeDrawers()
+            addFaqFragment()
             }
         }
     }
     private fun addHomeFragment() {
       val  homeFragment = HomeFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+        transaction.addToBackStack(null);
+        transaction.commit()
+    }
+    private fun addHowItFragment() {
+        val  homeFragment = HowItWorksFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+        transaction.addToBackStack(null);
+        transaction.commit()
+    }
+    private fun addContactUsFragment() {
+        val  homeFragment = ContactUsFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+        transaction.addToBackStack(null);
+        transaction.commit()
+    } private fun addAboutUsFragment() {
+        val  homeFragment = AboutUsFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+        transaction.addToBackStack(null);
+        transaction.commit()
+    }
+    private fun addNewsFragment() {
+        val  homeFragment = NewsFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.replace(R.id.container, homeFragment)
@@ -98,6 +135,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.replace(R.id.container, calculatorFragment)
+        transaction.addToBackStack(null);
+        transaction.commit()
+    } private fun addParticipantsProfileFragment() {
+        val  participantsProfileFragment = ParticipantsProfileFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, participantsProfileFragment)
         transaction.addToBackStack(null);
         transaction.commit()
     }

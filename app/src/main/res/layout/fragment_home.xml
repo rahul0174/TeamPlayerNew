@@ -51,17 +51,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:background="@null"
-                    android:hint="Search"
+                    android:hint="@string/search"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_9ssp"
                     />
                 <ImageView
                     android:layout_alignParentRight="true"
                     android:id="@+id/img_search"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_width="@dimen/_17sdp"
+                    android:layout_width="@dimen/_16sdp"
                     android:layout_centerVertical="true"
-                    android:layout_height="@dimen/_17sdp"
+                    android:layout_height="@dimen/_16sdp"
                     android:src="@drawable/search"
                     />
 
@@ -134,7 +134,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                android:text="@string/decrease"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="match_parent"
@@ -144,7 +144,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
-                android:text="@string/employee_productivity"
+                android:text="@string/team_assignments"
                 />
             <com.cts.teamplayer.customui.CustomTextView
                 android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                android:text="@string/savings_of_up_to_20_when_better_aligned_teams_are_operating_on_agile_initiatives"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="match_parent"
@@ -162,7 +162,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
-                android:text="@string/employee_productivity"
+                android:text="@string/manage_focus"
                 />
             <com.cts.teamplayer.customui.CustomTextView
                 android:layout_width="match_parent"
@@ -170,7 +170,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                android:text="@string/management_focus_issue"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="match_parent"
@@ -180,7 +180,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp"
                 android:textStyle="bold"
-                android:text="@string/employee_productivity"
+                android:text="@string/staff_hiring"
                 />
             <com.cts.teamplayer.customui.CustomTextView
                 android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                android:text="@string/building_teams_an_increase_of_up_to_20_in_employee_productivity"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="match_parent"
@@ -198,7 +198,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold"
-                android:text="@string/employee_productivity"
+                android:text="@string/augmenting_teams_up_to_30_reduction_in_the_number_and_cost_of_bad_hir"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="match_parent"
@@ -216,7 +216,15 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_10sdp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                android:text="@string/teamplayerhr_is_not_a_psychometric_test"
+                />
+            <com.cts.teamplayer.customui.CustomTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_10sdp"
+                android:text="@string/teamplay"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

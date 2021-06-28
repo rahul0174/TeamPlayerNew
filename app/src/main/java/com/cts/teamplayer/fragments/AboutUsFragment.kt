@@ -18,7 +18,7 @@ class AboutUsFragment: Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_participants_profile, container, false)
+        v = inflater.inflate(R.layout.fragment_about_us, container, false)
         mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
         return v
     }

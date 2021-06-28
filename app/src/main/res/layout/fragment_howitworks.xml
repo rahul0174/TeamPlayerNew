@@ -34,7 +34,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_10sdp"
-                    android:text="Lorem Ipsum is simply dummy"
+                    android:text="@string/put_the_results_graph_in_photo_area"
                     />
                   <com.cts.teamplayer.customui.CustomTextView
                     android:layout_width="match_parent"
@@ -42,16 +42,24 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_10sdp"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type ."
-                    />
+                      android:text="@string/the_team_playerhr_is_simple_to_complete_you_will_be_asked_a_series_of_multiple_choice_questions_select_an_answer_you_should_answer_as_fast_as_you_can_because_questions_are_time_based_and_will_fade_out_after_a_period_of_time"
+                      />
                   <com.cts.teamplayer.customui.CustomTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textSize="@dimen/_10sdp"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+                    android:text="@string/just_be_as_honest_as_you_can_be_and_trust_your_first_response"
                     />
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="@string/once_completed_you_ll_be_issued_an_im_intrinsic_matrix_to_be_compare_to_other_im_s_for_compatibly"
+                           />
                  <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"/>

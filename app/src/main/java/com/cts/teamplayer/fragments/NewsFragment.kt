@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.cts.teamplayer.R
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 
-class HowItWorksFragment: Fragment(), View.OnClickListener {
+class NewsFragment: Fragment(), View.OnClickListener {
     lateinit var v: View
     private var mpref: TeamPlayerSharedPrefrence? = null
     lateinit var iv_no_data_cancel_order: ImageView
@@ -18,7 +18,7 @@ class HowItWorksFragment: Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_howitworks, container, false)
+        v = inflater.inflate(R.layout.fragment_news, container, false)
         mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
         return v
     }
