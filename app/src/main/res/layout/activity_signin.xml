@@ -98,7 +98,7 @@
                             android:background="@null"
                             android:inputType="textPassword"
                             android:singleLine="true"
-                            android:imeOptions="actionNext"
+                            android:imeOptions="actionDone"
                             android:textColorHint="@color/light_grey_new"
                             android:hint="Password"
                             android:padding="@dimen/_10sdp"
@@ -138,27 +138,42 @@
                         android:text="@string/forgot_your_password"
                         />
                     <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_dont_account_signup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:layout_gravity="center"
                         android:textSize="@dimen/_11sdp"
                         android:textColor="@color/black"
-                        android:text="@string/don_t_have_an_account_sign_up"
+                        android:text=""
                         />
 
 
                 </LinearLayout>
-                <com.cts.teamplayer.customui.CustomTextviewBold
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/_30sdp"
-                    android:textSize="@dimen/_11sdp"
-                    android:textColor="@color/light_blue"
-                    android:text="@string/skip"
-                    />
+                    >
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="@dimen/_11sdp"
+                        android:textColor="@color/light_blue"
+                        android:text="@string/skip"
+                        />
+                    <View
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_1ssp"
+                        android:background="@color/light_blue"
+                        />
+                </LinearLayout>
+
+
 
             </RelativeLayout>
 

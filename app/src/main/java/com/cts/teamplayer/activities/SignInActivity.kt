@@ -3,6 +3,7 @@ package com.cts.teamplayer.activities
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.text.InputType
 import android.util.Log
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cts.teamplayer.R
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
+import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signin.*
 import org.json.JSONException
@@ -24,6 +26,7 @@ import java.io.InputStreamReader
 class SignInActivity: AppCompatActivity() , View.OnClickListener {
 
     var passwordNotVisible = 0
+    private var mpref: TeamPlayerSharedPrefrence? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
@@ -33,10 +36,15 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
     }
 
     private fun findId() {
+        mpref = TeamPlayerSharedPrefrence.getInstance(this)
 
+        val first = "Don't have an account? "
+        val next = "<font color='#069fbe'>Sign UP</font>"
+        tv_dont_account_signup.setText(Html.fromHtml(first + next))
         btn_login.setOnClickListener(this)
         iv_user_password.setOnClickListener(this)
         tv_forgot_pass.setOnClickListener(this)
+        tv_dont_account_signup.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -57,24 +65,29 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                 } else {
                     var loginRequest: JsonObject = JsonObject()
                     loginRequest!!.addProperty("email", edit_user_name.text.toString().trim())
-                    loginRequest!!.addProperty("password", edit_user_name.text.toString().trim())
+                    loginRequest!!.addProperty("password", edit_password.text.toString().trim())
                     loginApi(loginRequest)
 
 
                 }
             }
-            R.id.tv_forgot_pass->{
-                val i = Intent(this@SignInActivity, ForgetPasswordActivity::class.java).addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            R.id.tv_forgot_pass -> {
+                val i = Intent(this@SignInActivity, ForgetPasswordActivity::class.java)
+                startActivity(i)
+            }
+            R.id.tv_dont_account_signup -> {
+                val i = Intent(this@SignInActivity, SignUpActivity::class.java)
                 startActivity(i)
             }
             R.id.iv_user_password -> {
                 if (passwordNotVisible == 0) {
                     edit_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    iv_user_password.setImageResource(R.drawable.password_hidden)
                     passwordNotVisible = 1
                 } else {
                     edit_password.inputType =
                         InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    iv_user_password.setImageResource(R.drawable.password_hidden)
                     passwordNotVisible = 0
                 }
             }
@@ -91,24 +104,32 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
             var call: Call<JsonObject>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.login(jsonObject)
             call!!.enqueue(object : Callback<JsonObject> {
-                override fun onResponse(call: Call<JsonObject>, response: retrofit2.Response<JsonObject>) {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: retrofit2.Response<JsonObject>
+                ) {
                     // Log.e("log",response.body().toString());
                     progress.dismiss()
                     if (response.code() >= 200 && response.code() < 210) {
                         try {
                             Log.d("response", response.body()!!.toString())
                             val jsonObject = JSONObject(response.body().toString())
-                            Toast.makeText(this@SignInActivity, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
-
+                            Toast.makeText(
+                                this@SignInActivity,
+                                jsonObject.optString("message"),
+                                Toast.LENGTH_LONG
+                            ).show()
 
                             val token = jsonObject.getJSONObject("data").optString("token")
+                            mpref!!.setAccessToken(token)
                             val i = Intent(this@SignInActivity, MainActivity::class.java).addFlags(
-                                Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                Intent.FLAG_ACTIVITY_NEW_TASK
+                            ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                             startActivity(i)
 
-                        //    mpref!!.setToken(token)
+                            //
                             // Log.d("usertype",user_type);
-                     /*       mpref!!.setToken(token)
+                            /*       mpref!!.setToken(token)
                             mpref!!.setUserType(usertype)
                             mpref!!.setUserId(usertype)
                            */
@@ -117,16 +138,22 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                             e.printStackTrace()
                         }
 
-                    }
-                    else if(response.code() ==500){
-                        Toast.makeText(this@SignInActivity, "Internal server error", Toast.LENGTH_LONG).show()
-                    }
-                    else {
+                    } else if (response.code() == 500) {
+                        Toast.makeText(
+                            this@SignInActivity,
+                            "Internal server error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
                         var reader: BufferedReader? = null
                         val sb = StringBuilder()
                         try {
-                            reader = BufferedReader(InputStreamReader(response.errorBody()!!.byteStream()))
-                            var line=reader.readLine()
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
                             try {
                                 if (line != null) {
                                     sb.append(line)
@@ -146,7 +173,11 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                             Toast.makeText(this@SignInActivity, message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
-                            Toast.makeText(this@SignInActivity, "Some error occurred", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                this@SignInActivity,
+                                "Some error occurred",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                     }
@@ -162,7 +193,11 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                 }
             })
         } else {
-            Toast.makeText(this@SignInActivity, resources.getString(R.string.please_check_internet), Toast.LENGTH_LONG)
+            Toast.makeText(
+                this@SignInActivity,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
                 .show()
         }
     }

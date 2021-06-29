@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/full_transparent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rac_rounded"
+        android:orientation="vertical">
+
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:text="@string/plase_select_what_would_you_like_to_be_upload"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_11sdp"
+            />
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_open_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_7sdp"
+            android:layout_gravity="center"
+            android:textColor="@color/light_blue"
+            android:text="@string/image"
+            android:textSize="@dimen/_12sdp"
+            />
+        <View
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1ssp"
+            android:background="@color/light_grey"
+            />
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_open_doc"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/_7sdp"
+            android:textColor="@color/light_blue"
+            android:text="Document"
+            android:textSize="@dimen/_11sdp"
+            />
+        <View
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1ssp"
+            android:background="@color/light_grey"
+            />
+
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_cancel"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/_7sdp"
+            android:textColor="@color/light_blue"
+            android:text="@string/cancel"
+            android:textSize="@dimen/_11sdp"
+            />
+    </LinearLayout>
+</RelativeLayout>

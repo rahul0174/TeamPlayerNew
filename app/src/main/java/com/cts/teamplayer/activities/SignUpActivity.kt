@@ -11,12 +11,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Html
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -29,14 +31,18 @@ import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
+import com.cts.teamplayer.util.UriUtils
 import com.cts.teamplayer.util.Utility
 import com.google.gson.JsonObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.edit_password
 import kotlinx.android.synthetic.main.activity_sign_up.view.*
+import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.dialog_country.*
+import kotlinx.android.synthetic.main.dialog_open_image_doc.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -80,6 +86,18 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     }
 
     private fun findId() {
+
+        val first = "Agree to "
+        val second = "<font color='#069FBE'>Terms & Conditions</font>"
+
+        val four = "<font color='#069FBE'>Privacy Policy</font>"
+        val three = " and "
+        simpleCheckBox.setText(Html.fromHtml(first + second+three+four))
+
+        val allready = "Already have an account? "
+        val allready_second = "<font color='#069FBE'>Sign In</font>"
+        tv_already_account.setText(Html.fromHtml(allready + allready_second))
+
         rl_upload_image.setOnClickListener(this)
         btn_submit.setOnClickListener(this)
         rl_country.setOnClickListener(this)
@@ -91,6 +109,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         simpleCheckBox.setOnClickListener(this)
         tv_orgnization.setOnClickListener(this)
         tv_signup.setOnClickListener(this)
+        tv_already_account.setOnClickListener(this)
+
 
     }
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -104,16 +124,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     override fun onClick(v: View?) {
         when(v!!.id) {
             R.id.rl_upload_image -> {
-
-                if (checkPermission())
-                    CropImage.activity().setAutoZoomEnabled(true).setAspectRatio(1, 1)
-                        .setGuidelines(CropImageView.Guidelines.ON)
-                        .start(this!!)
-
-
-/*            val i = Intent(this, UploadIageUserActivity::class.java)
-            i.putExtra("userType","user")
-            startActivity(i)*/
+                openImageDocDialog()
 
             }
             R.id.btn_submit -> {
@@ -157,18 +168,26 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             }
             R.id.rl_country -> {
                 countryList()
+            } R.id.tv_already_account -> {
+            val i = Intent(this, SignInActivity::class.java)
+            startActivity(i)
+            finish()
             }R.id.tv_orgnization -> {
             tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
             tv_signup.setBackgroundColor(resources.getColor(R.color.light_grey1))
             tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.white));
-            tv_signup.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
+            tv_signup.setTextColor(ContextCompat.getColor(this, R.color.black));
+            rl_upload_image.visibility=View.GONE
+            rl_edit_im_num.visibility=View.GONE
 
 
             }R.id.tv_signup -> {
             tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
             tv_signup.setBackgroundColor(resources.getColor(R.color.light_blue))
-            tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
+            tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.black));
             tv_signup.setTextColor(ContextCompat.getColor(this, R.color.white));
+            rl_upload_image.visibility=View.VISIBLE
+            rl_edit_im_num.visibility=View.VISIBLE
 
 
             }
@@ -215,6 +234,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
                                 Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
                                     .show()
+                            finish()
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -227,22 +247,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             Toast.LENGTH_LONG
                         ).show()
                     }
-                    if (response.code() == 404) {
-                        try {
-                            val jsonObject = JSONObject(response.body()!!.toString())
-
-                            val message = jsonObject.optString("message")
-                                Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
-                                    .show()
-
-
-
-
-                        } catch (e: JSONException) {
-                            e.printStackTrace()
-                        }
-                        Toast.makeText(this@SignUpActivity, "", Toast.LENGTH_LONG).show()
-                    } else {
+                  else {
                         var reader: BufferedReader? = null
                         val sb = StringBuilder()
                         try {
@@ -381,7 +386,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        }else  if (userIamge.equals("")) {
+        }/*else  if (userIamge.equals("")) {
             Toast.makeText(
                 this@SignUpActivity,
                 getString(R.string.select_image),
@@ -390,23 +395,6 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             return false
         }else  if (edit_im_num.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
-            return false
-        }
-
- /*    else  if (country_name!!.equals(null)) {
-            Toast.makeText(this@SignUpActivity,getString(R.string.country), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else  if (et_pass.text.toString().trim().length < 6) {
-            Toast.makeText(this@UserSignUpActivity, "Password should have minimum 7-16 character", Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if (et_confrim_pass.text.toString().trim().length === 0) {
-            Toast.makeText(this@UserSignUpActivity, getString(R.string.enter_password1), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else if (!et_confrim_pass.text.toString().trim().equals(et_pass.text.toString().trim())) {
-            Toast.makeText(this@UserSignUpActivity, getString(R.string.password_and_confirm_pass_should_same), Toast.LENGTH_SHORT).show()
             return false
         }*/
         return true
@@ -459,6 +447,27 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode==101&&resultCode== RESULT_OK) {
+            try {
+                val uploadfileuri: Uri = data!!.data!!
+                val FilePath = UriUtils.getPathFromUri(this, uploadfileuri)
+                print("Path  = $FilePath")
+                val extension = FilePath.substring(FilePath.lastIndexOf("."))
+                if (extension == ".pdf") {
+                    val filename = FilePath.substring(FilePath.lastIndexOf("/") + 1)
+
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(
+                    this,
+                    getString(R.string.invalid_Url),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
         val result = CropImage.getActivityResult(data)
         if (result != null && resultCode == Activity.RESULT_OK) {
 
@@ -468,7 +477,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 var imageFile = File(getPath(result.uri)!!)
                 iv_profile_pic.setImageURI(result.uri)
                 //profile_image=profileImageFile!!.path.toString()
-                    iv_profile_pic.setImageURI(result.uri)
+                iv_profile_pic.setImageURI(result.uri)
                 uploadUserImageApi(imageFile)
 
 
@@ -1129,6 +1138,43 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         dialog!!.recycler_country_list.layoutManager = manager
         val   stateListAdapter =  CityListAdapter(this@SignUpActivity!!, list, this)
         dialog!!.recycler_country_list.adapter = stateListAdapter
+
+        dialog!!.show()
+    }
+    private fun openImageDocDialog() {
+        dialog = android.app.Dialog(this)
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.setContentView(R.layout.dialog_open_image_doc)
+        // dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation1;
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.full_transparent)))
+        dialog!!.setCanceledOnTouchOutside(true)
+
+        dialog!!.tv_open_image.setOnClickListener{
+            if (checkPermission())
+                CropImage.activity().setAutoZoomEnabled(true).setAspectRatio(1, 1)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(this!!)
+            dialog!!.dismiss()
+             }
+        dialog!!.tv_open_doc.setOnClickListener{
+          //  val mimeTypes = arrayOf("image/*", "application/pdf")
+            val mimeTypes = arrayOf("application/pdf")
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = if (mimeTypes.size == 1) mimeTypes[0] else "*/*"
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            startActivityForResult(Intent.createChooser(intent, "File"), 101)
+            dialog!!.dismiss()
+             }
+        dialog!!.tv_cancel.setOnClickListener{
+
+            dialog!!.dismiss()
+             }
 
         dialog!!.show()
     }

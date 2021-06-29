@@ -27,9 +27,14 @@ class SplashActivity: AppCompatActivity() {
             val token = mpref!!.getAccessToken("")
             val isLogin = mpref!!.getLogin("")
 
-            startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
-            finish()
 
+
+            if(token!!.equals("")){
+                startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
+            }else{
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+
+            }
           /*  if (str==null||str.equals("null")) {
                 //Toast.makeText(getApplicationContext(), "body"+str, Toast.LENGTH_SHORT).show();
                 if (token != "") {

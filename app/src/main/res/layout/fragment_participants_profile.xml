@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/whit_new"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.cardview.widget.CardView
@@ -21,13 +22,13 @@
             >
             <RelativeLayout
                 android:id="@+id/rl_profile_edit"
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_70sdp"
+                android:layout_width="@dimen/_65sdp"
+                android:layout_height="@dimen/_65sdp"
                 android:layout_gravity="center"
                 >
                 <ImageView
-                    android:layout_width="@dimen/_65sdp"
-                    android:layout_height="@dimen/_65sdp"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
                     android:src="@drawable/profile"
                     android:layout_centerInParent="true"
                     />
@@ -36,8 +37,8 @@
                     android:layout_height="@dimen/_17sdp"
                     android:layout_marginRight="@dimen/_6sdp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:src="@drawable/plus"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/edit_dark"
                     />
 
             </RelativeLayout>
@@ -45,14 +46,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_10sdp"
                 android:layout_gravity="center"
                 android:textAllCaps="true"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:text="JAMES LANAS"
                 />
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
                 android:orientation="horizontal"
@@ -85,7 +85,7 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
                 android:orientation="horizontal"
@@ -115,7 +115,7 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
                 android:orientation="horizontal"
@@ -146,7 +146,7 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
                 android:orientation="horizontal"
@@ -176,7 +176,6 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
                 android:orientation="horizontal"
@@ -205,6 +204,13 @@
                     android:text="aaaaaaaaa"
                     />
             </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="@dimen/_20sdp">
+             </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
