@@ -67,16 +67,17 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/demo"/>
+
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/demo"
                 android:layout_below="@+id/img_demo"
-                android:textSize="@dimen/_8ssp"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
                 android:layout_centerHorizontal="true"
-                />
+                android:layout_marginTop="0dp"
+                android:text="@string/invite"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
 
         </RelativeLayout>
         <RelativeLayout
@@ -99,7 +100,7 @@
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/faq"
+                android:text="@string/purchase"
                 android:layout_below="@+id/img_faq"
                 android:textSize="@dimen/_8ssp"
                 android:textColor="@color/white"
@@ -110,6 +111,8 @@
         </RelativeLayout>
 
         <RelativeLayout
+
+            android:visibility="gone"
             android:id="@+id/rl_calcu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -126,11 +129,11 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/calculator"/>
-            <TextView
+            <com.cts.teamplayer.customui.CustomTextviewBold
                 android:id="@+id/textMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/calculator"
+                android:text="@string/compare_im_s"
                 android:layout_below="@+id/img_calcu"
                 android:textSize="@dimen/_8ssp"
                 android:textColor="@color/white"

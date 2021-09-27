@@ -52,6 +52,7 @@
             android:layout_below="@+id/rl_top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:id="@+id/nav_bottom_layout"
             layout="@layout/bottom_bar"/>
     </RelativeLayout>

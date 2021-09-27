@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:text="@string/request_a_demo"
+            android:text="@string/update_profile"
             android:textSize="@dimen/_13sdp"
             />
         <ImageView
@@ -155,16 +155,13 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/rounded_doted_btn"
                 >
-                <com.cts.teamplayer.customui.CustomEditText
-                    android:id="@+id/edit_email_update"
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_email_update"
                     android:layout_toRightOf="@+id/iv_user_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:background="@null"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
                     android:hint="@string/phone_num"
                     android:textColorHint="@color/light_grey_new"
                     android:padding="@dimen/_10sdp"
@@ -185,13 +182,12 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/rounded_doted_btn"
                 >
-                <com.cts.teamplayer.customui.CustomEditText
-                    android:id="@+id/edit_address_update"
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_address_update"
                     android:layout_toRightOf="@+id/iv_user_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:background="@null"
                     android:singleLine="true"
                     android:imeOptions="actionNext"
                     android:hint="@string/phone_num"
@@ -209,6 +205,7 @@
                 android:text="@string/profession"
                 />
             <RelativeLayout
+                android:id="@+id/rl_profession_open_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"

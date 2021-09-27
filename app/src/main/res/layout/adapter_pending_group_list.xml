@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="@dimen/_45sdp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:orientation="vertical">
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_group_list"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_7sdp"
+            android:textColor="@color/light_grey1"
+            android:text="New"
+            android:textSize="@dimen/_12sdp"
+            />
+        <com.cts.teamplayer.customui.CustomButton
+            android:id="@+id/btn_join_group"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:layout_marginRight="@dimen/_13sdp"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/black"
+            android:text="Join"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1ssp"
+        android:background="@color/light_grey"
+        />
+</LinearLayout>

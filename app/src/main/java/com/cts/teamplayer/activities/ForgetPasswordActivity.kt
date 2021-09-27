@@ -27,6 +27,7 @@ class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
         setContentView(R.layout.activity_forget_password)
 
 
+
         findId()
     }
 

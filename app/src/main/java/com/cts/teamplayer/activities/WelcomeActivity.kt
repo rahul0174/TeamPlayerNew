@@ -43,7 +43,6 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
                 rl_new_user.setBackgroundResource(R.drawable.rounded_corner_blue)
                 tv_new_user.setTextColor(ContextCompat.getColor(this, R.color.light_blue));
                 tv_signin.setTextColor(ContextCompat.getColor(this, R.color.white));
-
                 startActivity(Intent(this@WelcomeActivity, SignInActivity::class.java))
 
             }

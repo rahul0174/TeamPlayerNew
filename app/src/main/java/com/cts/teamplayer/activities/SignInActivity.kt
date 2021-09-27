@@ -1,18 +1,26 @@
 package com.cts.teamplayer.activities
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cts.teamplayer.R
+import com.cts.teamplayer.adapters.CustomParticipantTeamList
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
+import com.cts.teamplayer.util.Utility
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signin.*
 import org.json.JSONException
@@ -27,15 +35,14 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
 
     var passwordNotVisible = 0
     private var mpref: TeamPlayerSharedPrefrence? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-
         findId()
     }
-
-    private fun findId() {
+      private fun findId() {
         mpref = TeamPlayerSharedPrefrence.getInstance(this)
 
         val first = "Don't have an account? "
@@ -45,17 +52,20 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
         iv_user_password.setOnClickListener(this)
         tv_forgot_pass.setOnClickListener(this)
         tv_dont_account_signup.setOnClickListener(this)
+        ll_skip_sign_in_screen.setOnClickListener(this)
     }
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_login -> {
-                if (edit_user_name.text!!.toString().trim { it <= ' ' }.length == 0) {
+                if (!Utility.isValidEmail(edit_user_name.text.toString().trim())) {
                     Toast.makeText(
                         this@SignInActivity,
-                        "Please enter username",
+                        getString(R.string.enter_valid_email),
                         Toast.LENGTH_SHORT
                     ).show()
+
                 } else if (edit_password.text!!.toString().trim { it <= ' ' }.length == 0) {
                     Toast.makeText(
                         this@SignInActivity,
@@ -74,6 +84,8 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
             R.id.tv_forgot_pass -> {
                 val i = Intent(this@SignInActivity, ForgetPasswordActivity::class.java)
                 startActivity(i)
+            }R.id.ll_skip_sign_in_screen -> {
+            finish()
             }
             R.id.tv_dont_account_signup -> {
                 val i = Intent(this@SignInActivity, SignUpActivity::class.java)
@@ -82,7 +94,7 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
             R.id.iv_user_password -> {
                 if (passwordNotVisible == 0) {
                     edit_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                    iv_user_password.setImageResource(R.drawable.password_hidden)
+                    iv_user_password.setImageResource(R.drawable.password_show_new)
                     passwordNotVisible = 1
                 } else {
                     edit_password.inputType =

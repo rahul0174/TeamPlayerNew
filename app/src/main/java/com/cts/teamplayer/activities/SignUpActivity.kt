@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,7 +19,6 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -92,7 +92,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
         val four = "<font color='#069FBE'>Privacy Policy</font>"
         val three = " and "
-        simpleCheckBox.setText(Html.fromHtml(first + second+three+four))
+        simpleCheckBox.setText(Html.fromHtml(first + second + three + four))
 
         val allready = "Already have an account? "
         val allready_second = "<font color='#069FBE'>Sign In</font>"
@@ -110,6 +110,9 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         tv_orgnization.setOnClickListener(this)
         tv_signup.setOnClickListener(this)
         tv_already_account.setOnClickListener(this)
+        rl_signup_upload_dov_on_click.setOnClickListener(this)
+        rl_signup_upload_dov_layout.setOnClickListener(this)
+        rl_upload_image_submit.setOnClickListener(this)
 
 
     }
@@ -126,11 +129,34 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             R.id.rl_upload_image -> {
                 openImageDocDialog()
 
+            }R.id.rl_signup_upload_dov_layout -> {
+            rl_signup_text_layout.visibility=View.GONE
+            btn_submit.visibility=View.GONE
+
+            } R.id.rl_signup_upload_dov_on_click -> {
+            rl_upload_image.visibility=View.VISIBLE
+            rl_upload_image_submit.visibility=View.VISIBLE
+            rl_buy_questionnaire.visibility=View.GONE
+
             }
             R.id.btn_submit -> {
 
+               /* rl_signup_text_layout.visibility=View.GONE
+                iv_signup_first.visibility=View.GONE
+                rl_signup_upload_dov_layout.visibility=View.VISIBLE*/
                 if (checkVAlidation()) {
-                        var requestBodyuser = JsonObject()
+                rl_signup_text_layout.visibility=View.GONE
+                iv_signup_first.visibility=View.GONE
+                rl_signup_upload_dov_layout.visibility=View.VISIBLE
+                }
+
+            } R.id.rl_upload_image_submit -> {
+                rl_signup_text_layout.visibility=View.GONE
+                iv_signup_first.visibility=View.GONE
+                rl_signup_upload_dov_layout.visibility=View.VISIBLE
+
+                if (checkVAlidation()) {
+                    var requestBodyuser = JsonObject()
                     requestBodyuser.addProperty("first_name", edit_full_name.text.toString().trim())
                     requestBodyuser.addProperty("last_name", edit_full_name.text.toString().trim())
                     requestBodyuser.addProperty("email", edit_email.text.toString().trim())
@@ -168,26 +194,33 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             }
             R.id.rl_country -> {
                 countryList()
-            } R.id.tv_already_account -> {
-            val i = Intent(this, SignInActivity::class.java)
-            startActivity(i)
-            finish()
-            }R.id.tv_orgnization -> {
-            tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
-            tv_signup.setBackgroundColor(resources.getColor(R.color.light_grey1))
-            tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.white));
-            tv_signup.setTextColor(ContextCompat.getColor(this, R.color.black));
-            rl_upload_image.visibility=View.GONE
-            rl_edit_im_num.visibility=View.GONE
+            }
+            R.id.tv_already_account -> {
+                val i = Intent(this, SignInActivity::class.java)
+                startActivity(i)
+                finish()
+            }
+            R.id.tv_orgnization -> {
+                tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
+                tv_signup.setBackgroundColor(resources.getColor(R.color.light_grey1))
+                tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.white));
+                tv_signup.setTextColor(ContextCompat.getColor(this, R.color.black));
+                rl_upload_image.visibility = View.GONE
+                rl_edit_im_num.visibility = View.GONE
+                rl_sign_up_in_your_role.visibility = View.GONE
+                rl_signup_in_noofemployee.visibility = View.GONE
 
 
-            }R.id.tv_signup -> {
-            tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
-            tv_signup.setBackgroundColor(resources.getColor(R.color.light_blue))
-            tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.black));
-            tv_signup.setTextColor(ContextCompat.getColor(this, R.color.white));
-            rl_upload_image.visibility=View.VISIBLE
-            rl_edit_im_num.visibility=View.VISIBLE
+            }
+            R.id.tv_signup -> {
+                tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
+                tv_signup.setBackgroundColor(resources.getColor(R.color.light_blue))
+                tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.black));
+                tv_signup.setTextColor(ContextCompat.getColor(this, R.color.white));
+                rl_upload_image.visibility = View.VISIBLE
+                rl_edit_im_num.visibility = View.VISIBLE
+                rl_sign_up_in_your_role.visibility = View.GONE
+                rl_signup_in_noofemployee.visibility = View.GONE
 
 
             }
@@ -202,8 +235,9 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             }
             R.id.rl_occupation -> {
                 occupationsList()
-            }R.id.simpleCheckBox -> {
-            ischeck = !ischeck
+            }
+            R.id.simpleCheckBox -> {
+                ischeck = !ischeck
             }
         }
     }
@@ -232,8 +266,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
                             val message = jsonObject.optString("message")
 
-                                Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
-                                    .show()
+                            Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
+                                .show()
                             finish()
 
                         } catch (e: JSONException) {
@@ -246,8 +280,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             "Internal server error",
                             Toast.LENGTH_LONG
                         ).show()
-                    }
-                  else {
+                    } else {
                         var reader: BufferedReader? = null
                         val sb = StringBuilder()
                         try {
@@ -310,13 +343,27 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             Toast.makeText(this@SignUpActivity, getString(R.string.full_name), Toast.LENGTH_SHORT).show()
             return false
         }
+        else  if (edit_last_name.text.toString().trim().length === 0) {
+            Toast.makeText(this@SignUpActivity, getString(R.string.last_name1), Toast.LENGTH_SHORT).show()
+            return false
+        }
         else  if (edit_title.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
             return false
         }else  if (edit_phone.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
             return false
-        }else  if (edit_address.text.toString().trim().length === 0) {
+        }
+        else  if (country_id.equals("")) {
+            Toast.makeText(
+                this@SignUpActivity,
+                getString(R.string.select_country),
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        else  if (edit_address.text.toString().trim().length === 0) {
             Toast.makeText(
                 this@SignUpActivity,
                 getString(R.string.enter_address),
@@ -325,27 +372,6 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             return false
         }else  if (edit_landmark.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_mark), Toast.LENGTH_SHORT).show()
-            return false
-        }else  if (sector_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_sector),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }else  if (occupation_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_occupation),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }else  if (country_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_country),
-                Toast.LENGTH_SHORT
-            ).show()
             return false
         }else  if (state_id.equals("")) {
             Toast.makeText(
@@ -357,8 +383,25 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         }else  if (city_id.equals("")) {
             Toast.makeText(this@SignUpActivity, getString(R.string.select_city), Toast.LENGTH_SHORT).show()
             return false
+        }
+
+        else  if (sector_id.equals("")) {
+            Toast.makeText(
+                this@SignUpActivity,
+                getString(R.string.select_sector),
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
         }else  if (edit_zip.text.toString().trim().length === 0) {
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
+            return false
+        }
+        else  if (occupation_id.equals("")) {
+            Toast.makeText(
+                this@SignUpActivity,
+                getString(R.string.select_occupation),
+                Toast.LENGTH_SHORT
+            ).show()
             return false
         }
         else  if (!Utility.isValidEmail(edit_email.text.toString().trim())) {
@@ -456,7 +499,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 val extension = FilePath.substring(FilePath.lastIndexOf("."))
                 if (extension == ".pdf") {
                     val filename = FilePath.substring(FilePath.lastIndexOf("/") + 1)
-
+                    val file: File = File(FilePath)
+                       uploadUserImageApi(file)
                 }
 
             } catch (e: Exception) {
@@ -1051,7 +1095,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+      //  dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
@@ -1071,7 +1115,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+       // dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
@@ -1091,7 +1135,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+       // dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
@@ -1111,7 +1155,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+      //  dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
@@ -1131,7 +1175,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
+     //   dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)

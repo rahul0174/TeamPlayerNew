@@ -38,8 +38,8 @@
                         android:layout_marginTop="@dimen/_20sdp"
                         android:textSize="@dimen/_10sdp"
                         android:textColor="@color/dark_grey"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
-                        />
+                        android:text="@string/enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire"
+                                  />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -59,6 +59,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
                             android:layout_marginLeft="@dimen/_10sdp"
                             android:text="TeamPlayer HR"
                             android:textColor="@color/dark_grey"
@@ -129,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_10sdp"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:text="TeamPlayer HR"
+                            android:text="TeamPlayerHR"
                             android:textColor="@color/dark_grey"
                             />
                     </LinearLayout>
@@ -150,66 +151,11 @@
                         android:textStyle="bold"
                         android:text="@string/plan"
                         />
-                    <RelativeLayout
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_13sdp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_plan_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <com.cts.teamplayer.customui.CustomTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="Individual Sign up: $0.99 or CV"
-                            android:textColor="@color/dark_grey"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/logo"
-                            />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_13sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <com.cts.teamplayer.customui.CustomTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="Individual Sign up: $0.99 or CV"
-                            android:textColor="@color/dark_grey"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/logo"
-                            />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_13sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <com.cts.teamplayer.customui.CustomTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="Individual Sign up: $0.99 or CV"
-                            android:textColor="@color/dark_grey"
-                            />
-                        <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/logo"
-                            />
-                    </RelativeLayout>
+                        android:layout_height="wrap_content"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_20sdp"/>

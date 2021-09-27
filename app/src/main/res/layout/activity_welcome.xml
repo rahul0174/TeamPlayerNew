@@ -13,10 +13,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                        <ImageView
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_200sdp"
-                            android:src="@drawable/after_splash"
+                            android:background="@drawable/after_splash"
                             android:scaleType="fitXY"
                             />
                     <com.cts.teamplayer.customui.CustomTextviewBold

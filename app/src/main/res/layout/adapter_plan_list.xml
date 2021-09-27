@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.cts.teamplayer.customui.CustomTextView
+            android:id="@+id/tv_plan_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:text="Individual Sign up: $0.99 or CV"
+            android:textColor="@color/dark_grey"
+            />
+        <ImageView
+            android:id="@+id/img_paypal_on_clik"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/paypal"
+            />
+    </RelativeLayout>
+</RelativeLayout>

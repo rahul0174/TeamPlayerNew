@@ -22,6 +22,7 @@
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
                 android:elevation="@dimen/_5sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 >
@@ -169,7 +170,7 @@
                             android:background="@null"
                             android:singleLine="true"
                             android:imeOptions="actionNext"
-                            android:hint="@string/full_name"
+                            android:hint="Full Name"
                             android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_10sdp"
@@ -183,15 +184,16 @@
                         android:background="@drawable/rounded_doted_btn"
                         >
                         <com.cts.teamplayer.customui.CustomEditText
-                            android:id="@+id/edit_title_in_contact"
+                            android:id="@+id/edit_email_in_contact"
                             android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
                             android:background="@null"
                             android:singleLine="true"
+                            android:inputType="textEmailAddress"
                             android:imeOptions="actionNext"
-                            android:hint="@string/enter_title"
+                            android:hint="@string/email"
                             android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_10sdp"
@@ -221,6 +223,7 @@
                             />
 
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -265,6 +268,70 @@
                             android:textSize="@dimen/_10sdp"
                             />
                     </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rl_open_calender_in_contact_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/rounded_doted_btn"
+                        >
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tv_date_select_in_contact_us_page"
+                            android:layout_toRightOf="@+id/iv_user_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:background="@null"
+                            android:hint="2021-07-09"
+                            android:textColorHint="@color/whit_new"
+                            android:singleLine="true"
+                            android:padding="@dimen/_10sdp"
+                            android:textSize="@dimen/_10sdp"
+                            />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        >
+                        <RelativeLayout
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@drawable/rounded_doted_btn"
+
+                            >
+
+                            <Spinner
+                                android:id="@+id/spinner_hours_in_contact_us"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/hours"
+                                android:gravity="center"
+                                android:padding="@dimen/_5sdp" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_12sdp"
+                            android:background="@drawable/rounded_doted_btn"
+
+                            >
+                            <Spinner
+                                android:id="@+id/spinner_mint_in_contact_us"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/minuet"
+                                android:gravity="center"
+                                android:padding="@dimen/_5sdp"
+
+                                />
+                        </RelativeLayout>
+                    </LinearLayout>
                     <com.cts.teamplayer.customui.CustomButton
                         android:id="@+id/btn_submit_in_contact_us"
                         android:layout_width="wrap_content"

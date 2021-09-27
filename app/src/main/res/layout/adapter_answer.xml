@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp">
+        <RelativeLayout
+            android:id="@+id/rl_click_on"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RadioButton
+                    android:id="@+id/radiobtn_answer_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    android:checked="false"
+                    android:textSize="@dimen/_10sdp" />
+            </RadioGroup>
+
+
+            <CheckBox
+                android:id="@+id/checkbox_answer_select"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_height="match_parent"
+                />
+        </RelativeLayout>
+
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_answer"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/rl_click_on"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          android:textSize="@dimen/_10sdp"
+            android:text="sbdbdbbdbddbd"
+            android:layout_toEndOf="@+id/rl_click_on"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -16,9 +16,16 @@
 
 
     //signup
-    <string name="full_name">Enter full name</string>
+    <string name="full_name">Enter First Name</string>
+  <!--  <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>-->
     <string name="enter_title">Enter Title</string>
+    <string name="last_name1">Enter Last name</string>
     <string name="enter_address">Enter Address</string>
+    <string name="enter_user_role">Enter User Role</string>
+    <string name="enter_number_employee">Enter Number Of Emplayee</string>
+    <string name="select_hours">Select Hours</string>
+    <string name="select_minet">Select Min</string>
     <string name="enter_mark">Enter Landmark</string>
     <string name="select_sector">Select Sector</string>
     <string name="select_occupation">Select Occupation</string>
@@ -66,11 +73,11 @@
     <string name="select_profession">Select Profession</string>
     <string name="save">Save</string>
     <string name="home">Home</string>
-    <string name="how_it_works">How it Works</string>
+    <string name="how_it_works">Company Subscription</string>
     <string name="compare_im_title">Compare IM Intrinsic Matrix</string>
     <string name="subscription_title">Subscription</string>
-    <string name="brief_ques_title">Brief Questionnaire</string>
-    <string name="vision_technology"><![CDATA[Vision & Technology]]></string>
+    <string name="brief_ques_title">App Questionnaire</string>
+    <string name="vision_technology">Vision and Technology</string>
     <string name="contact_us">Contact Us</string>
     <string name="about_us">About Us</string>
     <string name="news_">News</string>
@@ -114,13 +121,14 @@
     <string name="we_want_to_make_people_happy_they_spend_most_of_their_waking_hours_in_their_place_of_work_those_should_be_good_hours_compatibility_among_teams_produces_happier_workers_higher_productivity_and_a_stronger_bottom_line_for_employers_the_real_bottom_line_is_that_everyone_wins_with_teamplayerhr">We want to make people happy. They spend most of their waking hours in their place of work; those should be good hours. Compatibility among teams produces happier workers, higher productivity, and a stronger bottom line for employers. The real bottom line is that everyone wins with TeamPlayerHR.</string>
     <string name="scientifically">Scientifically developed, consistent results designed by behavioural psychologists, the TeamPlayerHR solution statistically records how each participant perceives, interprets and approaches common workplace situations. TeamPlayerHR adds scientific objectivity to the team assignment and selection process because all participants are rated and compared by the same standardised measurements.</string>
     <string name="participants_profile">Participants Profile</string>
-    <string name="purchase_brief_questionnaires">Purchase Brief Questionnaires</string>
-    <string name="what_benefits">What are the benefits</string>
+    <string name="purchase_brief_questionnaires">Purchase App Questionnaires</string>
+    <string name="what_benefits">What are the Beifits</string>
     <string name="subscriptions">Subscriptions</string>
-    <string name="demo_in_login">Demo</string>
+    <string name="demo_in_login">Request Demo</string>
     <string name="confrim_password">confrim password</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="enter_team_name">Enter Team Name</string>
     <string name="zip">Zip</string>
     <string name="state">State</string>
     <string name="occupation">Occupation</string>
@@ -129,9 +137,11 @@
     <string name="phone_no">Phone No</string>
     <string name="title">Title</string>
     <string name="log_out">Log Out</string>
-    <string name="compare_im_intrinsic_matrix">Compare IM Intrinsic Matrix</string>
-    <string name="brief_questionnaire">Brief Questionnaire :</string>
-    <string name="number_of_participants">Number of Participants</string>
+    <string name="compare_im_intrinsic_matrix">Compare Mobile APP IM’s (Intrinsic Matrix)</string>
+    <string name="participant_full_questionnaire">Purchase Full Questionnaire</string>
+    <string name="app_questionnaire1">App Questionnaire</string>
+    <string name="brief_questionnaire">App Questionnaire: </string>
+    <string name="number_of_participants">Number Of Questionnaire</string>
     <string name="plan">Plan</string>
     <string name="compare">Compare</string>
     <string name="where_do_you_suggest_the_text_is_displayed_on_mobile_app">Where do you suggest the text is displayed on mobile app?</string>
@@ -140,11 +150,142 @@
     <string name="plase_select_what_would_you_like_to_be_upload">Plase select what would you like to be upload?</string>
     <string name="image">Image</string>
     <string name="cancel">Cancel</string>
+    <string name="manage_cts_brief">Manage CTS APP</string>
+    <string name="manage_text_group">Manage text Group</string>
+    <string name="questionnaire_cts_brief">Questionnaire CTS Brief</string>
+    <string name="_1_questionnaire_remaining">-1 questionnaire remaining</string>
+    <string name="invite">Invite</string>
+    <string name="manage_team">Manage Team</string>
+    <string name="create_team">Create Team</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="purchase">Purchase</string>
+    <string name="compare_im_s">Compare IM’s</string>
+    <string name="app_questionnaire">App Questionnaire</string>
+    <string name="team_name">Team Name</string>
+    <string name="enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire">Enter number of questionnaire and click Buy Now. After your purchase is complete you will be assigned Questionnaire to allow others to take the questionnaire.</string>
+    <string name="select_team">Select Team</string>
+    <string name="group_list">Group List</string>
+    <string name="beanchmark">Beanchmark:</string>
+    <string name="benchmark_list">Benchmark List</string>
+    <string name="participant_list">Participant List</string>
+  <!--  <string name="name">Name</string>-->
+    <string name="compatibility_report">Compatibility Report</string>
+    <string name="all_participants_summary">All Participants – Summary</string>
+    <string name="benchmark_person_rahul_tamrarkar">Benchmark Person: Rahul Tamrarkar</string>
+    <string name="here_are_the_results_of_the_compatibility_between_the_benchmark_person_and_each_participant">Here are the results of the compatibility between the benchmark person and each participant.</string>
+    <string name="significant_disagreement">Significant Disagreement</string>
+    <string name="significant_agreement">Significant Agreement</string>
+    <string name="join_a_app_questionaire_group">Join a App questionaire group</string>
+    <string name="invitee_list">Show Invitees</string>
 
 
     <string-array name="selector">
         <item>Product Designer</item>
         <item>System Engineer</item>
+    </string-array>
+    <string-array name="your_role">
+        <item>Select Role</item>
+        <item>CEO</item>
+        <item>HR Manager</item>
+        <item>HR Consultant</item>
+        <item>HR Genralist</item>
+        <item>Leader</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="number_of_employee">
+        <item>Number Of Employees</item>
+        <item>1-20</item>
+        <item>21-80</item>
+        <item>81-500</item>
+        <item>+500</item>
+    </string-array>
+    <string-array name="hours">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+    </string-array>
+    <string-array name="minuet">
+        <item>00</item>
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+        <item>51</item>
+        <item>52</item>
+        <item>53</item>
+        <item>54</item>
+        <item>55</item>
+        <item>56</item>
+        <item>57</item>
+        <item>58</item>
+        <item>59</item>
+        <item>60</item>
     </string-array>
     <string-array name="occupation">
         <item>Occupation</item>

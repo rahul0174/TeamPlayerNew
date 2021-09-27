@@ -26,7 +26,8 @@
                 android:layout_height="@dimen/_65sdp"
                 android:layout_gravity="center"
                 >
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_user_image"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
                     android:src="@drawable/profile"
@@ -43,13 +44,13 @@
 
             </RelativeLayout>
             <com.cts.teamplayer.customui.CustomTextviewBold
+                android:id="@+id/tv_user_name_in_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:text="JAMES LANAS"
+                android:text=""
                 />
             <LinearLayout
                 android:layout_marginTop="@dimen/_15sdp"
@@ -73,6 +74,7 @@
                     />
 
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_im_id_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -81,10 +83,11 @@
                     android:layout_gravity="center_vertical"
                     android:textAllCaps="true"
                     android:layout_marginLeft="@dimen/_25sdp"
-                    android:text="aaaaaaaaa"
+                    android:text=""
                     />
             </LinearLayout>
             <LinearLayout
+                android:visibility="visible"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
@@ -105,13 +108,46 @@
                     />
 
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_name_in_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_25sdp"
-                    android:text="aaaaaaaaa"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/last_name"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_last_name_in_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text=""
                     />
             </LinearLayout>
             <LinearLayout
@@ -135,6 +171,7 @@
                     />
 
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_email_in_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -142,7 +179,7 @@
                     android:textSize="@dimen/_10sdp"
                     android:textAllCaps="true"
                     android:layout_marginLeft="@dimen/_25sdp"
-                    android:text="aaaaaaaaa"
+                    android:text=""
                     />
             </LinearLayout>
             <LinearLayout
@@ -166,13 +203,14 @@
                     />
 
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_phone_in_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_25sdp"
-                    android:text="aaaaaaaaa"
+                    android:text=""
                     />
             </LinearLayout>
             <LinearLayout
@@ -195,13 +233,14 @@
                     />
 
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_profession_in_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_25sdp"
-                    android:text="aaaaaaaaa"
+                    android:text=""
                     />
             </LinearLayout>
             <LinearLayout

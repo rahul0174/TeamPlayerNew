@@ -12,7 +12,7 @@ class TeamPlayerSharedPrefrence  constructor() {
 
     private enum class Keys private constructor(val label: String) {
         LOGIN("LOGIN"),
-        USERNAME("user_name"), ACCESS_TOKEN("access_token"),BUSINESS_NAME("business-name"), EMAIL("email_id"), LANGUAGE("language"), APPTOKEN("app_token"), FCMKEY("fcm_key"), USERID(
+        QUESTIONID("question_id"),USERNAME("user_name"), ACCESS_TOKEN("access_token"),BUSINESS_NAME("business-name"), EMAIL("email_id"), LANGUAGE("language"), APPTOKEN("app_token"), FCMKEY("fcm_key"), USERID(
             "user_id"),
         ROAL("roal"),SITE_ID("site_id"),SITE_IMG_URL("site_image_url"), USERTYPE("user_type"), GOOGLE_ID("google_id"), PHONE("phone"), USERPROFILE("user_pic")
     }
@@ -108,6 +108,15 @@ class TeamPlayerSharedPrefrence  constructor() {
 
     fun getAccessToken(defaultValue: String): String? {
         return getString(Keys.ACCESS_TOKEN.label, defaultValue)
+    }
+
+    fun setQuestionID(value: String) {
+        setString(Keys.QUESTIONID.label, value)
+    }
+
+
+    fun getQuestionID(defaultValue: String): String? {
+        return getString(Keys.QUESTIONID.label, defaultValue)
     }
     fun setFcmKey(value: String) {
         setString(Keys.FCMKEY.label, value)

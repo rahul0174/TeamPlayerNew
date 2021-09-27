@@ -8,6 +8,36 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_1"
+
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_height="match_parent">
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_1_web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/black"
+            android:text="Completed"/>
+        <com.cts.teamplayer.customui.CustomTextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="You have completed questionare."
+            android:textSize="@dimen/_10sdp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_2"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -41,7 +71,7 @@
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text="0"
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
@@ -55,6 +85,7 @@
                         app:cardElevation="@dimen/_5sdp"
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:id="@+id/tv_minutes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
@@ -81,6 +112,7 @@
                         app:cardElevation="@dimen/_5sdp"
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:id="@+id/tv_seond"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
@@ -99,7 +131,7 @@
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text="0"
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
@@ -136,55 +168,29 @@
                         android:layout_marginTop="@dimen/_240sdp"
                         app:cardCornerRadius="@dimen/_10sdp"
                         >
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_30sdp"
-                            android:orientation="vertical">
-                            <com.cts.teamplayer.customui.CustomTextviewBold
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/_30sdp"
-                                android:textColor="@color/light_blue"
-                                android:textSize="@dimen/_11sdp"
-                                android:textAllCaps="true"
-                                android:text="@string/q1_what_is_lorem_ipsum"
-                                />
-                            <RadioGroup
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <RadioButton
-                                    android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:orientation="vertical">
+                                <com.cts.teamplayer.customui.CustomTextviewBold
+                                    android:id="@+id/tv_question"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_30sdp"
-                                    android:text="  Lorem spum is simply dummy text"
-                                    android:layout_marginTop="@dimen/_20sdp"
-                                    android:checked="false"
-                                    android:textSize="@dimen/_10sdp" />
-                                <RadioButton
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_30sdp"
-                                    android:text="  Lorem spum is simply dummy text"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:checked="false"
-                                    android:textSize="@dimen/_10sdp" />
-                                <RadioButton
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_30sdp"
-                                    android:text="  Lorem spum is simply dummy text"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:checked="false"
-                                    android:textSize="@dimen/_10sdp" />
-                                <RadioButton
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/_30sdp"
-                                    android:text="  Lorem spum is simply dummy text"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:checked="false"
-                                    android:textSize="@dimen/_10sdp" />
+                                    android:layout_marginLeft="@dimen/_20sdp"
+                                    android:layout_marginRight="@dimen/_20sdp"
+                                    android:textColor="@color/light_blue"
+                                    android:textSize="@dimen/_11sdp"
+                                    android:ellipsize="end"
+                                    android:maxLines="6"
+                                    android:textAllCaps="true"
+                                    android:text="@string/q1_what_is_lorem_ipsum"
+                                    />
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/recyler_question_answer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_100sdp"/>
+
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="@dimen/_130sdp"
                                     android:layout_height="@dimen/_30sdp"
@@ -209,9 +215,9 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_30sdp"/>
-                            </RadioGroup>
 
-                        </LinearLayout>
+
+                            </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </RelativeLayout>
             </RelativeLayout>
