@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.fragment.app.Fragment
 import com.cts.teamplayer.R
 import com.cts.teamplayer.fragments.QuestionnaireCalculator
 import com.cts.teamplayer.models.AnswersItemNew
@@ -14,7 +13,6 @@ import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants.QUESTION_WITH_ANSWER
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import kotlinx.android.synthetic.main.adapter_answer.view.*
-import kotlinx.android.synthetic.main.country_list.view.*
 
 
 class AnswerAdapter(
@@ -24,11 +22,12 @@ class AnswerAdapter(
     var mian_answer: Int,
     var questionnaireCalculator: QuestionnaireCalculator,
 
-) :
+    ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<AnswerAdapter.MyHolderView>(){
       var answerFilterList : ArrayList<AnswersItemNew> = ArrayList()
    var mCheckedPosition:Int=0
     private var mpref: TeamPlayerSharedPrefrence? = null
+    private var lastCheckedPosition = -1
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyHolderView {
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.adapter_answer, viewGroup, false)
@@ -76,16 +75,28 @@ class AnswerAdapter(
                 //    listener.bookSession(position,data)
             }
 
+            itemView.radiobtn_answer_select.setChecked(position == lastCheckedPosition);
 
+/*
             itemView.radiobtn_answer_select.setOnCheckedChangeListener(null)
-            itemView.radiobtn_answer_select.setChecked(position === mCheckedPosition)
-            itemView.radiobtn_answer_select.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener {
-                    buttonView, isChecked ->
+            itemView.radiobtn_answer_select.setChecked(position === mCheckedPosition)*/
+
+            itemView.radiobtn_answer_select.setOnClickListener(View.OnClickListener {
+                val copyOfLastCheckedPosition = lastCheckedPosition
+                lastCheckedPosition = adapterPosition
+                notifyItemChanged(copyOfLastCheckedPosition)
+                notifyItemChanged(lastCheckedPosition)
+             //   mCheckedPosition = position
+
+               // notifyDataSetChanged()
+                itemclick.onClickItem(position, QUESTION_WITH_ANSWER)
+            })
+         /*   itemView.radiobtn_answer_select.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
                 mCheckedPosition = position
 
                 notifyDataSetChanged()
                 itemclick.onClickItem(position, QUESTION_WITH_ANSWER)
-            })
+            })*/
         }
 
     }

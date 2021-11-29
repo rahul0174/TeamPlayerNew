@@ -108,7 +108,8 @@ interface ApiInterface {
     @GET("demo/questionnaire/invitee_list")
     fun inviteeListParameter(@Header("authorization") token: String?,@Query("id") id: String): Call<InviteeListResponse>
 
-
+    @GET("demo/plan")
+    fun getDemoPlan(): Call<PerQuestionPriceResponse>
 
 
 

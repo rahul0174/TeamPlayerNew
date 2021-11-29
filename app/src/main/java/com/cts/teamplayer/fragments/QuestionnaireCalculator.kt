@@ -53,6 +53,7 @@ class QuestionnaireCalculator: Fragment(), View.OnClickListener, ItemClickListne
     var question_size:Int?=null
     var i:Int?=0
     var p:Int?=0
+    var newvalue:Int?=0
     var radioButton:String?=null
     var question_id:String?=null
     var answer_id:String?=null
@@ -343,9 +344,12 @@ class QuestionnaireCalculator: Fragment(), View.OnClickListener, ItemClickListne
             }
 
             override fun onFinish() {
+                questionAnswerListTimerFinish()
                 showCounterTimer()
-                displayHtml(    "Q" + questionList!!.get(p!!)!!.subpart + ". " + questionList!!.get(
-                    p!!)!!.question)
+
+
+              /*  displayHtml(    "Q" + questionList!!.get(p!!)!!.subpart + ". " + questionList!!.get(
+                    p!!)!!.question)*/
 
             //    mTextField.setText("done!")
             }
@@ -533,6 +537,148 @@ class QuestionnaireCalculator: Fragment(), View.OnClickListener, ItemClickListne
 
         // setting the text after formatting html and downloading and setting images
         tv_question.text = styledText
+    }
+
+    private fun questionAnswerListTimerFinish(){
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<QuestionWithAnswerResponse>? = null//apiInterface.profileImage(body,token);
+            call = apiInterface!!.getDemoQuestionWithAnswer(mpref!!.getAccessToken("").toString())
+            call!!.enqueue(object : Callback<QuestionWithAnswerResponse> {
+                override fun onResponse(
+                    call: Call<QuestionWithAnswerResponse>,
+                    response: retrofit2.Response<QuestionWithAnswerResponse>
+                ) {
+                    Log.e("log", response.body().toString());
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        try {
+                            questionList =
+                                response.body()!!.data!!.questions as ArrayList<QuestionsItemNew>?
+                            question_size = response.body()!!.data!!.questions!!.size
+                            for (j in 0..questionList!!.size-1) {
+
+                                if(response.body()!!.data!!.questions!!.get(j)!!.answerSaved!!.equals(true)){
+
+                                    if(response.body()!!.data!!.questions!!.size-1==i){
+                                        ll_1.visibility=View.VISIBLE
+                                        ll_2.visibility=View.GONE
+                                    }
+                                    /*  if(j==i){
+                                          ll_1.visibility=View.VISIBLE
+                                          ll_2.visibility=View.GONE
+                                      }else{
+                                          ll_1.visibility=View.GONE
+                                          ll_2.visibility=View.VISIBLE
+                                      }*/
+                                    i=i!!+1
+                                } else{
+                                    i=i!!+1
+                                    main_answer = response.body()!!.data!!.questions!!.get(j+1)!!.minanswers
+
+                                    displayHtml(  "Q" + response.body()!!.data!!.questions!!.get(j+1)!!.subpart + ". " + response.body()!!.data!!.questions!!.get(
+                                        0
+                                    )!!.question)
+                                    /*      tv_question.text =
+                                              "Q" + response.body()!!.data!!.questions!!.get(j)!!.subpart + ". " + response.body()!!.data!!.questions!!.get(
+                                                  0
+                                              )!!.question*/
+                                    answerList =
+                                        response.body()!!.data!!.questions!!.get(j+1)!!.answers as ArrayList<AnswersItemNew>?
+                                    addAapter(answerList)
+                                    if(btn_click.equals("1")){
+                                        countDownTimer.start()
+                                    }
+                                    else{
+
+                                    }
+                                    break
+                                }
+
+                            }
+
+                            //   showCounterTimer()
+
+
+                            /*for (i in 1..questionList!!.size) {
+                                answerList =
+                                    response.body()!!.data!!.questions!!.get(i)!!.answers as ArrayList<AnswersItemNew>?
+                                addAapter(answerList)
+
+                            }*/
+
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    } else if (response.code() == 500) {
+                        Toast.makeText(
+                            activity!!,
+                            "Internal server error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                            Toast.makeText(
+                                activity!!,
+                                "Some error occurred",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<QuestionWithAnswerResponse>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
     }
 
 

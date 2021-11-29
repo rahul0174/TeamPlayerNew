@@ -9,7 +9,6 @@
 
     <LinearLayout
         android:id="@+id/ll_1"
-
         android:visibility="gone"
         android:orientation="vertical"
         android:background="@color/white"
