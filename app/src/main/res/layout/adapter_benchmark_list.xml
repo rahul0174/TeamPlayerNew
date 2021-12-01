@@ -15,13 +15,13 @@
             android:layout_toLeftOf="@+id/rl_delete_benchmark"
             android:layout_width="wrap_content"
             android:layout_marginRight="@dimen/_15sdp"
-            android:layout_height="@dimen/_27sdp">
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
 
         <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tv_name_in_benchmark_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp"
             android:textStyle="bold"

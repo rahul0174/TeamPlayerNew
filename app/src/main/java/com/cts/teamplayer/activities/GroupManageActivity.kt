@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.text.Editable
 import android.util.Log
 import android.view.Gravity
@@ -63,6 +62,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
     private var mpref: TeamPlayerSharedPrefrence? = null
     var subGroupList: java.util.ArrayList<SubGroupList>? = null
     var surveyGroupList: java.util.ArrayList<SurveyParticipantsItem>? = null
+    var participantsGroupInList: ParticipantsGroupInList? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_demo_group)
@@ -80,6 +80,10 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         QuestionnaireGroupDetailsApi(intent.getStringExtra("GROUP_ID").toString())
         SubGroupListApi()
         groupList()
+        tv_search_item.setOnClickListener {
+            participantsGroupInList!!.filter(
+                seachView.text.toString().trim { it <= ' ' })
+        }
 
     }
 
@@ -138,10 +142,17 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
             }
             R.id.img_brief_ques -> {
                 finish()
-            } R.id.tv_invitee_click -> {
-            startActivity(Intent(this, InviteeListActivity::class.java).putExtra("GROUP_ID",intent.getStringExtra("GROUP_ID")))
+            }
+            R.id.tv_invitee_click -> {
+                startActivity(
+                    Intent(this, InviteeListActivity::class.java).putExtra(
+                        "GROUP_ID", intent.getStringExtra(
+                            "GROUP_ID"
+                        )
+                    )
+                )
 
-        }
+            }
         }
     }
     private fun sendInviteApi(jsonObject: JsonObject) {
@@ -616,8 +627,8 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
     fun setGroupList(){
         var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyler_participant_on_group.layoutManager = manager
-        val   groupListAdapter =  ParticipantsGroupInList(this, surveyGroupList, this)
-        recyler_participant_on_group.adapter = groupListAdapter
+        participantsGroupInList =  ParticipantsGroupInList(this, surveyGroupList, this)
+        recyler_participant_on_group.adapter = participantsGroupInList
     }
 
     override fun onClickItem(position: Int, requestcode: Int) {
@@ -641,7 +652,10 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
             addtoteamRequest!!.addProperty("expire_at", surveyGroupList!!.get(position).updatedAt)
             addtoteamRequest!!.addProperty("user_name", surveyGroupList!!.get(position).userName)*/
             sendReminderRequestRequest!!.addProperty("id", surveyGroupList!!.get(position).id)
-            sendReminderRequestRequest!!.addProperty("user_name", surveyGroupList!!.get(position).userName)
+            sendReminderRequestRequest!!.addProperty(
+                "user_name",
+                surveyGroupList!!.get(position).userName
+            )
             sendReminderRequestRequest!!.addProperty("email", surveyGroupList!!.get(position).email)
         /*    sendReminderRequestRequest!!.addProperty(
                 "survey_progress", surveyGroupList!!.get(
@@ -826,7 +840,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
                                 jsonObject.optString("message"),
                                 Toast.LENGTH_LONG
                             ).show()
-                          //  dialog!!.dismiss()
+                            //  dialog!!.dismiss()
 
                         } catch (e: JSONException) {
                             e.printStackTrace()

@@ -177,11 +177,20 @@
                             android:textSize="@dimen/_10sdp"
                             />
                     </RelativeLayout>
+                    <com.cts.teamplayer.customui.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        android:text="Schedule appointment with date"
+
+                        />
                     <RelativeLayout
                         android:id="@+id/rl_open_calender_in_demo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
                         android:background="@drawable/rounded_doted_btn"
                         >
                         <com.cts.teamplayer.customui.CustomTextView
@@ -198,6 +207,15 @@
                             android:textSize="@dimen/_10sdp"
                             />
                     </RelativeLayout>
+                    <com.cts.teamplayer.customui.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        android:text="Time"
+
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

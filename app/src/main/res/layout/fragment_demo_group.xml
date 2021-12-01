@@ -212,6 +212,132 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
+                            android:text="@string/participant"
+                            />
+                        <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/_10sdp"
+                            android:text="There are 1 participants in this questionnaire group.Click a participant's name to view their questionnaire results."
+                            />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_41sdp"
+                            android:background="@drawable/rac_rounded"
+                            >
+                            <com.cts.teamplayer.customui.CustomEditText
+                                android:visibility="visible"
+                                android:id="@+id/seachView"
+                                android:background="@null"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:textSize="@dimen/_10sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:hint="Search Your Favorite Contestant"
+                                android:iconifiedByDefault="false"/>
+                            <androidx.cardview.widget.CardView
+                                android:visibility="visible"
+                                android:layout_width="@dimen/_68sdp"
+                                android:layout_height="@dimen/_26sdp"
+                                app:cardCornerRadius="@dimen/_10sdp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_centerVertical="true"
+                                app:cardBackgroundColor="@color/colorAccent"
+                                >
+                                <RelativeLayout
+                                    android:id="@+id/tv_search_item"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+                                    <com.cts.teamplayer.customui.CustomTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:text="SEARCH"
+                                        />
+                                </RelativeLayout>
+                            </androidx.cardview.widget.CardView>
+                        </RelativeLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:background="@drawable/rac_btn"
+                            >
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:background="@color/black"
+                                android:weightSum="3"
+                                >
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="@dimen/_25sdp">
+                                    <com.cts.teamplayer.customui.CustomTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Team Name"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_9sdp"
+                                        />
+                                </RelativeLayout>
+                                <View
+                                    android:layout_width="@dimen/_1ssp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/light_grey"/>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="@dimen/_30sdp">
+                                    <com.cts.teamplayer.customui.CustomTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Status"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_9sdp"
+                                        />
+                                </RelativeLayout>
+                                <View
+                                    android:layout_width="@dimen/_1ssp"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/light_grey"/>
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="@dimen/_30sdp">
+                                    <com.cts.teamplayer.customui.CustomTextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Remind"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_9sdp"
+                                        />
+                                </RelativeLayout>
+                            </LinearLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyler_participant_on_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+                        <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp"
                             android:text="@string/manage_team"
                             />
                         <RelativeLayout
@@ -318,91 +444,7 @@
 
                         </LinearLayout>
 
-                        <com.cts.teamplayer.customui.CustomTextviewBold
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_11sdp"
-                            android:text="@string/participant"
-                            />
-                        <com.cts.teamplayer.customui.CustomTextviewBold
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="There are 1 participants in this questionnaire group.Click a participant's name to view their questionnaire results."
-                            />
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:background="@drawable/rac_btn"
-                            >
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:background="@color/black"
-                                android:weightSum="3"
-                                >
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="@dimen/_25sdp">
-                                    <com.cts.teamplayer.customui.CustomTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Team Name"
-                                        android:layout_centerInParent="true"
-                                        android:textColor="@color/white"
-                                        android:textSize="@dimen/_9sdp"
-                                        />
-                                </RelativeLayout>
-                                <View
-                                    android:layout_width="@dimen/_1ssp"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/light_grey"/>
 
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="@dimen/_30sdp">
-                                    <com.cts.teamplayer.customui.CustomTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Status"
-                                        android:layout_centerInParent="true"
-                                        android:textColor="@color/white"
-                                        android:textSize="@dimen/_9sdp"
-                                        />
-                                </RelativeLayout>
-                                <View
-                                    android:layout_width="@dimen/_1ssp"
-                                    android:layout_height="match_parent"
-                                    android:background="@color/light_grey"/>
-                                <RelativeLayout
-                                    android:layout_width="0dp"
-                                    android:layout_weight="1"
-                                    android:layout_height="@dimen/_30sdp">
-                                    <com.cts.teamplayer.customui.CustomTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Remind"
-                                        android:layout_centerInParent="true"
-                                        android:textColor="@color/white"
-                                        android:textSize="@dimen/_9sdp"
-                                        />
-                                </RelativeLayout>
-                            </LinearLayout>
-                          <androidx.recyclerview.widget.RecyclerView
-                              android:id="@+id/recyler_participant_on_group"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
