@@ -228,7 +228,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun addInviteGroupFragment() {
-        tv_title_header.text="Group"
+        tv_title_header.text="Name of the account’"
         homeFragment = InviteGroupListFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()

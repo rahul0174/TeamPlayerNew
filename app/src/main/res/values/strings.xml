@@ -177,6 +177,7 @@
     <string name="significant_agreement">Significant Agreement</string>
     <string name="join_a_app_questionaire_group">Join a App questionaire group</string>
     <string name="invitee_list">Show Invitees</string>
+    <string name="manage_participant_panel">Manage Participant Panel</string>
 
 
     <string-array name="selector">

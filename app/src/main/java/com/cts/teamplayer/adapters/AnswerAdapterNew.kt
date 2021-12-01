@@ -80,7 +80,6 @@ class AnswerAdapterNew (
             itemView.radiobtn_answer_select.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener {
                     buttonView, isChecked ->
                 mCheckedPosition = position
-
                 notifyDataSetChanged()
                 itemclick.onClickItem(position, MyConstants.QUESTION_WITH_ANSWER)
             })
