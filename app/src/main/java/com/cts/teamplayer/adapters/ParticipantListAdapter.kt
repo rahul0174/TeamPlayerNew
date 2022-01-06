@@ -12,6 +12,7 @@ import com.cts.teamplayer.activities.WebViewActivity
 import com.cts.teamplayer.models.UserListItem
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants
+import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import kotlinx.android.synthetic.main.adapter_benchmark_list.view.*
 
 class ParticipantListAdapter (val mContext: Context, var data : java.util.ArrayList<UserListItem>?, var itemclick: ItemClickListner) :
@@ -46,9 +47,17 @@ class ParticipantListAdapter (val mContext: Context, var data : java.util.ArrayL
                   }
 
             itemView.iv_view_report.setOnClickListener{
-                val i = Intent(mContext, WebViewActivity::class.java).putExtra("group_id",data.groupId)
+
+                if(TeamPlayerSharedPrefrence.getInstance(mContext).getRoal("").equals("3")){
+                    itemclick.onClickItem(position, MyConstants.GENERATE_PARTICIPANT_VIEW_REPORT)
+                }else{
+                    val i = Intent(mContext, WebViewActivity::class.java).putExtra("group_id",data.groupId)
+                        .putExtra("user_id",data.userId).putExtra("subgroup_id",data.subgroupId).putExtra("user_type",data.userType).putExtra("activity", "report")
+                    mContext.startActivity(i)
+                }
+              /*  val i = Intent(mContext, WebViewActivity::class.java).putExtra("group_id",data.groupId)
                     .putExtra("user_id",data.userId).putExtra("subgroup_id",data.subgroupId).putExtra("user_type",data.userType).putExtra("activity", "report")
-                mContext.startActivity(i)
+                mContext.startActivity(i)*/
             }
         }
 

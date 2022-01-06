@@ -180,7 +180,7 @@
                     android:textSize="@dimen/_12sdp"
                     />
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_18sdp"
@@ -314,6 +314,8 @@
                         android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -364,6 +366,27 @@
                         android:background="@null"
                         android:textColorHint="@color/light_grey_new"
                         android:hint="Address"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_orgnization_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_doted_btn"
+                    >
+                    <com.cts.teamplayer.customui.CustomEditText
+                        android:id="@+id/edit_orgnization_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@null"
+                        android:textColorHint="@color/light_grey_new"
+                        android:hint="Orgnization name"
                         android:imeOptions="actionNext"
                         android:singleLine="true"
                         android:padding="@dimen/_10sdp"
@@ -495,6 +518,40 @@
                         />
                 </RelativeLayout>
                 <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/rl_signup_in_noofemployee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_doted_btn"
+                    >
+                    <Spinner
+                        android:id="@+id/spinner_num_of_employee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:entries="@array/number_of_employee"
+                        android:gravity="center"
+                        android:padding="@dimen/_7sdp"
+                        />
+                    <com.cts.teamplayer.customui.CustomEditText
+                        android:visibility="invisible"
+                        android:id="@+id/edit_noofemployee_in_reqdemo"
+                        android:layout_toRightOf="@+id/iv_user_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:hint="No Of Employee"
+                        android:textColorHint="@color/light_grey_new"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -551,40 +608,7 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:visibility="gone"
-                    android:id="@+id/rl_signup_in_noofemployee"
-                       android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/rounded_doted_btn"
-                    >
-                    <Spinner
-                        android:id="@+id/spinner_num_of_employee"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:entries="@array/number_of_employee"
-                        android:gravity="center"
-                        android:padding="@dimen/_7sdp"
-                        />
-                    <com.cts.teamplayer.customui.CustomEditText
-                        android:visibility="invisible"
-                        android:id="@+id/edit_noofemployee_in_reqdemo"
-                        android:layout_toRightOf="@+id/iv_user_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:background="@null"
-                        android:singleLine="true"
-                        android:imeOptions="actionDone"
-                        android:inputType="number"
-                        android:hint="No Of Employee"
-                        android:textColorHint="@color/light_grey_new"
-                        android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_10sdp"
-                        />
-                </RelativeLayout>
+
                 <RelativeLayout
                       android:layout_width="match_parent"
                     android:layout_height="wrap_content"

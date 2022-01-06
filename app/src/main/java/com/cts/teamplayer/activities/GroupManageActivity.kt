@@ -59,6 +59,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
     var numbers: ArrayList<UserListItem> = ArrayList()
 
     var groupList: java.util.ArrayList<GroupListItem>? = null
+    var countryFilterList : ArrayList<SurveyParticipantsItem>? = null
     private var mpref: TeamPlayerSharedPrefrence? = null
     var subGroupList: java.util.ArrayList<SubGroupList>? = null
     var surveyGroupList: java.util.ArrayList<SurveyParticipantsItem>? = null
@@ -81,8 +82,9 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         SubGroupListApi()
         groupList()
         tv_search_item.setOnClickListener {
-            participantsGroupInList!!.filter(
-                seachView.text.toString().trim { it <= ' ' })
+            filter(seachView.text.toString())
+   /*         participantsGroupInList!!.filter(
+                seachView.text.toString().trim { it <= ' ' })*/
         }
 
     }
@@ -629,6 +631,22 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         recyler_participant_on_group.layoutManager = manager
         participantsGroupInList =  ParticipantsGroupInList(this, surveyGroupList, this)
         recyler_participant_on_group.adapter = participantsGroupInList
+    }
+
+    private fun filter(text: String) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<SurveyParticipantsItem> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in this!!.surveyGroupList!!) {
+            //if the existing elements contains the search input
+            if (s!!.userName!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = participantsGroupInList!!.filterList(filterdNames)
     }
 
     override fun onClickItem(position: Int, requestcode: Int) {

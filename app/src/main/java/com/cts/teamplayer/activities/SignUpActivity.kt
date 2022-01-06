@@ -19,6 +19,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -43,6 +44,7 @@ import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.dialog_country.*
 import kotlinx.android.synthetic.main.dialog_open_image_doc.*
+import kotlinx.android.synthetic.main.fragment_request_demo.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -66,6 +68,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var cityList: java.util.ArrayList<CityList>? = null
     private var dialog: Dialog? = null
     var country_id:String?=""
+    var company_which_type:String?=""
     var city_id:String?=""
     var state_id:String?=""
     var sector_id:String?=""
@@ -73,6 +76,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var text_sector:String?=""
     var text_occupation:String?=""
     var ischeck = false
+    var text_your_role:String?=""
+    var text_no_of_empl:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +102,48 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         val allready = "Already have an account? "
         val allready_second = "<font color='#069FBE'>Sign In</font>"
         tv_already_account.setText(Html.fromHtml(allready + allready_second))
+
+        val your_role = resources.getStringArray(R.array.your_role)
+        val number_of_employee = resources.getStringArray(R.array.number_of_employee)
+        val adapter_your_role = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item, your_role)
+
+        val adapter_number_of_employee = ArrayAdapter(this,
+            android.R.layout.simple_spinner_item, number_of_employee)
+
+        spinner_your_role.adapter = adapter_your_role
+        spinner_your_role.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                text_your_role=position.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+
+            }
+
+        }
+
+        spinner_num_of_employee.adapter = adapter_number_of_employee
+        spinner_num_of_employee.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                text_no_of_empl=number_of_employee[position].toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+
+            }
+
+        }
 
         rl_upload_image.setOnClickListener(this)
         btn_submit.setOnClickListener(this)
@@ -145,9 +192,52 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 iv_signup_first.visibility=View.GONE
                 rl_signup_upload_dov_layout.visibility=View.VISIBLE*/
                 if (checkVAlidation()) {
-                rl_signup_text_layout.visibility=View.GONE
-                iv_signup_first.visibility=View.GONE
-                rl_signup_upload_dov_layout.visibility=View.VISIBLE
+                    if(company_which_type.equals("company")){
+                        if (checkVAlidation()) {
+
+                            var requestBodyuser = JsonObject()
+                            requestBodyuser.addProperty("first_name", edit_full_name.text.toString().trim())
+                            requestBodyuser.addProperty("last_name", edit_last_name.text.toString().trim())
+                            requestBodyuser.addProperty("email", edit_email.text.toString().trim())
+                            requestBodyuser.addProperty("title", edit_title.text.toString().trim())
+                            requestBodyuser.addProperty("phone", edit_phone.text.toString().trim())
+                        //    requestBodyuser.addProperty("cv", "")
+                            requestBodyuser.addProperty("organization_name", edit_orgnization_name.text.toString().trim())
+                            requestBodyuser.addProperty(
+                                "address_line_1",
+                                edit_address.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty(
+                                "address_line_2",
+                                edit_landmark.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty("sector", sector_id)
+                          //  requestBodyuser.addProperty("occupation", occupation_id)
+                            requestBodyuser.addProperty("country", country_id)
+                            requestBodyuser.addProperty("city", city_id)
+                            requestBodyuser.addProperty("state", state_id)
+                            requestBodyuser.addProperty("zip", edit_zip.text.toString().trim())
+                            requestBodyuser.addProperty(
+                                "password",
+                                edit_password.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty(
+                                "confirm_password",
+                                edit_confrim_pass.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty("agreeTerms", ischeck)
+                            requestBodyuser.addProperty("agreePrivacy", ischeck)
+                            requestBodyuser.addProperty("no_of_employees", text_no_of_empl)
+                            requestBodyuser.addProperty("user_role", text_your_role)
+
+                            userSignup(requestBodyuser)
+                        }
+                    }else{
+                        rl_signup_text_layout.visibility=View.GONE
+                        iv_signup_first.visibility=View.GONE
+                        rl_signup_upload_dov_layout.visibility=View.VISIBLE
+                    }
+
                 }
 
             } R.id.rl_upload_image_submit -> {
@@ -156,9 +246,10 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 rl_signup_upload_dov_layout.visibility=View.VISIBLE
 
                 if (checkVAlidation()) {
+
                     var requestBodyuser = JsonObject()
                     requestBodyuser.addProperty("first_name", edit_full_name.text.toString().trim())
-                    requestBodyuser.addProperty("last_name", edit_full_name.text.toString().trim())
+                    requestBodyuser.addProperty("last_name", edit_last_name.text.toString().trim())
                     requestBodyuser.addProperty("email", edit_email.text.toString().trim())
                     requestBodyuser.addProperty("title", edit_title.text.toString().trim())
                     requestBodyuser.addProperty("phone", edit_phone.text.toString().trim())
@@ -201,18 +292,22 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 finish()
             }
             R.id.tv_orgnization -> {
+                company_which_type="company"
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
                 tv_signup.setBackgroundColor(resources.getColor(R.color.light_grey1))
                 tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.white));
                 tv_signup.setTextColor(ContextCompat.getColor(this, R.color.black));
                 rl_upload_image.visibility = View.GONE
                 rl_edit_im_num.visibility = View.GONE
-                rl_sign_up_in_your_role.visibility = View.GONE
-                rl_signup_in_noofemployee.visibility = View.GONE
+                rl_sign_up_in_your_role.visibility = View.VISIBLE
+                rl_signup_in_noofemployee.visibility = View.VISIBLE
+                rl_orgnization_name.visibility = View.VISIBLE
+                rl_occupation.visibility = View.GONE
 
 
             }
             R.id.tv_signup -> {
+                company_which_type=""
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
                 tv_signup.setBackgroundColor(resources.getColor(R.color.light_blue))
                 tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.black));
@@ -221,6 +316,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 rl_edit_im_num.visibility = View.VISIBLE
                 rl_sign_up_in_your_role.visibility = View.GONE
                 rl_signup_in_noofemployee.visibility = View.GONE
+                rl_orgnization_name.visibility = View.GONE
+                rl_occupation.visibility = View.VISIBLE
 
 
             }
@@ -249,8 +346,14 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             progress.isIndeterminate = true
             progress.show()
             val apiInterface = ApiClient.getConnection(this)
+
             var call: Call<JsonObject>? = null//apiInterface.profileImage(body,token);
-            call = apiInterface!!.userSignup(jsonObject)
+            if(company_which_type.equals("company")){
+                call = apiInterface!!.companySignup(jsonObject)
+            }else{
+                call = apiInterface!!.userSignup(jsonObject)
+            }
+
             // startActivity(Intent(this@CartListActivity, LoginActivity::class.java))
             //  finish()
             call!!.enqueue(object : Callback<JsonObject> {
@@ -306,7 +409,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG).show()
+                            val data = jsonObjectError.optString("data")
+                            Toast.makeText(this@SignUpActivity, data, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             Toast.makeText(
@@ -339,97 +443,117 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     }
 
     private fun checkVAlidation(): Boolean {
-        if (edit_full_name.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.full_name), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else  if (edit_last_name.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.last_name1), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else  if (edit_title.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
-            return false
-        }else  if (edit_phone.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else  if (country_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_country),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
+        if(company_which_type.equals("company")){
+            occupation_id="1"
+            if (edit_full_name.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.full_name), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else  if (edit_last_name.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.last_name1), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else  if (edit_title.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
+                return false
+            }else  if (edit_phone.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.enter_phone), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else  if (country_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_country),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
 
-        else  if (edit_address.text.toString().trim().length === 0) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.enter_address),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }else  if (edit_landmark.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.enter_mark), Toast.LENGTH_SHORT).show()
-            return false
-        }else  if (state_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_state),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }else  if (city_id.equals("")) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.select_city), Toast.LENGTH_SHORT).show()
-            return false
-        }
+            else  if (edit_address.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_address),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }else if(edit_orgnization_name.text.toString().trim().length === 0){
+                    Toast.makeText(
+                        this@SignUpActivity,
+                        getString(R.string.enter_organization),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return false
 
-        else  if (sector_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_sector),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }else  if (edit_zip.text.toString().trim().length === 0) {
-            Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
-            return false
-        }
-        else  if (occupation_id.equals("")) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.select_occupation),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        else  if (!Utility.isValidEmail(edit_email.text.toString().trim())) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.enter_valid_email),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        else  if (edit_password.text.toString().trim().length < 6) {
-            Toast.makeText(
-                this@SignUpActivity,
-                "Password should have minimum 7-16 character",
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        else if (!edit_confrim_pass.text.toString().trim().equals(
-                edit_password.text.toString().trim()
-            )) {
-            Toast.makeText(
-                this@SignUpActivity,
-                getString(R.string.password_and_confirm_pass_should_same),
-                Toast.LENGTH_SHORT
-            ).show()
-            return false
-        }/*else  if (userIamge.equals("")) {
+            }
+            else  if (edit_landmark.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.enter_mark), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else  if (state_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_state),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }else  if (city_id.equals("")) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.select_city), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else if(text_your_role.equals("0")){
+                    Toast.makeText(this@SignUpActivity, getString(R.string.enter_your_role), Toast.LENGTH_SHORT).show()
+                    return false
+                }  else if(text_no_of_empl.equals("Number Of Employees")){
+                    Toast.makeText(this@SignUpActivity, getString(R.string.enter_no_of_employees), Toast.LENGTH_SHORT).show()
+                    return false
+            }
+
+            else  if (edit_zip.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else  if (sector_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_sector),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
+            else  if (occupation_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_occupation),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
+            else  if (!Utility.isValidEmail(edit_email.text.toString().trim())) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_valid_email),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
+            else  if (edit_password.text.toString().trim().length < 6) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "Password should have minimum 6-16 character",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }
+            else if (!edit_confrim_pass.text.toString().trim().equals(
+                    edit_password.text.toString().trim()
+                )) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.password_and_confirm_pass_should_same),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }/*else  if (userIamge.equals("")) {
             Toast.makeText(
                 this@SignUpActivity,
                 getString(R.string.select_image),
@@ -440,7 +564,132 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
             return false
         }*/
-        return true
+            return true
+
+        }else {
+
+
+            if (edit_full_name.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.full_name),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_last_name.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.last_name1),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_title.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_title),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_phone.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_phone),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (country_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_country),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_address.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_address),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_landmark.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_mark),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (state_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_state),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (city_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_city),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_zip.text.toString().trim().length === 0) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_zip),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (sector_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_sector),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (occupation_id.equals("")) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.select_occupation),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (!Utility.isValidEmail(edit_email.text.toString().trim())) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_valid_email),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (edit_password.text.toString().trim().length < 6) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "Password should have minimum 7-16 character",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            } else if (!edit_confrim_pass.text.toString().trim().equals(
+                    edit_password.text.toString().trim()
+                )
+            ) {
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.password_and_confirm_pass_should_same),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+            }/*else  if (userIamge.equals("")) {
+            Toast.makeText(
+                this@SignUpActivity,
+                getString(R.string.select_image),
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }else  if (edit_im_num.text.toString().trim().length === 0) {
+            Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
+            return false
+        }*/
+            return true
+        }
     }
 
     private fun checkPermission(): Boolean {

@@ -2,7 +2,6 @@ package com.cts.teamplayer.fragments
 
 import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
@@ -10,6 +9,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,13 +66,14 @@ class HomeFragment: Fragment(), View.OnClickListener, ItemClickListner {
         }
         // set the media controller for video view
         v.simpleVideoView.setMediaController(mediaControls)
-        v.simpleVideoView.setVideoPath("http://videocdn.bodybuilding.com/video/mp4/62000/62792m.mp4");
+      //  v.simpleVideoView.setVideoPath("https://youtube.com/watch?v=1OxRDJe0pFI&feature=share");
+        v.simpleVideoView.setVideoPath("https://youtu.be/1OxRDJe0pFI");
       //  v.simpleVideoView.start()
 
         // implement on completion listener on video view
         v.simpleVideoView.setOnCompletionListener(OnCompletionListener {
             Toast.makeText(
-               activity,
+                activity,
                 "Thank You...!!!",
                 Toast.LENGTH_LONG
             ).show() // display a toast when an video is completed
@@ -89,6 +92,23 @@ class HomeFragment: Fragment(), View.OnClickListener, ItemClickListner {
 
        // questionAnswerList()
      //   groupJoinList()
+
+
+        val frameVideo =
+            "<html><body><br><iframe width=\"300\" height=\"130\" src=\"https://www.youtube.com/embed/1OxRDJe0pFI\" frameborder=\"0\" allowfullscreen></iframe></body></html>"
+
+        v.webView1.setWebChromeClient(object : WebChromeClient() {})
+        v.webView1.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                return false
+            }
+        }
+
+        val webSettings = v.webView1.settings
+
+        webSettings.javaScriptEnabled = true
+
+       v.webView1.loadData(frameVideo, "text/html", "utf-8")
         return v
     }
 
@@ -364,10 +384,10 @@ class HomeFragment: Fragment(), View.OnClickListener, ItemClickListner {
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.img_play_video->{
+            R.id.img_play_video -> {
                 simpleVideoView.start()
-                v.img_play_video.visibility=View.GONE
-                video_view_img.visibility=View.GONE
+                v.img_play_video.visibility = View.GONE
+                video_view_img.visibility = View.GONE
             }
         }
 
@@ -376,5 +396,6 @@ class HomeFragment: Fragment(), View.OnClickListener, ItemClickListner {
     override fun onClickItem(position: Int, requestcode: Int) {
 
     }
+
 
 }

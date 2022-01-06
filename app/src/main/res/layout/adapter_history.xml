@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        >
+        <RelativeLayout
+            android:id="@+id/rr_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_1"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_width="@dimen/_50sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="@dimen/_50sdp"
+                       >
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/cart_team"
+                            />
+
+                </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/rl_1"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:id="@+id/tv_history_title"
+                    android:layout_toRightOf="@+id/card_1"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text="Title"
+                    android:layout_height="wrap_content"/>
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:visibility="gone"
+                    android:layout_toRightOf="@+id/card_1"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text="fnfnfnffn fnfnfnfn"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:elevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp"
+            android:layout_height="wrap_content"
+            >
+            <com.cts.teamplayer.customui.CustomTextviewBold
+                android:visibility="gone"
+                android:id="@+id/tv_test"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:text="fnfnfnffn fnfnfnfn"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text="No of participant: "
+                    android:layout_height="wrap_content"/>
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_transaction_type"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/light_grey1"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text="Date: "
+                    android:layout_height="wrap_content"/>
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_date_his"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/light_grey1"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+<LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.cts.teamplayer.customui.CustomTextviewBold
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:text="Amount: "
+        android:layout_height="wrap_content"/>
+    <com.cts.teamplayer.customui.CustomTextView
+        android:id="@+id/tv_amount_his"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:textColor="@color/light_grey1"
+        android:textSize="@dimen/_10sdp"
+        android:layout_centerVertical="true"
+        android:text=""
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

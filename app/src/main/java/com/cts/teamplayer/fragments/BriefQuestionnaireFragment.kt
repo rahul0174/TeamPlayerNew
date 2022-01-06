@@ -154,7 +154,12 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
     override fun onClickItem(position: Int, requestcode: Int) {
         if(requestcode==PAYPAL_CLICK_REQUEST_CODE){
-            getbraintreeTokenApi()
+            if(edit_number_of_participants.text.toString().trim().length === 0){
+                Toast.makeText(activity, getString(R.string.enter_no_of_question), Toast.LENGTH_SHORT).show()
+            }else{
+                getbraintreeTokenApi()
+            }
+
         }
     }
     var PerQuestionPriceResponseDataItem: java.util.ArrayList<PerQuestionPriceResponseDataItem>? = null

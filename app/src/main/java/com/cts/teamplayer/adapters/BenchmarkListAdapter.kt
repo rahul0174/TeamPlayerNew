@@ -13,6 +13,7 @@ import com.cts.teamplayer.activities.WebViewActivity
 import com.cts.teamplayer.models.UserListItem
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants
+import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import kotlinx.android.synthetic.main.adapter_benchmark_list.view.*
 import kotlinx.android.synthetic.main.adapter_group_list_in_team_manage.view.*
 import kotlinx.android.synthetic.main.adapter_group_list_in_team_manage.view.tv_user_name_in_manage_team
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.adapter_group_list_in_team_manage.view.tv_
 class BenchmarkListAdapter (val mContext: Context, var data : java.util.ArrayList<UserListItem>?, var itemclick: ItemClickListner) :
     androidx.recyclerview.widget.RecyclerView.Adapter<BenchmarkListAdapter.MyHolderView>(){
     var answerFilterList : ArrayList<UserListItem> = ArrayList()
+    private var mpref: TeamPlayerSharedPrefrence? = null
     lateinit var countryFilterList : ArrayList<UserListItem>
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyHolderView {
         val v = LayoutInflater.from(viewGroup.context)
@@ -57,6 +59,15 @@ class BenchmarkListAdapter (val mContext: Context, var data : java.util.ArrayLis
             /*  {"group_id":"4","user_id":"3664","subgroup_id":"5","user_type":"benchmark"}*/
 
             itemView.iv_view_report.setOnClickListener{
+                if(TeamPlayerSharedPrefrence.getInstance(mContext).getRoal("").equals("3")){
+                    itemclick.onClickItem(position, MyConstants.GENERATE_BEANCHMARK_VIEW_REPORT)
+                }else{
+                    val i = Intent(mContext, WebViewActivity::class.java).putExtra("group_id",data.groupId)
+                        .putExtra("user_id",data.userId).putExtra("subgroup_id",data.subgroupId).putExtra("user_type",data.userType).putExtra("activity", "report")
+                    mContext.startActivity(i)
+                }
+
+
        /*         val i = Intent(this, WebViewActivity::class.java).putExtra(
                     "group_id", intent.getStringExtra(
                         "group_id"
@@ -66,9 +77,7 @@ class BenchmarkListAdapter (val mContext: Context, var data : java.util.ArrayLis
                     ).putExtra("user_type", intent.getStringExtra("user_type")).putExtra("activity", "report")
                 startActivity(i)*/
 
-                val i = Intent(mContext, WebViewActivity::class.java).putExtra("group_id",data.groupId)
-                    .putExtra("user_id",data.userId).putExtra("subgroup_id",data.subgroupId).putExtra("user_type",data.userType).putExtra("activity", "report")
-               mContext.startActivity(i)
+
             }
         }
 

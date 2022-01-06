@@ -273,6 +273,7 @@
                     android:layout_height="@dimen/_1ssp"
                     android:background="@color/light_grey_new"
                     />
+
                 <com.cts.teamplayer.customui.CustomTextviewBold
                     android:id="@+id/tv_participant_app_questionnaire"
                     android:layout_width="match_parent"
@@ -430,6 +431,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1ssp"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@color/light_grey_new"
+                    />
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:id="@+id/tv_puchase_history_frg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:padding="@dimen/_7sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:textSize="@dimen/_11sdp"
+                    android:text="Purchase history"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1ssp"
                     android:background="@color/light_grey_new"
                     />
                 <com.cts.teamplayer.customui.CustomTextviewBold

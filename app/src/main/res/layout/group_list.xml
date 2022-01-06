@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:orientation="vertical">
-        <com.cts.teamplayer.customui.CustomTextviewBold
-            android:id="@+id/tv_group_list"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:elevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_7sdp"
-            android:textColor="@color/dark_grey"
-            android:text="New"
-            android:textSize="@dimen/_12sdp"
-            />
-        <View
-            android:visibility="invisible"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1ssp"
-            android:background="@color/light_grey"
-            />
-    </LinearLayout>
+            android:orientation="vertical">
+            <com.cts.teamplayer.customui.CustomTextviewBold
+                android:id="@+id/tv_group_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_7sdp"
+                android:textColor="@color/dark_grey"
+                android:text="New"
+                android:textSize="@dimen/_12sdp"
+                />
+            <View
+                android:visibility="invisible"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1ssp"
+                android:background="@color/light_grey"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

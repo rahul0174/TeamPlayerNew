@@ -5,7 +5,7 @@
     <string name="new_user">New User</string>
     <string name="demo_request">Demo Request</string>
     <string name="participant">Participant</string>
-    <string name="orgnization">Orgnization</string>
+    <string name="orgnization">Organization</string>
     <string name="do_you_have_an_im_enter_it_here">Do you have an \'IM\' Enter it here</string>
     <string name="submit">Submit</string>
 
@@ -17,10 +17,12 @@
 
     //signup
     <string name="full_name">Enter First Name</string>
+    <string name="enter_no_of_question">Enter Number Of Questionnaire</string>
   <!--  <string name="first_name">First name</string>
     <string name="last_name">Last name</string>-->
     <string name="enter_title">Enter Title</string>
     <string name="last_name1">Enter Last name</string>
+    <string name="enter_phone">Enter Phone no.</string>
     <string name="enter_address">Enter Address</string>
     <string name="enter_user_role">Enter User Role</string>
     <string name="enter_number_employee">Enter Number Of Emplayee</string>
@@ -30,8 +32,11 @@
     <string name="select_sector">Select Sector</string>
     <string name="select_occupation">Select Occupation</string>
     <string name="select_country">Select Country</string>
-    <string name="select_state">Select Occupation</string>
-    <string name="select_city">Select Occupation</string>
+    <string name="enter_organization">Enter Organization</string>
+    <string name="select_state">Select State</string>
+    <string name="select_city">Select City</string>
+    <string name="enter_your_role">Select Your Role</string>
+    <string name="enter_no_of_employees">Select Your Number Of Employees</string>
     <string name="enter_zip">Enter Zip</string>
     <string name="enter_valid_email">Enter valid email</string>
     <string name="password_and_confirm_pass_should_same">password and confirm pass should same</string>
@@ -76,6 +81,7 @@
     <string name="how_it_works">Company Subscription</string>
     <string name="compare_im_title">Compare IM Intrinsic Matrix</string>
     <string name="subscription_title">Subscription</string>
+    <string name="purchase_his">Purchase History</string>
     <string name="brief_ques_title">App Questionnaire</string>
     <string name="vision_technology">Vision and Technology</string>
     <string name="contact_us">Contact Us</string>

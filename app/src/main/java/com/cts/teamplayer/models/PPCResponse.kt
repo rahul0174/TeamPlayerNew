@@ -2,10 +2,10 @@ package com.cts.teamplayer.models
 
 import com.google.gson.annotations.SerializedName
 
-data class GroupListResponse(
+data class PPCResponse(
 
 	@field:SerializedName("data")
-	val data: List<GroupListItem?>? = null,
+	val data: List<PPCList?>? = null,
 
 	@field:SerializedName("success")
 	val success: Boolean? = null,
@@ -14,15 +14,10 @@ data class GroupListResponse(
 	val message: String? = null
 )
 
-data class GroupListItem(
+data class PPCList(
 
-	@field:SerializedName("code")
-	val code: String? = null,
-	@field:SerializedName("subscription")
-	var subscription: String? = null,
-
-	@field:SerializedName("test")
-	val test: String? = null,
+	@field:SerializedName("amount")
+	val amount: String? = null,
 
 	@field:SerializedName("updated_at")
 	val updatedAt: String? = null,
@@ -30,12 +25,15 @@ data class GroupListItem(
 	@field:SerializedName("name")
 	val name: String? = null,
 
+	@field:SerializedName("updated_by")
+	val updatedBy: String? = null,
+
 	@field:SerializedName("created_at")
 	val createdAt: String? = null,
 
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: Int? = null,
 
-	@field:SerializedName("max_size")
-	val maxSize: String? = null
+	@field:SerializedName("created_by")
+	val createdBy: String? = null
 )

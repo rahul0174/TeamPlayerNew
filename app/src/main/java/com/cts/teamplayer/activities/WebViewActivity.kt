@@ -22,7 +22,7 @@ class WebViewActivity: AppCompatActivity() , View.OnClickListener {
     }
 
     private fun findId() {
-        if (intent.getStringExtra("activity").equals("report")){
+        if (intent.getStringExtra("activity")!!.equals("report")){
             url="https://dev.teamplayerhr.com/app-survey-result-team"+"?"+"group_id"+"="+intent.getStringExtra(
                 "group_id"
             )+"&"+"user_id"+"="+intent.getStringExtra("user_id")+
@@ -30,7 +30,7 @@ class WebViewActivity: AppCompatActivity() , View.OnClickListener {
                 "user_type"
             )+"&"+"token"+"="+TeamPlayerSharedPrefrence.getInstance(this).getAccessToken("")
 
-        }else if(intent.getStringExtra("activity").equals("calulator")){
+        }else if(intent.getStringExtra("activity")!!.equals("calulator")){
             url=intent.getStringExtra("url")
         }
         else{

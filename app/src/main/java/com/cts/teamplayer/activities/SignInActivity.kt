@@ -133,7 +133,9 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                             ).show()
 
                             val token = jsonObject.getJSONObject("data").optString("token")
+                            val role = jsonObject.getJSONObject("data").optString("role")
                             mpref!!.setAccessToken(token)
+                            mpref!!.setRoal(role)
                             val i = Intent(this@SignInActivity, MainActivity::class.java).addFlags(
                                 Intent.FLAG_ACTIVITY_NEW_TASK
                             ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

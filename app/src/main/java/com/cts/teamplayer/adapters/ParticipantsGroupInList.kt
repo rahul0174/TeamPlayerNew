@@ -21,6 +21,7 @@ class ParticipantsGroupInList(
 ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<ParticipantsGroupInList.MyHolderView>(){
      var countryFilterList : ArrayList<SurveyParticipantsItem>? = null
+    var countryFilterList1 : ArrayList<SurveyParticipantsItem>? = null
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyHolderView {
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.adapter_participant_on_group_list, viewGroup, false)
@@ -68,11 +69,30 @@ class ParticipantsGroupInList(
 
     }
 
+
     /*
    View Holders
    _________________________________________________________________________________________________
+
+   private fun filter(text: String) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<CountryList> = ArrayList()
+
+        //looping through existing elements
+        for (s in this!!.countryList!!) {
+            //if the existing elements contains the search input
+            if (s!!.countryName.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = countryListAdapter!!.filterList(filterdNames)
+    }
+
     */
-    fun filter(charText: String) {
+
+
+/*    fun filter(charText: String) {
         countryFilterList = data!! as ArrayList<SurveyParticipantsItem>?
       //  this.countryFilterList!!.addAll(data!!)
      //   this.data!!.addAll(countryFilterList!!)
@@ -84,16 +104,24 @@ class ParticipantsGroupInList(
         } else {
 
             for (item in countryFilterList!!) {
+              //  data!!.clear()
                 if (item.userName!!.toLowerCase(Locale.getDefault()).contains(charText)) {
+
                     data!!.add(item)
                 }
             }
         }
         notifyDataSetChanged()
-    }
+    }*/
 
     interface TextBookNow{
         fun bookSession(position: Int, data: CountryList)
+    }
+
+    fun filterList(filterdNames: ArrayList<SurveyParticipantsItem>): ArrayList<SurveyParticipantsItem> {
+        this.data = filterdNames
+        notifyDataSetChanged()
+        return data as ArrayList<SurveyParticipantsItem>
     }
 
 

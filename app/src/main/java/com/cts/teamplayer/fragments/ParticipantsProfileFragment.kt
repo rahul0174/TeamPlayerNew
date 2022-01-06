@@ -1,20 +1,22 @@
 package com.cts.teamplayer.fragments
 
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.cts.teamplayer.R
 import com.cts.teamplayer.activities.SignUpActivity
 import com.cts.teamplayer.activities.UpdateProfileActivity
+import com.cts.teamplayer.customui.CustomTextView
 import com.cts.teamplayer.models.UserProfileResponse
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
@@ -28,6 +30,7 @@ import com.cts.teamplayer.util.MyConstants.USERS_IMAGE
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signin.*
+import kotlinx.android.synthetic.main.dialog_add_to_team.*
 import kotlinx.android.synthetic.main.fragment_participants_profile.*
 import kotlinx.android.synthetic.main.fragment_participants_profile.view.*
 import org.json.JSONException
@@ -48,6 +51,7 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
     var profession:String?=null
     var email:String?=null
     var address:String?=null
+    var dialog:Dialog?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -56,6 +60,7 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
         v = inflater.inflate(R.layout.fragment_participants_profile, container, false)
         mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
         v.rl_profile_edit.setOnClickListener(this)
+        v.btn_view_cv.setOnClickListener(this)
         if(mpref!!.getAccessToken("")!!.equals(null)){
 
         }else{
@@ -65,6 +70,7 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
 
         return v
     }
+    var cv_url:String?=null
     private fun vendorDetailByToken(token: String) {
         if (CheckNetworkConnection.isConnection1(activity!!, true)) {
             val progress = ProgressDialog(activity!!)
@@ -102,6 +108,7 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
                         address=response.body()!!.data!!.addressLine1
                       //  profession=response.body()!!.data!!.sectorData!!.name
                    //     profession=response.body()!!.
+                        cv_url=USERS_IMAGE+response.body()!!.data!!.cv
                        tv_profession_in_user_profile.text=response.body()!!.data!!.occupationData!!.name
                         Glide.with(activity!!)
                             .load(USERS_IMAGE+response.body()!!.data!!.cv)
@@ -189,6 +196,9 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
                 startActivity(Intent(activity, UpdateProfileActivity::class.java).putExtra(FIRST_NAME,first_name).putExtra(
                     LAST_NAME,last_name).putExtra(PHONE_NUM,phone_num).putExtra(EMAIL,email).putExtra(ADDRESS,address).putExtra(PROFESSION,profession))
             }
+            R.id.btn_view_cv -> {
+                showDialog()
+         }
         }
 
     }
@@ -200,6 +210,27 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
         }else{
             vendorDetailByToken(mpref!!.getAccessToken("").toString())
         }
+    }
+    private fun showDialog() {
+        dialog = Dialog(activity!!)
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.setCancelable(false)
+        dialog!!.setCanceledOnTouchOutside(true)
+        dialog!!.setContentView(R.layout.dialog_view_cv)
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        dialog!!.window!!.setGravity(Gravity.CENTER)
+
+        val img_show_cv = dialog!!.findViewById(R.id.img_show_cv) as ImageView
+
+        Glide.with(activity!!)
+            .load(cv_url)
+            .fitCenter() // scale to fit entire image within ImageView
+            .into(img_show_cv);
+        dialog!!.show()
+
     }
 
 }

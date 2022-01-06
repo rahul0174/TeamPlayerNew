@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/light_grey"
     android:layout_height="match_parent">
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -12,20 +15,53 @@
         android:layout_marginLeft="@dimen/_10sdp"
         >
 
+
+
         <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_your_match"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:visibility="gone"
-            android:text="@string/app_questionnaire"
-            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Your Matches"
+            android:layout_marginTop="@dimen/_12sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_18sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_invite_group_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            >
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.cts.teamplayer.customui.CustomTextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:id="@+id/tv_some_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:text="Intrinsic Matrix -Im. When the TeamplayerUK profile questionnaire is taken by participants.it rstablishes t..."
+            />
+
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_app_plan_list"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:text="App Subscription Plan List"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_subscription_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
             >
         </androidx.recyclerview.widget.RecyclerView>
         <com.cts.teamplayer.customui.CustomTextviewBold

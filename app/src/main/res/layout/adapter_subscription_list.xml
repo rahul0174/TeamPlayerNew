@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        android:background="@drawable/btn_corner_rounded_1"
+        app:cardElevation="@dimen/_5sdp"
+        >
+        <RelativeLayout
+            android:layout_marginRight="@dimen/_7sdp"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_toLeftOf="@+id/cd_subscription_plan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp"
+
+                >
+
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:id="@+id/tv_subscription_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="Title"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3ssp"
+                    android:orientation="horizontal"
+                    >
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text="Frequency Type:  "
+                        />
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_subscription_freq_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_grey1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text="Amount"
+                        />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text="Amount:  "
+                        />
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_subscription_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_grey1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text=""
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text="Duration:  "
+                        />
+                    <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_subscription_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_grey1"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text=""
+                        />
+                </LinearLayout>
+
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:visibility="gone"
+                    android:id="@+id/tv_subscription_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="Title"
+                    />
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:visibility="gone"
+                    android:id="@+id/tv_subscription_company_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:text="Company Details"
+                    />
+
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:visibility="visible"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:id="@+id/cd_subscription_plan"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/_60sdp"
+                app:cardUseCompatPadding="true"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:background="@color/colorAccent"
+                >
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:id="@+id/tv_app_subscription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:textAlignment="center"
+                    android:background="@color/colorAccent"
+                    android:textColor="@color/white"
+                    android:text="Pay"/>
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

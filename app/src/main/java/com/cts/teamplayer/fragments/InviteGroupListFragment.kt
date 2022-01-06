@@ -1,5 +1,6 @@
 package com.cts.teamplayer.fragments
 
+import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Intent
@@ -14,14 +15,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.braintreepayments.api.dropin.DropInActivity
+import com.braintreepayments.api.dropin.DropInRequest
+import com.braintreepayments.api.dropin.DropInResult
 import com.cts.teamplayer.R
 import com.cts.teamplayer.activities.GroupManageActivity
 import com.cts.teamplayer.activities.MainActivity
 import com.cts.teamplayer.activities.QuestionnaireCalculatorActivity
-import com.cts.teamplayer.adapters.CityListAdapter
-import com.cts.teamplayer.adapters.GroupJoinListAdapter
-import com.cts.teamplayer.adapters.GroupListAdapter
-import com.cts.teamplayer.adapters.PendingGroupListAdapter
+import com.cts.teamplayer.adapters.*
 import com.cts.teamplayer.models.*
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
@@ -32,6 +33,7 @@ import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.dialog_country.*
 import kotlinx.android.synthetic.main.dialog_country.recycler_country_list
 import kotlinx.android.synthetic.main.dialog_open_questionnaire.*
+import kotlinx.android.synthetic.main.fragment_brief_questionnaire.view.*
 import kotlinx.android.synthetic.main.fragment_demo_group.*
 import kotlinx.android.synthetic.main.fragment_demo_group.view.*
 import kotlinx.android.synthetic.main.fragment_invite_group_list.*
@@ -43,12 +45,14 @@ import retrofit2.Callback
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.math.BigDecimal
 import java.util.ArrayList
 
 class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListner {
     lateinit var v: View
     private var mpref: TeamPlayerSharedPrefrence? = null
     var groupList: java.util.ArrayList<GroupListItem>? = null
+    var REQUEST_CODE = 11
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -61,6 +65,9 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
     }
 
     private fun finid() {
+
+
+
       //  v.edit_invite_participat_email_im.setOnClickListener(this)
       //  groupJoinList()
       //  pendinggroupList()
@@ -86,6 +93,12 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
        v.recycler_invite_group_list.layoutManager = manager
         val   groupListAdapter =  GroupListAdapter(activity!!, groupList,this)
         v.recycler_invite_group_list.adapter = groupListAdapter
+    }
+    fun setSubscriptionList(){
+        var manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+       v.recycler_subscription_list.layoutManager = manager
+        val   groupListAdapter =  SubscriptionListAdapter(activity!!, appSubscriptionList,this)
+        v.recycler_subscription_list.adapter = groupListAdapter
     }
 
     fun setPendingGroupList(){
@@ -116,7 +129,24 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                         try {
                             groupList = response.body()!!.data as ArrayList<GroupListItem>?
 
-                            setGroupList()
+                            if (groupList!!.get(0).subscription!!.equals("false")){
+                                tv_app_plan_list.visibility=View.VISIBLE
+                                recycler_subscription_list.visibility=View.VISIBLE
+                                recycler_invite_group_list.visibility=View.GONE
+                                tv_some_txt.visibility=View.GONE
+                                tv_your_match.visibility=View.GONE
+                                appSubscriptionList()
+                                
+
+                            }else{
+                                tv_app_plan_list.visibility=View.GONE
+                                recycler_subscription_list.visibility=View.GONE
+                                recycler_invite_group_list.visibility=View.VISIBLE
+                                tv_some_txt.visibility=View.VISIBLE
+                                tv_your_match.visibility=View.VISIBLE
+                                setGroupList()
+                            }
+
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -168,6 +198,99 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                 }
 
                 override fun onFailure(call: Call<GroupListResponse>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+    }
+
+    var appSubscriptionList: java.util.ArrayList<AppSubscriptionList>? = null
+    private fun appSubscriptionList(){
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<AppSubscriptionResponse>? = null//apiInterface.profileImage(body,token);
+            call = apiInterface!!.getAppSubscription(mpref!!.getAccessToken(""))
+            call!!.enqueue(object : Callback<AppSubscriptionResponse> {
+                override fun onResponse(
+                    call: Call<AppSubscriptionResponse>,
+                    response: retrofit2.Response<AppSubscriptionResponse>
+                ) {
+                    Log.e("log", response.body().toString());
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        try {
+                            appSubscriptionList = response.body()!!.data as ArrayList<AppSubscriptionList>?
+                            setSubscriptionList()
+
+
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    } else if (response.code() == 500) {
+                        Toast.makeText(
+                            activity!!,
+                            "Internal server error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                            Toast.makeText(
+                                activity!!,
+                                "Some error occurred",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<AppSubscriptionResponse>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
                         activity!!,
@@ -432,6 +555,11 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
             startActivity(i)
 
         }
+        if(requestcode== MyConstants.APP_SUBSCRIPTION){
+                getbraintreeTokenApi()
+            }
+
+
         if(requestcode== MyConstants.JOIN_GROUP_LIST){
          /*   {"id":2,"name":"Test Demo Group","group_id":73,"code":"1234","max_size":"1","test":"2"}
          */   /*{"id":2,"name":"Test Demo Group","code":"1234","max_size":"1","test":"2"}*/
@@ -446,6 +574,346 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
             joinGroupApi(sendReminderRequestRequest)
 
 
+        }
+    }
+    var brintreeToken=""
+    var orderId=""
+    private fun getbraintreeTokenApi() {
+        //   Log.e("json",jsonObject.toString())
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(this.resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<JsonObject>?
+            call = apiInterface!!.getclienttokenParameter(
+                TeamPlayerSharedPrefrence.getInstance(
+                    activity!!
+                ).getAccessToken("")
+            )
+            call!!.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: retrofit2.Response<JsonObject>
+                ) {
+                    Log.e("response111", response.body().toString());
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        try {
+                            val jsonObject = JSONObject(response.body().toString())
+                            /* "{
+                             ""orderId"" : ""ORD12345"",
+                             ""brainTreeToken"" : ""token123"",
+                             ""success"" : true
+                         }"*/
+
+                            //    orderId = jsonObject.optString("orderId").toString()
+                            brintreeToken = jsonObject.optString("token").toString()
+
+                            val dropInRequest =
+                                DropInRequest().clientToken(brintreeToken).collectDeviceData(
+                                    true
+                                )
+                            startActivityForResult(
+                                dropInRequest.getIntent(activity!!),
+                                REQUEST_CODE
+                            )
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
+                val nonce = result!!.paymentMethodNonce
+                val stringNonce = nonce!!.nonce
+                /*  "{
+                  ""orderId"" : ""ORD12345"",
+                  ""amount"" : 450,
+                  ""nonceFromTheClient"" : ""nonce123""
+              }"*/
+                /* {"nonce":"tokencc_bh_q67qb6_ntvz2q_qs9yxp_qnzm3y_k84","chargeAmount":0.99}*/
+             //   val x=v.edit_number_of_participants.text!!.trim()
+// Assign two BigDecimal objects
+
+                // Assign two BigDecimal objects
+             //   val b1 = BigDecimal(v.edit_number_of_participants.text!!.trim().toString())
+            //    val b2 = BigDecimal(PerQuestionPriceResponseDataItem!!.get(0).amount)
+
+                // Multiply b1 with b2 and assign result to b3
+
+                // Multiply b1 with b2 and assign result to b3
+             //   val b3: BigDecimal = b1.multiply(b2)
+                /*     val b3: BigDecimal = b1.multiply(b2)
+                     val y = 13
+                     val z = x * y*/
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("transaction_id", stringNonce)
+                jsonObject.addProperty(
+                    "id",
+                    appSubscriptionList!!.get(0).id
+                )
+
+                Log.e("json", jsonObject.toString())
+                updateAppSubscriptionPayment(jsonObject)
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                // the user canceled
+                Log.e("mylog", "user canceled")
+            } else {
+                // handle errors here, an exception may be available in
+                val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
+
+                Log.e("error", error.toString())
+
+            }
+        }
+
+    }
+    private fun authenticatePaymentApi(jsonObject: JsonObject) {
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(this.resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<JsonObject>?
+            call = apiInterface!!.authenticatePayment(
+                TeamPlayerSharedPrefrence.getInstance(activity!!).getAccessToken(
+                    ""
+                ), jsonObject
+            )
+            call!!.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: retrofit2.Response<JsonObject>
+                ) {
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        var jsonObject = JSONObject(response.body()!!.toString())
+                        try {
+                            Log.d("response", response.body()!!.toString())
+                            Toast.makeText(
+                                activity!!,
+                                "Payment done sucessfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            //    Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
+                            /*  var cartTable = dbController!!.getCartInfo("")
+                            cartTable.clear()*/
+
+                            /*  startActivity(
+                                Intent(activity!!, OrderDoneActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK))*/
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+    }
+
+    private fun updateAppSubscriptionPayment(jsonObject: JsonObject) {
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(this.resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<JsonObject>?
+            call = apiInterface!!.updateAppSubscriptionPayment(
+                TeamPlayerSharedPrefrence.getInstance(activity!!).getAccessToken(
+                    ""
+                ), jsonObject
+            )
+            call!!.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: retrofit2.Response<JsonObject>
+                ) {
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        var jsonObject = JSONObject(response.body()!!.toString())
+                        try {
+                            Log.d("response", response.body()!!.toString())
+                            Toast.makeText(
+                                activity!!,
+                                "Payment done sucessfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            groupList()
+                            //    Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
+                            /*  var cartTable = dbController!!.getCartInfo("")
+                            cartTable.clear()*/
+
+                            /*  startActivity(
+                                Intent(activity!!, OrderDoneActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(
+                                    Intent.FLAG_ACTIVITY_CLEAR_TASK))*/
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
         }
     }
     private fun joinGroupApi(jsonObject: JsonObject) {

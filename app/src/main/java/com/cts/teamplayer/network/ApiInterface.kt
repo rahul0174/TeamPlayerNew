@@ -29,6 +29,9 @@ interface ApiInterface {
     @POST("user/register")
     fun userSignup(@Body data: JsonObject): Call<JsonObject>
 
+    @POST("user/register_org")
+    fun companySignup(@Body data: JsonObject): Call<JsonObject>
+
     @POST("user/login")
     fun login(@Body data: JsonObject): Call<JsonObject>
 
@@ -88,6 +91,9 @@ interface ApiInterface {
     @POST("braintree/createpurchase")
     fun authenticatePayment(@Header("token") token: String?,@Body data: JsonObject): Call<JsonObject>
 
+    @POST("user/updateAppSubscriptionPayment")
+    fun updateAppSubscriptionPayment(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
 
     @POST("demo/add_user_subgroup")
     fun addtoteamRequest(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
@@ -111,6 +117,43 @@ interface ApiInterface {
     @GET("demo/plan")
     fun getDemoPlan(): Call<PerQuestionPriceResponse>
 
+
+    @GET("news")
+    fun getnewsDetailByToken(@Header("authorization") token: String?): Call<NewsListNewResponse>
+
+    @GET("user/app/subscription")
+    fun getAppSubscription(@Header("authorization") token: String?): Call<AppSubscriptionResponse>
+
+    @GET("user/appQuestionnairePurchase")
+    fun getAppQuestionnairePurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+
+    @GET("user/appPPCPurchase")
+    fun getAppPPCPurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+
+    @GET("user/renewalPurchase")
+    fun getRenewalPurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+
+    @GET("user/fullQuestionnairePurchase")
+    fun getfullQuestionnairePurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+
+
+    @GET("user/appSubscriptionPurchase")
+    fun getAppSubscriptionPurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+
+
+    @GET("user/subscriptionPurchase")
+    fun subscriptionPurchase(@Header("authorization") token: String?): Call<AppQuestionPurchaseResponse>
+
+    @GET("user/appQuestionnairePurchase")
+    fun getPPCAmount(@Header("authorization") token: String?): Call<PPCResponse>
+
+    @POST("user/updatePPCPayment")
+    fun getUpdateupdatePPCPaymentt(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
 
 
 

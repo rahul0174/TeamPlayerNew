@@ -67,6 +67,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tv_open_how_work.setOnClickListener(this)
         tv_open_contact_us.setOnClickListener(this)
         tv_open_vision_tech.setOnClickListener(this)
+        tv_puchase_history_frg.setOnClickListener(this)
         tv_open_news.setOnClickListener(this)
         tv_open_faq.setOnClickListener(this)
         rl_calcu.setOnClickListener(this)
@@ -122,6 +123,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }R.id.rl_calcu -> {
             addCompareImIntrinsicFragment()
           //  addCalculatorFragment()
+            }R.id.tv_puchase_history_frg -> {
+            drawer_layout.closeDrawers()
+            addHistoryFragment()
+          //  addCalculatorFragment()
             }R.id.tv_participant_app_questionnaire -> {
             drawer_layout.closeDrawers()
             addCalculatorFragment()
@@ -130,7 +135,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tv_participant_full_questionnaire -> {
             drawer_layout.closeDrawers()
             val i = Intent(this, WebViewActivity::class.java)
-                .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com")
+                .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com/purchase")
 
            /* val url="https://dev.teamplayerhr.com"
             intent.data = Uri.parse(url)*/
@@ -228,7 +233,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun addInviteGroupFragment() {
-        tv_title_header.text="Name of the account’"
+        tv_title_header.text="Group"
         homeFragment = InviteGroupListFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
@@ -259,6 +264,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun addSubscriptionFragment() {
         tv_title_header.text=getString(R.string.subscription_title)
         homeFragment = SubscriptionFragment()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+      //  transaction.addToBackStack(null);
+        transaction.commit()
+
+    }
+    private fun addHistoryFragment() {
+        tv_title_header.text=getString(R.string.purchase_his)
+        homeFragment = HistoryFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.replace(R.id.container, homeFragment)
