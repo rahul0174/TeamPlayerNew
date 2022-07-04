@@ -46,6 +46,9 @@ data class QuestionnaireGroupData(
 	@field:SerializedName("survey_group")
 	val surveyGroup: SurveyGroup? = null,
 
+	@field:SerializedName("remaining")
+	val remaining: Int? = null,
+
 	@field:SerializedName("survey_participants")
 	val surveyParticipants: List<SurveyParticipantsItem?>? = null
 )

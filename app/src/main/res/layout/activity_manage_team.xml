@@ -90,6 +90,7 @@
                         android:layout_marginTop="@dimen/_20ssp"
                         android:background="@color/whit_new"
                         />
+
                     <com.cts.teamplayer.customui.CustomTextviewBold
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,10 +101,28 @@
                         android:textStyle="bold"
                         android:text="@string/benchmark_list"
                         />
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_benchmarklist"
+                    <com.cts.teamplayer.customui.CustomTextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="Click name to compare"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/img_bench_mark_group_list_empty"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/group_list_empty"
+                            />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_benchmarklist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
@@ -120,10 +139,34 @@
                         android:textStyle="bold"
                         android:text="@string/participant_list"
                         />
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_participantlist"
+                    <com.cts.teamplayer.customui.CustomTextView
+                        android:id="@+id/tv_parti_title"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:text="@string/participant_list"
+                        />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/img_participant_group_list_empty"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/group_list_empty"
+                            />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_participantlist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </RelativeLayout>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"

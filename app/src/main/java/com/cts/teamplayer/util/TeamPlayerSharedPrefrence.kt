@@ -12,9 +12,9 @@ class TeamPlayerSharedPrefrence  constructor() {
 
     private enum class Keys private constructor(val label: String) {
         LOGIN("LOGIN"),
-        QUESTIONID("question_id"),USERNAME("user_name"), ACCESS_TOKEN("access_token"),BUSINESS_NAME("business-name"), EMAIL("email_id"), LANGUAGE("language"), APPTOKEN("app_token"), FCMKEY("fcm_key"), USERID(
+        QUESTIONID("question_id"),USERNAME("user_name"), ACCESS_TOKEN("access_token"),BUSINESS_NAME("business-name"),FULL_QUESTION("full-question"),ISQUESTIONNAIRE("questionnaire"), EMAIL("email_id"), LANGUAGE("language"), APPTOKEN("app_token"), FCMKEY("fcm_key"), USERID(
             "user_id"),
-        ROAL("roal"),SITE_ID("site_id"),SITE_IMG_URL("site_image_url"), USERTYPE("user_type"), GOOGLE_ID("google_id"), PHONE("phone"), USERPROFILE("user_pic")
+        ROAL("roal"),SITE_ID("site_id"),SITE_IMG_URL("site_image_url"), USERTYPE("user_type"), GOOGLE_ID("google_id"), PHONE("phone"), USERPROFILE("user_pic"),
     }
 
     /**
@@ -92,6 +92,24 @@ class TeamPlayerSharedPrefrence  constructor() {
         return getString(Keys.BUSINESS_NAME.label, defaultValue)
     }
 
+    fun setFullQuestion(value: String) {
+        setString(Keys.FULL_QUESTION.label, value)
+    }
+
+
+    fun getFullQuestion(defaultValue: String): String? {
+        return getString(Keys.FULL_QUESTION.label, defaultValue)
+    }
+
+    fun setIsQuestionnaireName(value: String) {
+        setString(Keys.ISQUESTIONNAIRE.label, value)
+    }
+
+
+    fun getIsQuestionnaireName(defaultValue: String): String? {
+        return getString(Keys.ISQUESTIONNAIRE.label, defaultValue)
+    }
+
     fun setSiteId(value: String) {
         setString(Keys.SITE_ID.label, value)
     }
@@ -162,6 +180,15 @@ class TeamPlayerSharedPrefrence  constructor() {
 
 
     fun getUserProfile(defaultValue: String): String? {
+        return getString(Keys.USERPROFILE.label, defaultValue)
+    }
+
+    fun setAppQuestion(value: String) {
+        setString(Keys.USERPROFILE.label, value)
+    }
+
+
+    fun getAppQuestion(defaultValue: String): String? {
         return getString(Keys.USERPROFILE.label, defaultValue)
     }
 

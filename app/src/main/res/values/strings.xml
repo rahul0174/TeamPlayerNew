@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TeamPlayer</string>
+    <string name="app_name">TeamPlayerHR</string>
 
     <string name="sign_in">Sign in</string>
     <string name="new_user">New User</string>
@@ -37,8 +37,8 @@
     <string name="select_city">Select City</string>
     <string name="enter_your_role">Select Your Role</string>
     <string name="enter_no_of_employees">Select Your Number Of Employees</string>
-    <string name="enter_zip">Enter Zip</string>
-    <string name="enter_valid_email">Enter valid email</string>
+    <string name="enter_zip">Enter Zip/PostCode</string>
+    <string name="enter_valid_email">Please enter atleast email id</string>
     <string name="password_and_confirm_pass_should_same">password and confirm pass should same</string>
     <string name="select_image">Select Image</string>
 
@@ -48,7 +48,7 @@
     <string name="don_t_have_an_account_sign_up">Don\'t have an account?Sign UP</string>
     <string name="welcome_user">Welcome User</string>
     <string name="sign_in_to_continue">Sign in to continue</string>
-    <string name="username">username</string>
+    <string name="username">Enter email</string>
     <string name="skip">SKIP</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="enter_password_length">Password should be minimum 6 digit</string>
@@ -57,7 +57,7 @@
     <string name="agree_to_terms_conditions_and_privacy_policy"><![CDATA[Agree to Terms&Conditions and Privacy Policy]]></string>
 
   //FORGET  PASSWORD SCREEN
-    <string name="forget_password">Forget Password</string>
+    <string name="forget_password">Forgot Password</string>
     <string name="enter_your_registered_email_address_and_we_ll_send_you_a_link_to_reset_your_password">Enter your registered email address and we\'ll send you a link to reset your password</string>
     <string name="enter_your_email">Enter your email</string>
     <string name="send">Send</string>
@@ -81,8 +81,10 @@
     <string name="how_it_works">Company Subscription</string>
     <string name="compare_im_title">Compare IM Intrinsic Matrix</string>
     <string name="subscription_title">Subscription</string>
-    <string name="purchase_his">Purchase History</string>
-    <string name="brief_ques_title">App Questionnaire</string>
+    <string name="purchase_his">Purchase Plan</string>
+   <!-- <string name="brief_ques_title">App Questionnaire</string>-->
+    <string name="brief_ques_title">Purchase</string>
+    <string name="purchase1">Purchase</string>
     <string name="vision_technology">Vision and Technology</string>
     <string name="contact_us">Contact Us</string>
     <string name="about_us">About Us</string>
@@ -128,14 +130,15 @@
     <string name="scientifically">Scientifically developed, consistent results designed by behavioural psychologists, the TeamPlayerHR solution statistically records how each participant perceives, interprets and approaches common workplace situations. TeamPlayerHR adds scientific objectivity to the team assignment and selection process because all participants are rated and compared by the same standardised measurements.</string>
     <string name="participants_profile">Participants Profile</string>
     <string name="purchase_brief_questionnaires">Purchase App Questionnaires</string>
-    <string name="what_benefits">What are the Beifits</string>
+    <!--<string name="what_benefits">What are the Beifits</string>-->
+    <string name="what_benefits">Value Calculator</string>
     <string name="subscriptions">Subscriptions</string>
     <string name="demo_in_login">Request Demo</string>
     <string name="confrim_password">confrim password</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="enter_team_name">Enter Team Name</string>
-    <string name="zip">Zip</string>
+
     <string name="state">State</string>
     <string name="occupation">Occupation</string>
     <string name="road_landmark">Road Landmark</string>
@@ -147,7 +150,7 @@
     <string name="participant_full_questionnaire">Purchase Full Questionnaire</string>
     <string name="app_questionnaire1">App Questionnaire</string>
     <string name="brief_questionnaire">App Questionnaire: </string>
-    <string name="number_of_participants">Number Of Questionnaire</string>
+    <string name="number_of_participants">Number Of Questionnaire:</string>
     <string name="plan">Plan</string>
     <string name="compare">Compare</string>
     <string name="where_do_you_suggest_the_text_is_displayed_on_mobile_app">Where do you suggest the text is displayed on mobile app?</string>
@@ -171,7 +174,7 @@
     <string name="enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire">Enter number of questionnaire and click Buy Now. After your purchase is complete you will be assigned Questionnaire to allow others to take the questionnaire.</string>
     <string name="select_team">Select Team</string>
     <string name="group_list">Group List</string>
-    <string name="beanchmark">Beanchmark:</string>
+    <string name="beanchmark">Benchmark:</string>
     <string name="benchmark_list">Benchmark List</string>
     <string name="participant_list">Participant List</string>
   <!--  <string name="name">Name</string>-->
@@ -181,9 +184,11 @@
     <string name="here_are_the_results_of_the_compatibility_between_the_benchmark_person_and_each_participant">Here are the results of the compatibility between the benchmark person and each participant.</string>
     <string name="significant_disagreement">Significant Disagreement</string>
     <string name="significant_agreement">Significant Agreement</string>
-    <string name="join_a_app_questionaire_group">Join a App questionaire group</string>
+    <string name="join_a_app_questionaire_group">Pending Invitation</string>
     <string name="invitee_list">Show Invitees</string>
     <string name="manage_participant_panel">Manage Participant Panel</string>
+    <string name="intrinsic_matrix_im_when_the_teamplayeruk_profile_questionnaire_is_taken_by_participants_it_establishes_their_intrinsic_matrix_compatibility_profile_the_im_acquires_its_value_when_compared_to_other_members_of_current_or_planned_teams_the_results_of_these_comparisons_are_used_to_match_participants_to_the_right_employers_team_leaders_and_current_team_members_to_help_create_the_most_compatible_teams_the_match_is_not_skills_or_talent_based_so_it_accelerates_hiring_decisions_de_risks_team_building_and_helps_improve_productivity_reduces_the_costs_of_hiring_new_staff_and_minimizes_hiring_mistakes">Intrinsic Matrix – IM. When the TeamPlayerUK profile questionnaire is taken by participants, it establishes their Intrinsic Matrix - compatibility profile. The “IM” acquires its value when compared to other members of current or planned teams. The results of these comparisons are used to match participants to the right employers/team leaders and current team members to help create the most compatible teams. The match is not skills or talent based, so, it accelerates hiring decisions, de-risks team building and helps improve productivity, reduces the costs of hiring new staff and minimizes hiring mistakes.</string>
+    <string name="zip">Zip/Postcode</string>
 
 
     <string-array name="selector">
@@ -191,7 +196,7 @@
         <item>System Engineer</item>
     </string-array>
     <string-array name="your_role">
-        <item>Select Role</item>
+        <item>Your Role</item>
         <item>CEO</item>
         <item>HR Manager</item>
         <item>HR Consultant</item>

@@ -192,7 +192,7 @@
                     android:layout_marginTop="@dimen/_45sdp"
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
-                    android:src="@drawable/logo"/>
+                    android:src="@drawable/company_logo_new"/>
                 <com.cts.teamplayer.customui.CustomTextviewBold
                     android:id="@+id/tv_open_home_in_login"
                     android:layout_width="match_parent"

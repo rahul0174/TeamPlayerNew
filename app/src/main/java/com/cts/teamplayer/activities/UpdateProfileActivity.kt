@@ -44,7 +44,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.ArrayList
 
-class UpdateProfileActivity: AppCompatActivity() , View.OnClickListener,ItemClickListner {
+class UpdateProfileActivity: AppCompatActivity() , View.OnClickListener,ItemClickListner,OccupationListAdapter.TextBookOccupationNow {
     var profession_id:String?=null
     private var mpref: TeamPlayerSharedPrefrence? = null
     var sector_id:String?=null
@@ -296,7 +296,7 @@ class UpdateProfileActivity: AppCompatActivity() , View.OnClickListener,ItemClic
 
         var manager = LinearLayoutManager(this@UpdateProfileActivity, LinearLayoutManager.VERTICAL, false)
         dialog!!.recycler_country_list.layoutManager = manager
-        val   countryListAdapter =  OccupationListAdapter(this@UpdateProfileActivity!!, list, this)
+        val   countryListAdapter =  OccupationListAdapter(this@UpdateProfileActivity!!, list, this,this)
         dialog!!.recycler_country_list.adapter = countryListAdapter
 
         dialog!!.show()
@@ -329,6 +329,12 @@ class UpdateProfileActivity: AppCompatActivity() , View.OnClickListener,ItemClic
             tv_profession_update.text=sectotList!!.get(position).text
             dialog!!.dismiss()
         }
+    }
+
+    override fun bookSession(position: Int, data: OccupationsList) {
+        sector_id=data.id.toString()
+        tv_profession_update.text=data.text
+        dialog!!.dismiss()
     }
 }
 

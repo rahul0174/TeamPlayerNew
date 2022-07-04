@@ -17,7 +17,7 @@ import com.cts.teamplayer.R
 import com.cts.teamplayer.activities.SignUpActivity
 import com.cts.teamplayer.activities.UpdateProfileActivity
 import com.cts.teamplayer.customui.CustomTextView
-import com.cts.teamplayer.models.UserProfileResponse
+import com.cts.teamplayer.models.UserProfileDetailsNResponse
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.util.MyConstants.ADDRESS
@@ -79,26 +79,45 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
             progress.isIndeterminate = true
             progress.show()
             val apiInterface = ApiClient.getConnection(activity!!)
-            var call: Call<UserProfileResponse>? = null//apiInterface.profileImage(body,token);
+            var call: Call<UserProfileDetailsNResponse>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.getUserDetailByToken(token)
-            call!!.enqueue(object : Callback<UserProfileResponse> {
+            call!!.enqueue(object : Callback<UserProfileDetailsNResponse> {
                 override fun onResponse(
-                    call: Call<UserProfileResponse>,
-                    response: retrofit2.Response<UserProfileResponse>
+                    call: Call<UserProfileDetailsNResponse>,
+                    response: retrofit2.Response<UserProfileDetailsNResponse>
                 ) {
                     progress.dismiss()
                     Log.e("log",response.body().toString());
                     if (response.code() >= 200 && response.code() < 210) {
                       //  et_first_name.text= Editable.Factory.getInstance().newEditable(response.body()!!.metaData!!.firstName)
                      if(response.body()!!.data!!.im==null){
+                         tv_im_id_user_profile.visibility=View.GONE
+                         ll_im_id.visibility=View.GONE
                          tv_im_id_user_profile.text="1234567"
+
                      }else{
+                         tv_im_id_user_profile.visibility=View.VISIBLE
+                         ll_im_id.visibility=View.VISIBLE
                          tv_im_id_user_profile.text=response.body()!!.data!!.im.toString()
                      }
                              tv_name_in_user_profile.text=response.body()!!.data!!.title+" "+response.body()!!.data!!.firstName+" "+response.body()!!.data!!.lastName
                         tv_last_name_in_user_profile.text=response.body()!!.data!!.lastName
+                        tv_country_in_user_profile.text=response.body()!!.data!!.countryData!!.name
+                        tv_state_in_user_profile.text=response.body()!!.data!!.stateData!!.name
+
+                        if(response.body()!!.data!!.cityData!!.name!=null){
+                            tv_city_in_user_profile.text=response.body()!!.data!!.cityData!!.name
+                        }
+
                         tv_email_in_user_profile.text=response.body()!!.data!!.email
                         tv_phone_in_user_profile.text=response.body()!!.data!!.phone
+                        if (response.body()!!.data!!.organizationName.toString()!="null"){
+                            ll_company_name_insignup.visibility=View.VISIBLE
+                            tv_company_name_in_signin.text=response.body()!!.data!!.organizationName.toString()
+                        }else{
+
+                            ll_company_name_insignup.visibility=View.GONE
+                        }
                         tv_user_name_in_profile.text=response.body()!!.data!!.title+" "+response.body()!!.data!!.firstName+" "+response.body()!!.data!!.lastName
 
                         first_name=response.body()!!.data!!.firstName
@@ -106,15 +125,24 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
                         phone_num=response.body()!!.data!!.phone
                         email=response.body()!!.data!!.email
                         address=response.body()!!.data!!.addressLine1
-                      //  profession=response.body()!!.data!!.sectorData!!.name
+                        profession=response.body()!!.data!!.occupationData!!.name
                    //     profession=response.body()!!.
                         cv_url=USERS_IMAGE+response.body()!!.data!!.cv
                        tv_profession_in_user_profile.text=response.body()!!.data!!.occupationData!!.name
-                        Glide.with(activity!!)
-                            .load(USERS_IMAGE+response.body()!!.data!!.cv)
-                            .override(60, 60)
-                            .fitCenter() // scale to fit entire image within ImageView
-                            .into(iv_user_image);
+
+                        if(response.body()!!.data!!.cv==null){
+
+                            btn_view_cv.visibility=View.GONE
+
+                        }else{
+                            Glide.with(activity!!)
+                                .load(USERS_IMAGE+response.body()!!.data!!.cv)
+                                /*  .load("https://34.204.201.39/HealthcareApplication/uploadedFiles/gijEaKes_1643028174729.jpg")
+                                */  .override(60, 60)
+                                .fitCenter() // scale to fit entire image within ImageView
+                                .into(iv_user_image)
+                            btn_view_cv.visibility=View.VISIBLE
+                        }
 
 
 
@@ -171,7 +199,7 @@ class ParticipantsProfileFragment : Fragment(),View.OnClickListener {
                     }
                 }
 
-                override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
+                override fun onFailure(call: Call<UserProfileDetailsNResponse>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
                         activity!!,

@@ -32,6 +32,7 @@ import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_forget_password.*
 import kotlinx.android.synthetic.main.activity_manage_team.*
+import kotlinx.android.synthetic.main.fragment_demo_group.*
 import kotlinx.android.synthetic.main.fragment_history.view.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -197,18 +198,39 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
 
     }
     private fun setBenchMarkListInRecycler(){
-        var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recycler_benchmarklist.layoutManager = manager
-        val   groupListAdapter =  BenchmarkListAdapter(this, userListItemBanchMark, this)
-        recycler_benchmarklist.adapter = groupListAdapter
-        groupListAdapter.notifyDataSetChanged()
+
+        if(userListItemBanchMark!!.size>0){
+            img_bench_mark_group_list_empty.visibility=View.GONE
+            recycler_benchmarklist.visibility=View.VISIBLE
+            var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            recycler_benchmarklist.layoutManager = manager
+            val   groupListAdapter =  BenchmarkListAdapter(this, userListItemBanchMark, this)
+            recycler_benchmarklist.adapter = groupListAdapter
+            groupListAdapter.notifyDataSetChanged()
+        }else{
+            img_bench_mark_group_list_empty.visibility=View.VISIBLE
+            recycler_benchmarklist.visibility=View.GONE
+        }
+
     }
     private fun setParticipantListInRecycler(){
-        var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recycler_participantlist.layoutManager = manager
-        val   groupListAdapter =  ParticipantListAdapter(this, userListItemParticipant, this)
-        recycler_participantlist.adapter = groupListAdapter
-        groupListAdapter.notifyDataSetChanged()
+        if(userListItemParticipant!!.size>0){
+            img_participant_group_list_empty.visibility=View.GONE
+            recycler_participantlist.visibility=View.VISIBLE
+            tv_parti_title.text="There are "+userListItemParticipant!!.size.toString()+" participants in this questionnaire group.Click a participant's name to view their questionnaire results."
+
+            var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            recycler_participantlist.layoutManager = manager
+            val   groupListAdapter =  ParticipantListAdapter(this, userListItemParticipant, this)
+            recycler_participantlist.adapter = groupListAdapter
+            groupListAdapter.notifyDataSetChanged()
+        }else{
+            tv_parti_title.text="There are "+0+" participants in this questionnaire group.Click a participant's name to view their questionnaire results."
+
+            img_participant_group_list_empty.visibility=View.VISIBLE
+            recycler_participantlist.visibility=View.GONE
+        }
+
     }
 
     override fun onClick(v: View?) {
@@ -531,6 +553,8 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
                     Log.e("json", jsonObject.toString())
                     updateAppSubscriptionPayment(jsonObject)
                 }else{
+
+
                     val amount1=   BigDecimal(userListItemBanchMark!!.size+1)
                     val amount2=   BigDecimal(ppclist!!.get(0).amount)
                     val total_amount:BigDecimal=amount1.multiply(amount2)

@@ -58,20 +58,20 @@
                             android:layout_centerVertical="true"
                             android:src="@drawable/user_input"
                             />
+
                         <com.cts.teamplayer.customui.CustomEditText
                             android:id="@+id/edit_user_name"
-                            android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/iv_user_input"
                             android:background="@null"
-                            android:singleLine="true"
-                            android:imeOptions="actionNext"
                             android:hint="@string/username"
-                            android:textColorHint="@color/light_grey_new"
+                            android:imeOptions="actionNext"
                             android:padding="@dimen/_10sdp"
-                            android:textSize="@dimen/_10sdp"
-                            />
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/light_grey_new"
+                            android:textSize="@dimen/_10sdp" />
 
                     </RelativeLayout>
                     <RelativeLayout
@@ -151,6 +151,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/ll_skip_sign_in_screen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -10,6 +10,8 @@ import com.cts.teamplayer.models.GroupListItem
 import com.cts.teamplayer.models.PendingJoinGroupDataItem
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants
+import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.adapter_pending_group_list.view.*
 import kotlinx.android.synthetic.main.group_list.view.*
 import kotlinx.android.synthetic.main.group_list.view.tv_group_list
@@ -42,7 +44,8 @@ class PendingGroupListAdapter (val mContext: Context, var data : java.util.Array
             //     var  flagurl="http://35.160.227.253/SaharaGo/Flag/"+data.flag
             /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
  */
-            itemView.btn_join_group.setOnClickListener {
+            itemView.setOnClickListener {
+
                 itemclick.onClickItem(position, MyConstants.JOIN_GROUP_LIST)
                 //    listener.bookSession(position,data)
             }

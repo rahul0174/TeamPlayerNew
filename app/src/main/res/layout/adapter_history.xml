@@ -39,16 +39,17 @@
             <LinearLayout
                 android:layout_toRightOf="@+id/rl_1"
                 android:orientation="vertical"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <com.cts.teamplayer.customui.CustomTextviewBold
                     android:id="@+id/tv_history_title"
                     android:layout_toRightOf="@+id/card_1"
-                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
+
                     android:layout_centerVertical="true"
                     android:text="Title"
                     android:layout_height="wrap_content"/>
@@ -82,15 +83,14 @@
             android:padding="@dimen/_5sdp"
             android:layout_height="wrap_content"
             >
-            <com.cts.teamplayer.customui.CustomTextviewBold
-                android:visibility="gone"
+            <com.cts.teamplayer.customui.CustomTextView
+                android:visibility="visible"
                 android:id="@+id/tv_test"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp"
                 android:layout_centerVertical="true"
-                android:text="fnfnfnffn fnfnfnfn"
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
                 android:layout_height="wrap_content"/>
             <LinearLayout
                 android:orientation="horizontal"
@@ -102,10 +102,10 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10sdp"
                     android:layout_centerVertical="true"
-                    android:text="No of participant: "
+                    android:text="Transaction Type: "
                     android:layout_height="wrap_content"/>
                 <com.cts.teamplayer.customui.CustomTextView
-                    android:id="@+id/tv_transaction_type"
+                    android:id="@+id/tv_transaction_type_new"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_width="match_parent"
                     android:textColor="@color/light_grey1"
@@ -114,6 +114,7 @@
                     android:text=""
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -136,8 +137,7 @@
                     android:text=""
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
-<LinearLayout
+            <LinearLayout
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -159,6 +159,28 @@
         android:text=""
         android:layout_height="wrap_content"/>
 </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text="No of participant: "
+                    android:layout_height="wrap_content"/>
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_transaction_type"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/light_grey1"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

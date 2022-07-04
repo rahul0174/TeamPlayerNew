@@ -54,6 +54,7 @@
                 android:text=""
                 />
             <LinearLayout
+                android:id="@+id/ll_im_id"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_width="match_parent"
                 android:padding="@dimen/_5sdp"
@@ -110,6 +111,102 @@
 
                 <com.cts.teamplayer.customui.CustomTextView
                     android:id="@+id/tv_name_in_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/country"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_country_in_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/state"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_state_in_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="@string/city"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_city_in_user_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -235,6 +332,37 @@
 
                 <com.cts.teamplayer.customui.CustomTextView
                     android:id="@+id/tv_profession_in_user_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:text=""
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_company_name_insignup"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_5sdp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Company"
+                    />
+                <ImageView
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/minus"
+                    />
+
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/tv_company_name_in_signin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

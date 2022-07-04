@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.cts.teamplayer.R
 import com.cts.teamplayer.models.CountryList
+import com.cts.teamplayer.models.InviteeListDataItem
 import com.cts.teamplayer.models.SectorList
 import com.cts.teamplayer.models.StateList
 import com.cts.teamplayer.network.ItemClickListner
 import kotlinx.android.synthetic.main.country_list.view.*
 
-class StateListAdapter(val mContext: Context, var data : ArrayList<StateList>, var itemclick: ItemClickListner) :
+class StateListAdapter(val mContext: Context, var data : ArrayList<StateList>, var itemclick: ItemClickListner,var listener:TextStateBookNow) :
     androidx.recyclerview.widget.RecyclerView.Adapter<StateListAdapter.MyHolderView>(){
     lateinit var countryFilterList : ArrayList<StateList>
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyHolderView {
@@ -36,15 +37,21 @@ class StateListAdapter(val mContext: Context, var data : ArrayList<StateList>, v
             /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
  */
             itemView.setOnClickListener{
-                itemclick.onClickItem(position,3)
-                //    listener.bookSession(position,data)
+
+              //  itemclick.onClickItem(position,3)
+                    listener.stateset(position,data)
             }
         }
 
     }
+    fun filterList(filterdNames: java.util.ArrayList<StateList>): java.util.ArrayList<StateList> {
+        this.data = filterdNames
+        notifyDataSetChanged()
+        return data as java.util.ArrayList<StateList>
+    }
 
-    interface TextBookNow{
-        fun bookSession(position: Int,data: CountryList)
+    interface TextStateBookNow{
+        fun stateset(position: Int,data: StateList)
     }
 
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.cts.teamplayer.R
 import com.cts.teamplayer.models.CountryList
 import com.cts.teamplayer.models.InviteeListDataItem
+import com.cts.teamplayer.models.SurveyParticipantsItem
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants
 import kotlinx.android.synthetic.main.adapter_invitee_list.view.*
@@ -53,6 +54,11 @@ class InviteeListAdapter (val mContext: Context, var data : java.util.ArrayList<
 
         }
 
+    }
+    fun filterList(filterdNames: java.util.ArrayList<InviteeListDataItem>): java.util.ArrayList<InviteeListDataItem> {
+        this.data = filterdNames
+        notifyDataSetChanged()
+        return data as java.util.ArrayList<InviteeListDataItem>
     }
 
     interface TextBookNow{

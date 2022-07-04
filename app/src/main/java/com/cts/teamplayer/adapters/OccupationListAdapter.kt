@@ -11,7 +11,7 @@ import com.cts.teamplayer.models.SectorList
 import com.cts.teamplayer.network.ItemClickListner
 import kotlinx.android.synthetic.main.country_list.view.*
 
-class OccupationListAdapter(val mContext: Context, var data : ArrayList<OccupationsList>, var itemclick: ItemClickListner) :
+class OccupationListAdapter(val mContext: Context, var data : ArrayList<OccupationsList>, var itemclick: ItemClickListner,val listener:TextBookOccupationNow) :
     androidx.recyclerview.widget.RecyclerView.Adapter<OccupationListAdapter.MyHolderView>(){
     lateinit var countryFilterList : ArrayList<OccupationsList>
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): MyHolderView {
@@ -36,15 +36,20 @@ class OccupationListAdapter(val mContext: Context, var data : ArrayList<Occupati
             /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
  */
             itemView.setOnClickListener{
-                itemclick.onClickItem(position,2)
-                //    listener.bookSession(position,data)
+              //  itemclick.onClickItem(position,2)
+                    listener.bookSession(position,data)
             }
         }
 
     }
+    fun filterList(filterdNames: java.util.ArrayList<OccupationsList>): java.util.ArrayList<OccupationsList> {
+        this.data = filterdNames
+        notifyDataSetChanged()
+        return data as java.util.ArrayList<OccupationsList>
+    }
 
-    interface TextBookNow{
-        fun bookSession(position: Int,data: CountryList)
+    interface TextBookOccupationNow{
+        fun bookSession(position: Int,data: OccupationsList)
     }
 
 

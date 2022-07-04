@@ -29,6 +29,7 @@
             android:textSize="@dimen/_13sdp"
             />
         <ImageView
+            android:visibility="gone"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_centerVertical="true"
@@ -40,6 +41,58 @@
 
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_41sdp"
+        >
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/country_search"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:queryHint="Search by Email"
+            app:iconifiedByDefault="false"/>
+        <com.cts.teamplayer.customui.CustomEditText
+            android:visibility="gone"
+            android:id="@+id/seachViewInviteList"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/_10sdp"
+            android:textColorHint="@color/black"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:hint="Search by Email"
+            android:iconifiedByDefault="false"/>
+        <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:layout_width="@dimen/_68sdp"
+            android:layout_height="@dimen/_26sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/colorAccent"
+            >
+            <RelativeLayout
+                android:id="@+id/tv_search_item_invite_list"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11sdp"
+                    android:text="SEARCH"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,14 +100,22 @@
         android:elevation="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/img_invite_list_empty"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/group_list_empty"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_invitee_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

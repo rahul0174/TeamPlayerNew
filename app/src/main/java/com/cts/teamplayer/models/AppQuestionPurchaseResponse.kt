@@ -20,6 +20,8 @@ data class AppQuestionPurchase(
 	val amount: String? = null,
 
 	@field:SerializedName("test")
+	val detail: String? = null,
+	@field:SerializedName("detail")
 	val test: String? = null,
 	@field:SerializedName("plan_title")
 	val plantitle: String? = null,

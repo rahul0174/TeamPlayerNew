@@ -6,19 +6,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_10sdp"
         android:orientation="vertical">
         <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tv_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_7sdp"
+            android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
             android:text="New"
             android:textSize="@dimen/_12sdp"
             />
         <View
-            android:layout_marginTop="@dimen/_2sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"

@@ -20,6 +20,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -37,6 +38,7 @@ import com.cts.teamplayer.util.Utility
 import com.google.gson.JsonObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import kotlinx.android.synthetic.main.activity_invitees_list.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.edit_password
 import kotlinx.android.synthetic.main.activity_sign_up.view.*
@@ -58,7 +60,10 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 
-class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.OnItemSelectedListener,CountryListAdapter.TextBookNow,ItemClickListner {
+class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.OnItemSelectedListener
+    ,CountryListAdapter.TextBookNow,ItemClickListner
+    ,StateListAdapter.TextStateBookNow,CityListAdapter.TextCityBookNow
+    ,SectorListAdapter.TextSectorBookNow,OccupationListAdapter.TextBookOccupationNow {
 
     private var mpref: TeamPlayerSharedPrefrence? = null
     var countryList: java.util.ArrayList<CountryList>? = null
@@ -78,6 +83,14 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var ischeck = false
     var text_your_role:String?=""
     var text_no_of_empl:String?=""
+
+    var stateListAdapter: StateListAdapter? = null
+    var countryListAdapter: CountryListAdapter? = null
+    var cityListAdapter: CityListAdapter? = null
+    var sectorListAdapter: SectorListAdapter? = null
+
+    var occupationListAdapter: OccupationListAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -233,14 +246,51 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             userSignup(requestBodyuser)
                         }
                     }else{
-                        rl_signup_text_layout.visibility=View.GONE
+                        if (checkVAlidation()) {
+
+                            var requestBodyuser = JsonObject()
+                            requestBodyuser.addProperty("first_name", edit_full_name.text.toString().trim())
+                            requestBodyuser.addProperty("last_name", edit_last_name.text.toString().trim())
+                            requestBodyuser.addProperty("email", edit_email.text.toString().trim())
+                            requestBodyuser.addProperty("title", edit_title.text.toString().trim())
+                            requestBodyuser.addProperty("phone", edit_phone.text.toString().trim())
+                            requestBodyuser.addProperty("cv", userIamge)
+                            requestBodyuser.addProperty(
+                                "address_line_1",
+                                edit_address.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty(
+                                "address_line_2",
+                                edit_landmark.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty("sector", sector_id)
+                            requestBodyuser.addProperty("occupation", occupation_id)
+                            requestBodyuser.addProperty("country", country_id)
+                            requestBodyuser.addProperty("city", city_id)
+                            requestBodyuser.addProperty("state", state_id)
+                            requestBodyuser.addProperty("zip", edit_zip.text.toString().trim())
+                            requestBodyuser.addProperty(
+                                "password",
+                                edit_password.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty(
+                                "confirm_password",
+                                edit_confrim_pass.text.toString().trim()
+                            )
+                            requestBodyuser.addProperty("agreeTerms", ischeck)
+                            requestBodyuser.addProperty("agreePrivacy", ischeck)
+
+                            userSignup(requestBodyuser)
+                        }
+                     /*   rl_signup_text_layout.visibility=View.GONE
                         iv_signup_first.visibility=View.GONE
-                        rl_signup_upload_dov_layout.visibility=View.VISIBLE
+                        rl_signup_upload_dov_layout.visibility=View.VISIBLE*/
                     }
 
                 }
 
-            } R.id.rl_upload_image_submit -> {
+            }
+            R.id.rl_upload_image_submit -> {
                 rl_signup_text_layout.visibility=View.GONE
                 iv_signup_first.visibility=View.GONE
                 rl_signup_upload_dov_layout.visibility=View.VISIBLE
@@ -293,21 +343,24 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             }
             R.id.tv_orgnization -> {
                 company_which_type="company"
+                edit_im_num.hint="Account Number"
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
                 tv_signup.setBackgroundColor(resources.getColor(R.color.light_grey1))
                 tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.white));
                 tv_signup.setTextColor(ContextCompat.getColor(this, R.color.black));
                 rl_upload_image.visibility = View.GONE
-                rl_edit_im_num.visibility = View.GONE
+                rl_edit_im_num.visibility = View.VISIBLE
                 rl_sign_up_in_your_role.visibility = View.VISIBLE
                 rl_signup_in_noofemployee.visibility = View.VISIBLE
                 rl_orgnization_name.visibility = View.VISIBLE
                 rl_occupation.visibility = View.GONE
+                rl_upload_image.visibility = View.GONE
 
 
             }
             R.id.tv_signup -> {
                 company_which_type=""
+                edit_im_num.hint="Do You have an IM ID"
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
                 tv_signup.setBackgroundColor(resources.getColor(R.color.light_blue))
                 tv_orgnization.setTextColor(ContextCompat.getColor(this, R.color.black));
@@ -318,6 +371,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 rl_signup_in_noofemployee.visibility = View.GONE
                 rl_orgnization_name.visibility = View.GONE
                 rl_occupation.visibility = View.VISIBLE
+                rl_upload_image.visibility = View.VISIBLE
 
 
             }
@@ -371,6 +425,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
                             Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG)
                                 .show()
+                            startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
                             finish()
 
                         } catch (e: JSONException) {
@@ -410,7 +465,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
                             val data = jsonObjectError.optString("data")
-                            Toast.makeText(this@SignUpActivity, data, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@SignUpActivity, message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             Toast.makeText(
@@ -476,14 +531,6 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     Toast.LENGTH_SHORT
                 ).show()
                 return false
-            }else if(edit_orgnization_name.text.toString().trim().length === 0){
-                    Toast.makeText(
-                        this@SignUpActivity,
-                        getString(R.string.enter_organization),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return false
-
             }
             else  if (edit_landmark.text.toString().trim().length === 0) {
                 Toast.makeText(this@SignUpActivity, getString(R.string.enter_mark), Toast.LENGTH_SHORT).show()
@@ -496,9 +543,22 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     Toast.LENGTH_SHORT
                 ).show()
                 return false
-            }else  if (city_id.equals("")) {
+            }/*else  if (city_id.equals("")) {
                 Toast.makeText(this@SignUpActivity, getString(R.string.select_city), Toast.LENGTH_SHORT).show()
                 return false
+            }*/
+            else  if (edit_zip.text.toString().trim().length === 0) {
+                Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
+                return false
+            }
+            else if(edit_orgnization_name.text.toString().trim().length === 0){
+                Toast.makeText(
+                    this@SignUpActivity,
+                    getString(R.string.enter_organization),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return false
+
             }
             else if(text_your_role.equals("0")){
                     Toast.makeText(this@SignUpActivity, getString(R.string.enter_your_role), Toast.LENGTH_SHORT).show()
@@ -508,10 +568,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     return false
             }
 
-            else  if (edit_zip.text.toString().trim().length === 0) {
-                Toast.makeText(this@SignUpActivity, getString(R.string.enter_zip), Toast.LENGTH_SHORT).show()
-                return false
-            }
+
             else  if (sector_id.equals("")) {
                 Toast.makeText(
                     this@SignUpActivity,
@@ -625,14 +682,14 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     Toast.LENGTH_SHORT
                 ).show()
                 return false
-            } else if (city_id.equals("")) {
+            }/* else if (city_id.equals("")) {
                 Toast.makeText(
                     this@SignUpActivity,
                     getString(R.string.select_city),
                     Toast.LENGTH_SHORT
                 ).show()
                 return false
-            } else if (edit_zip.text.toString().trim().length === 0) {
+            }*/ else if (edit_zip.text.toString().trim().length === 0) {
                 Toast.makeText(
                     this@SignUpActivity,
                     getString(R.string.enter_zip),
@@ -826,10 +883,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     if (response.code() >= 200 && response.code() < 210) {
                         try {
                             val jsonObject = JSONObject(response.body()!!.toString())
-                            userIamge = jsonObject.getJSONObject("data").optString("filename")
-
-                            Log.e("userIamge", userIamge)
-
+                            userIamge = jsonObject.getJSONObject("data").optString("filename").toString()
+                            Toast.makeText(this@SignUpActivity, userIamge, Toast.LENGTH_LONG).show()
 
                         } catch (e: Exception) {
                             e.printStackTrace()
@@ -870,6 +925,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 }
 
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    Log.e("Rahul",t.toString())
                     progressDialog.dismiss()
                     Toast.makeText(
                         this@SignUpActivity,
@@ -1346,13 +1402,42 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         dialog!!.window!!.setGravity(Gravity.CENTER)
       //  dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
+        dialog!!.city_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterCountry(newText.toString(),list)
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
 
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
        dialog!!.recycler_country_list.layoutManager = manager
-      val   countryListAdapter =  CountryListAdapter(this@SignUpActivity!!, list, this)
+        countryListAdapter =  CountryListAdapter(this@SignUpActivity!!, list, this)
         dialog!!.recycler_country_list.adapter = countryListAdapter
 
         dialog!!.show()
+    }
+    private fun filterCountry(text: String,list: ArrayList<CountryList>) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<CountryList> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in list) {
+            //if the existing elements contains the search input
+            if (s!!.name!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = countryListAdapter!!.filterList(filterdNames)
+
     }
     private fun sectorDialog(list: ArrayList<SectorList>) {
         dialog = android.app.Dialog(this)
@@ -1367,12 +1452,42 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
        // dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
+        dialog!!.city_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterSector(newText.toString(),list)
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
         dialog!!.recycler_country_list.layoutManager = manager
-        val   countryListAdapter =  SectorListAdapter(this@SignUpActivity!!, list, this)
-        dialog!!.recycler_country_list.adapter = countryListAdapter
+           sectorListAdapter =  SectorListAdapter(this@SignUpActivity!!, list, this,this)
+        dialog!!.recycler_country_list.adapter = sectorListAdapter
 
         dialog!!.show()
+    }
+    private fun filterSector(text: String,list: ArrayList<SectorList>) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<SectorList> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in list) {
+            //if the existing elements contains the search input
+            if (s!!.name!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = sectorListAdapter!!.filterList(filterdNames)
+
     }
     private fun occupationDialog(list: ArrayList<OccupationsList>) {
         dialog = android.app.Dialog(this)
@@ -1387,12 +1502,42 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
        // dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
+        dialog!!.city_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterOccupation(newText.toString(),list)
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
         dialog!!.recycler_country_list.layoutManager = manager
-        val   countryListAdapter =  OccupationListAdapter(this@SignUpActivity!!, list, this)
-        dialog!!.recycler_country_list.adapter = countryListAdapter
+           occupationListAdapter =  OccupationListAdapter(this@SignUpActivity!!, list, this,this)
+        dialog!!.recycler_country_list.adapter = occupationListAdapter
 
         dialog!!.show()
+    }
+    private fun filterOccupation(text: String,list: ArrayList<OccupationsList>) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<OccupationsList> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in list) {
+            //if the existing elements contains the search input
+            if (s!!.name!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = occupationListAdapter!!.filterList(filterdNames)
+
     }
     private fun stateDialog(list: ArrayList<StateList>) {
         dialog = android.app.Dialog(this)
@@ -1407,13 +1552,44 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
       //  dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
+        dialog!!.city_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filter(newText.toString(),list)
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
         dialog!!.recycler_country_list.layoutManager = manager
-        val   stateListAdapter =  StateListAdapter(this@SignUpActivity!!, list, this)
+           stateListAdapter =  StateListAdapter(this@SignUpActivity!!, list, this,this)
         dialog!!.recycler_country_list.adapter = stateListAdapter
 
         dialog!!.show()
     }
+    private fun filter(text: String,list: ArrayList<StateList>) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<StateList> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in list) {
+            //if the existing elements contains the search input
+            if (s!!.name!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = stateListAdapter!!.filterList(filterdNames)
+
+    }
+
     private fun cityDialog(list: ArrayList<CityList>) {
         dialog = android.app.Dialog(this)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -1427,12 +1603,42 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
      //   dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.white)))
         dialog!!.setCanceledOnTouchOutside(true)
 
+        dialog!!.city_search.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterCity(newText.toString(),list)
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
         var manager = LinearLayoutManager(this@SignUpActivity, LinearLayoutManager.VERTICAL, false)
         dialog!!.recycler_country_list.layoutManager = manager
-        val   stateListAdapter =  CityListAdapter(this@SignUpActivity!!, list, this)
-        dialog!!.recycler_country_list.adapter = stateListAdapter
+           cityListAdapter =  CityListAdapter(this@SignUpActivity!!, list, this,this)
+        dialog!!.recycler_country_list.adapter = cityListAdapter
 
         dialog!!.show()
+    }
+    private fun filterCity(text: String,list: ArrayList<CityList>) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<CityList> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
+
+        //looping through existing elements
+        for (s in list) {
+            //if the existing elements contains the search input
+            if (s!!.name!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = cityListAdapter!!.filterList(filterdNames)
+
     }
     private fun openImageDocDialog() {
         dialog = android.app.Dialog(this)
@@ -1474,9 +1680,12 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
     override fun bookSession(position: Int, data: CountryList) {
         tv_country.text=data.name
+        tv_state.text=null
+        tv_city.text=null
         country_id=data.id.toString()
         dialog!!.dismiss()
     }
+
 
     override fun onClickItem(position: Int, requestcode: Int) {
         if(requestcode==1){
@@ -1492,6 +1701,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         if(requestcode==3){
             state_id=stateList!!.get(position).id.toString()
             tv_state.text=stateList!!.get(position).text
+            tv_city.text=null
             dialog!!.dismiss()
         }
         if(requestcode==4){
@@ -1500,5 +1710,33 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             dialog!!.dismiss()
         }
     }
+
+
+
+    override fun stateset(position: Int, data: StateList) {
+        state_id=data.id.toString()
+        tv_state.text=data.text
+        tv_city.text=null
+        dialog!!.dismiss()
+    }
+
+    override fun citySet(position: Int, data: CityList) {
+        city_id=data.id.toString()
+        tv_city.text=data.text
+        dialog!!.dismiss()
+    }
+
+    override fun sectorSet(position: Int, data: SectorList) {
+        sector_id=data.id.toString()
+        tv_sector.text=data.text
+        dialog!!.dismiss()
+    }
+
+    override fun bookSession(position: Int, data: OccupationsList) {
+        occupation_id=data.id.toString()
+        tv_occupation.text=data.text
+        dialog!!.dismiss()
+    }
+
 
 }

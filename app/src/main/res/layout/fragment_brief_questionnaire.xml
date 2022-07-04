@@ -40,11 +40,45 @@
                         android:textColor="@color/dark_grey"
                         android:text="@string/enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire"
                                   />
+                    <com.cts.teamplayer.customui.CustomTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/dark_grey"
+                        android:text="Single user can purchase an unlimited number of APP questionnaires for invitees at 0.99 pence etc. Individual can signup for full questionnaire IM - £50 purchased through mobile App."
+                       />
+                    <com.cts.teamplayer.customui.CustomButton
+                        android:id="@+id/btn_puchase_full_que"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:text="Purchase Full Questionnaire:"
+                        android:textAllCaps="false"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp"
+                        android:background="@color/dark_grey"
+                        />
+                    <com.cts.teamplayer.customui.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/black"
+                        android:text="Or"
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_13sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:orientation="horizontal">
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
@@ -56,6 +90,7 @@
                             android:text="@string/brief_questionnaire"
                             />
                         <com.cts.teamplayer.customui.CustomTextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_10sdp"
@@ -86,7 +121,6 @@
                         >
                         <com.cts.teamplayer.customui.CustomEditText
                             android:id="@+id/edit_number_of_participants"
-                            android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
@@ -102,6 +136,7 @@
 
                     </RelativeLayout>
                     <com.cts.teamplayer.customui.CustomTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
@@ -111,6 +146,7 @@
                         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"
                         />
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
@@ -140,7 +176,13 @@
                         android:background="@color/whit_new"
                         android:layout_marginTop="@dimen/_8ssp"
                         />
+                      <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_plan_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                     <com.cts.teamplayer.customui.CustomTextviewBold
+                        android:id="@+id/tv_plan"
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -152,7 +194,7 @@
                         android:text="@string/plan"
                         />
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_plan_list"
+                        android:id="@+id/recycler_new_user_plan_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

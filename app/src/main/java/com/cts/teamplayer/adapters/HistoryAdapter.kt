@@ -33,7 +33,8 @@ class HistoryAdapter(val mContext: Context, var data : java.util.ArrayList<AppQu
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bind(data: AppQuestionPurchase, position: Int) {
-            itemView.tv_test.text=data.test
+          //  itemView.tv_test.text=data.detail
+            itemView.tv_transaction_type_new.text="Debit Card"
             itemView.tv_transaction_type.text=data.noOfParticipant
             itemView.tv_date_his.text=data.onDate
             itemView.tv_amount_his.text=data.amount

@@ -1,15 +1,20 @@
 package com.cts.teamplayer.activities
 
+import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,16 +25,20 @@ import com.cts.teamplayer.adapters.CustomParticipantTeamList
 import com.cts.teamplayer.adapters.ParticipantsGroupInList
 import com.cts.teamplayer.adapters.SubGroupAdapter
 import com.cts.teamplayer.customui.CustomTextView
+import com.cts.teamplayer.fragments.BriefQuestionnaireFragment
 import com.cts.teamplayer.models.*
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.network.ItemClickListner
+import com.cts.teamplayer.util.FunctionHelper
 import com.cts.teamplayer.util.MyConstants.ADD_TO_TEAM
 import com.cts.teamplayer.util.MyConstants.MANAGE_TEAM_REQUEST_CODE
 import com.cts.teamplayer.util.MyConstants.PARTICIPANTS_TEAM_REQUEST_CODE
 import com.cts.teamplayer.util.MyConstants.SEND_REMINDER_REQUEST_CODE
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.activity_invitees_list.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_update_profile.*
@@ -51,10 +60,13 @@ import java.util.*
 
 class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickListner {
     var name:String?=null
+    var remaining:Int?=null
     var user_name:String?=null
     var ueser_id:String?=null
     var manage_text_group:String?=null
     var dialog:Dialog?=null
+    var dialog1:Dialog?=null
+    lateinit var homeFragment: androidx.fragment.app.Fragment
     var spinner_team_list:Spinner?=null
     var numbers: ArrayList<UserListItem> = ArrayList()
 
@@ -67,20 +79,56 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_demo_group)
+        hideKeyBoard(this)
         findId()
     }
 
     private fun findId() {
         mpref = TeamPlayerSharedPrefrence.getInstance(this)
-        edit_invite_participat_email_im.setOnClickListener(this)
+     //   edit_invite_participat_email_im.setOnClickListener(this)
         rl_click_manage_txt_group.setOnClickListener(this)
         rl_click_manage_cts_brief.setOnClickListener(this)
         tv_create_team.setOnClickListener(this)
         img_brief_ques.setOnClickListener(this)
         tv_invitee_click.setOnClickListener(this)
+     //   rl_invitee.setOnClickListener(this)
         QuestionnaireGroupDetailsApi(intent.getStringExtra("GROUP_ID").toString())
         SubGroupListApi()
         groupList()
+
+
+        search_participant.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterParticipant(newText.toString())
+                //  countryListAdapter!!.filter.filter(newText)
+                return false
+            }
+
+        })
+
+       /* edit_invite_participat_email_im.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                sendData()
+            }
+        })*/
+        rl_invitee.setOnClickListener {
+            sendData()
+            /*         participantsGroupInList!!.filter(
+                         seachView.text.toString().trim { it <= ' ' })*/
+        }
+
+
         tv_search_item.setOnClickListener {
             filter(seachView.text.toString())
    /*         participantsGroupInList!!.filter(
@@ -88,11 +136,85 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         }
 
     }
+    private fun filterParticipant(text: String) {
+        //new array list that will hold the filtered data
+        var filterdNames: ArrayList<SurveyParticipantsItem> = ArrayList()
+        //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
 
+        //looping through existing elements
+        for (s in this!!.surveyGroupList!!) {
+            //if the existing elements contains the search input
+            if (s!!.userName!!.toLowerCase().contains(text.toLowerCase())) {
+                //adding the element to filtered list
+                filterdNames.add(s)
+            }
+        }
+        filterdNames = participantsGroupInList!!.filterList(filterdNames)
+
+    }
+    private fun sendData(){
+        if(remaining==0){
+            dialog1 = Dialog(this)
+            dialog1!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog1!!.setCancelable(false)
+            dialog1!!.setContentView(R.layout.dialog_no_credit)
+            dialog1!!.setCanceledOnTouchOutside(true)
+            dialog1!!.window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+            dialog1!!.window!!.setBackgroundDrawable(ColorDrawable(this.resources.getColor(R.color.full_transparent)))
+
+            dialog1!!.window!!.setGravity(Gravity.CENTER)
+
+            val rl_yes_credit = dialog1!!.findViewById(R.id.rl_yes_credit) as RelativeLayout
+            val rl_no_credit = dialog1!!.findViewById(R.id.rl_no_credit) as RelativeLayout
+
+            dialog1!!.show()
+            rl_no_credit.setOnClickListener {
+                dialog1!!.dismiss()
+            }
+            rl_yes_credit.setOnClickListener {
+                dialog1!!.dismiss()
+
+            /*    startActivity(
+                    Intent(this, MainActivity::class.java).putExtra(
+                        "GROUP_ID", intent.getStringExtra(
+                            "GROUP_ID"
+                        )
+                    ).putExtra(
+                        "REMAINING", remaining
+                    ))*/
+            }
+        }else{
+            startActivity(
+                Intent(this, MaltipleInviteEmailActivity::class.java).putExtra(
+                    "GROUP_ID", intent.getStringExtra(
+                        "GROUP_ID"
+                    )
+                ).putExtra(
+                    "REMAINING", remaining
+                ))
+        }
+
+    }
+    fun hideKeyBoard(activity: Activity): Boolean {
+        try {
+            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            return inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken,
+                0
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+
+    }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.edit_invite_participat_email_im -> {
+            /*R.id.edit_invite_participat_email_im -> {
                 if (edit_invite_participat_email_im.text!!.toString()
                         .trim { it <= ' ' }.length == 0
                 ) {
@@ -110,7 +232,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
                     )
                     sendInviteApi(sendRequest)
                 }
-            }
+            }*/
             R.id.tv_create_team -> {
                 if (edit_team_name.text!!.toString().trim { it <= ' ' }.length == 0) {
                     Toast.makeText(
@@ -177,10 +299,10 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
                     if (response.code() >= 200 && response.code() < 210) {
                         //  et_first_name.text= Editable.Factory.getInstance().newEditable(response.body()!!.metaData!!.firstName)
 
-                        edit_invite_participat_email_im.text =
+                       /* edit_invite_participat_email_im.text =
                             Editable.Factory.getInstance().newEditable(
                                 ""
-                            )
+                            )*/
                         Toast.makeText(
                             this@GroupManageActivity,
                             response.body()!!.message,
@@ -368,11 +490,21 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
                     Log.e("log", response.body().toString());
                     if (response.code() >= 200 && response.code() < 210) {
                         //  et_first_name.text= Editable.Factory.getInstance().newEditable(response.body()!!.metaData!!.firstName)
+                        remaining=response.body()!!.data!!.remaining
+                        tv_questionnaire_remaining.text= response.body()!!.data!!.remaining.toString()
                         tv_questionnaire_remaining.text =
-                            response.body()!!.data!!.surveyGroup!!.test + " questionnaire remaining"
+                            response.body()!!.data!!.remaining.toString() + " questionnaire remaining"
+                        tv_questionnaire_title.text = TeamPlayerSharedPrefrence.getInstance(this@GroupManageActivity).getBusinessName("")+" " + response.body()!!.data!!.remaining.toString() + " questionnaire remaining"
+
                         name = response.body()!!.data!!.surveyGroup!!.name
                         surveyGroupList =
                             response.body()!!.data!!.surveyParticipants as ArrayList<SurveyParticipantsItem>?
+                        if(surveyGroupList!!.size>0){
+                            tv_which_participant_avalible.text="There are "+surveyGroupList!!.size.toString()+" participants in this questionnaire group.Click a participant's name to view their questionnaire results."
+                        }else{
+                            tv_which_participant_avalible.text="There are 0 participants in this questionnaire group.Click a participant's name to view their questionnaire results."
+
+                        }
                         setGroupList()
 
                     } else if (response.code() == 500) {
@@ -621,10 +753,18 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
     }
 
     fun setSubGroupList(){
-        var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recycler_sub_group_list.layoutManager = manager
-        val   groupListAdapter =  SubGroupAdapter(this, subGroupList, this)
-        recycler_sub_group_list.adapter = groupListAdapter
+        if(subGroupList!!.size>0){
+            img_back_on_manage_team_list_empty.visibility=View.GONE
+            recycler_sub_group_list.visibility=View.VISIBLE
+            var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            recycler_sub_group_list.layoutManager = manager
+            val   groupListAdapter =  SubGroupAdapter(this, subGroupList, this)
+            recycler_sub_group_list.adapter = groupListAdapter
+        }else{
+            img_back_on_manage_team_list_empty.visibility=View.VISIBLE
+            recycler_sub_group_list.visibility=View.GONE
+        }
+
     }
     fun setGroupList(){
         var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -942,11 +1082,14 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         val rl_select_team_in_participat = dialog!!.findViewById(R.id.rl_select_team_in_participat) as RelativeLayout
         val iv_cancel_dialog_add_to_team = dialog!!.findViewById(R.id.iv_cancel_dialog_add_to_team) as ImageView
         val edit_user_role_in_req_demo = dialog!!.findViewById(R.id.edit_user_role_in_req_demo) as CustomTextView
-        val tv_title_on_create_team_dialog = dialog!!.findViewById(R.id.tv_title_on_create_team_dialog) as TextView
+        val rl_new_user = dialog!!.findViewById(R.id.rl_new_user) as RelativeLayout
         dialog!!.tv_title_on_create_team_dialog.text="Add "+userName+" To Team"
         iv_cancel_dialog_add_to_team.setOnClickListener { showDialogTeamList()}
         edit_user_role_in_req_demo.setOnClickListener {
             showDialogTeamList()
+        }
+        rl_new_user.setOnClickListener {
+            dialog!!.dismiss()
         }
         dialog!!.show()
 
@@ -963,6 +1106,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
         val recycler_country_list = dialog!!.findViewById(R.id.recycler_country_list) as RecyclerView
+        val city_search = dialog!!.findViewById(R.id.city_search) as RelativeLayout
 
 
         var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

@@ -33,6 +33,7 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var mpref: TeamPlayerSharedPrefrence? = null
+    var remaining:Int?=null
     lateinit var homeFragment: androidx.fragment.app.Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +53,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
       }else{
           ll_main_in_login.visibility=View.VISIBLE
           ll_main.visibility=View.GONE
+          if(mpref!!.getRoal("").equals("2"))  {
+
+              if(intent.getStringExtra("SPLASH").equals("1")){
+                  addHomeFragment()
+              }else{
+                  if(TeamPlayerSharedPrefrence.getInstance(this).getIsQuestionnaireName("").toString()=="true"){
+                      addInviteGroupFragment()
+
+                  }else{
+                      addAppQuestionnaireFragment()
+                      questionAnswerList()
+                  }
+                 // if(TeamPlayerSharedPrefrence.getInstance(this).getIsQuestionnaireName(""))
+               /*   addAppQuestionnaireFragment()
+                  questionAnswerList()*/
+              }
+
+
+          }else{
+              if(intent.getStringExtra("SPLASH").equals("1")){
+                  addHomeFragment()
+              }else{
+                  addInviteGroupFragment()
+                  questionAnswerList()
+              }
+
+
+          }
         //  addHomeFragment()
-          addInviteGroupFragment()
-          questionAnswerList()
+
       }
 
         img_side_nav.setOnClickListener(this)
@@ -118,28 +146,34 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
                 //  addFaqFragment()
             }R.id.rl_calcu -> {
+           addAppQuestionnaireFragment()
+           // addCompareImIntrinsicFragment()
+          //  addCalculatorFragment()
+            }/*R.id.rl_calcu -> {
             addCompareImIntrinsicFragment()
           //  addCalculatorFragment()
-            }R.id.rl_calcu -> {
-            addCompareImIntrinsicFragment()
-          //  addCalculatorFragment()
-            }R.id.tv_puchase_history_frg -> {
+            }*/R.id.tv_puchase_history_frg -> {
             drawer_layout.closeDrawers()
             addHistoryFragment()
           //  addCalculatorFragment()
             }R.id.tv_participant_app_questionnaire -> {
             drawer_layout.closeDrawers()
-            addCalculatorFragment()
+            addAppQuestionnaireFragment()
+           // addCalculatorFragment()
             //  addCalculatorFragment()
         }
             R.id.tv_participant_full_questionnaire -> {
-            drawer_layout.closeDrawers()
-            val i = Intent(this, WebViewActivity::class.java)
-                .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com/purchase")
+                drawer_layout.closeDrawers()
+                val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://dev.teamplayerhr.com/purchase"))
+                startActivity(i)
 
+         /*   val i = Intent(this, WebViewActivity::class.java)
+                .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com/purchase")
+*/
            /* val url="https://dev.teamplayerhr.com"
             intent.data = Uri.parse(url)*/
-            startActivity(i)
+
+         //   startActivity(i)
           //  addCalculatorFragment()
           //  addCalculatorFragment()
             }R.id.tv_open_home -> {
@@ -233,7 +267,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun addInviteGroupFragment() {
-        tv_title_header.text="Group"
+
+        tv_title_header.text=TeamPlayerSharedPrefrence.getInstance(this).getBusinessName("")
         homeFragment = InviteGroupListFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
@@ -254,6 +289,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }private fun addCompareImIntrinsicFragment() {
         tv_title_header.text=getString(R.string.compare_im_title)
         homeFragment = CompareImIntrinsicMatrix()
+        val manager = supportFragmentManager
+        val transaction = manager.beginTransaction()
+        transaction.replace(R.id.container, homeFragment)
+      //  transaction.addToBackStack(null);
+        transaction.commit()
+
+    }private fun addAppQuestionnaireFragment() {
+        tv_title_header.text=TeamPlayerSharedPrefrence.getInstance(this).getBusinessName("")
+        homeFragment = AppQuestionnaireFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
         transaction.replace(R.id.container, homeFragment)

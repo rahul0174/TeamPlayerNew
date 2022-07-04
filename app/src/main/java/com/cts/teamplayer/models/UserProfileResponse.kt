@@ -25,6 +25,121 @@ data class OccupationData(
 	@field:SerializedName("id")
 	val id: Int? = null
 )
+data class CountryData(
+
+	@field:SerializedName("capital")
+	val capital: String? = null,
+
+	@field:SerializedName("emojiU")
+	val emojiU: String? = null,
+
+	@field:SerializedName("wikiDataId")
+	val wikiDataId: String? = null,
+
+	@field:SerializedName("flag")
+	val flag: String? = null,
+
+	@field:SerializedName("emoji")
+	val emoji: String? = null,
+
+	@field:SerializedName("created_at")
+	val createdAt: String? = null,
+
+	@field:SerializedName("phonecode")
+	val phonecode: String? = null,
+
+	@field:SerializedName("updated_at")
+	val updatedAt: String? = null,
+
+	@field:SerializedName("native")
+	val jsonMemberNative: String? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("currency")
+	val currency: String? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
+
+	@field:SerializedName("iso2")
+	val iso2: String? = null,
+
+	@field:SerializedName("iso3")
+	val iso3: String? = null
+)
+data class StateData(
+
+	@field:SerializedName("country_code")
+	val countryCode: String? = null,
+
+	@field:SerializedName("wikiDataId")
+	val wikiDataId: String? = null,
+
+	@field:SerializedName("flag")
+	val flag: String? = null,
+
+	@field:SerializedName("updated_at")
+	val updatedAt: String? = null,
+
+	@field:SerializedName("fips_code")
+	val fipsCode: String? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("created_at")
+	val createdAt: String? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
+
+	@field:SerializedName("iso2")
+	val iso2: String? = null,
+
+	@field:SerializedName("country_id")
+	val countryId: String? = null
+)
+
+data class CityData(
+
+	@field:SerializedName("updated_on")
+	val updatedOn: String? = null,
+
+	@field:SerializedName("country_code")
+	val countryCode: String? = null,
+
+	@field:SerializedName("wikiDataId")
+	val wikiDataId: String? = null,
+
+	@field:SerializedName("flag")
+	val flag: String? = null,
+
+	@field:SerializedName("latitude")
+	val latitude: String? = null,
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("created_at")
+	val createdAt: String? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
+
+	@field:SerializedName("state_id")
+	val stateId: String? = null,
+
+	@field:SerializedName("state_code")
+	val stateCode: String? = null,
+
+	@field:SerializedName("country_id")
+	val countryId: String? = null,
+
+	@field:SerializedName("longitude")
+	val longitude: String? = null
+)
 
 data class SectorData(
 
@@ -69,6 +184,15 @@ data class UserProfileData(
 
 	@field:SerializedName("sector_data")
 	val sectorData: SectorData? = null,
+
+	@field:SerializedName("country_data")
+	val countryData: CountryData? = null,
+
+	@field:SerializedName("state_data")
+	val stateData: StateData? = null,
+
+	@field:SerializedName("city_data")
+	val cityData: CityData? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,

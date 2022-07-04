@@ -212,18 +212,17 @@
                 android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/rounded_doted_btn"
                 >
+
                 <com.cts.teamplayer.customui.CustomTextView
                     android:id="@+id/tv_profession_update"
-                    android:layout_toRightOf="@+id/iv_user_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:singleLine="true"
                     android:hint="@string/profession"
-                    android:textColorHint="@color/light_grey_new"
                     android:padding="@dimen/_10sdp"
-                    android:textSize="@dimen/_10sdp"
-                    />
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/light_grey_new"
+                    android:textSize="@dimen/_10sdp" />
                 <ImageView
                     android:id="@+id/iv_profession"
                     android:layout_width="@dimen/_14sdp"

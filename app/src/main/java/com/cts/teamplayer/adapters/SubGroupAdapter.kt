@@ -37,7 +37,7 @@ class SubGroupAdapter (val mContext: Context, var data : java.util.ArrayList<Sub
         fun bind(data: SubGroupList, position: Int) {
             itemView.tv_team_name_new.text="Team Name: "+data.name
              if(data.userList!!.size>0){
-                itemView.tv_no_of_participat_new.text="No. of Participants: "+data.userList.size
+                itemView.tv_no_of_participat_new.text="Participants: "+data.userList.size
             }else{
                 itemView.tv_no_of_participat_new.text="No. of Participants: "+"0"
             }

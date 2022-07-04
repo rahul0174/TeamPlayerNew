@@ -10,9 +10,7 @@ import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 class SplashActivity: AppCompatActivity() {
     private var mpref: TeamPlayerSharedPrefrence? = null
     var bundle: Bundle? = null
-    var str : String? =  null
-    var str1 : String? =  null
-    var str2 : String? =  null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -31,11 +29,12 @@ class SplashActivity: AppCompatActivity() {
                 startActivity(Intent(this@SplashActivity, WelcomeActivity::class.java))
                 finish()
             }else{
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java).putExtra("SPLASH","1"))
                 finish()
 
             }
-        }, 2000)
+        }, 4000)
     }
 
 

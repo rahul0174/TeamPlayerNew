@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -15,7 +16,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/_30sdp">
             <com.cts.teamplayer.customui.CustomTextView
-                android:id="@+id/tv_participants_group_name"
+                android:id="@+id/tv_participants_group_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Team Name"
@@ -36,7 +37,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/_30sdp">
             <com.cts.teamplayer.customui.CustomTextView
-                android:id="@+id/tv_survey_progress"
+                android:id="@+id/tv_survey_progress3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Complete"
@@ -55,7 +56,7 @@
             android:layout_weight="1"
             android:layout_height="@dimen/_35sdp">
             <com.cts.teamplayer.customui.CustomTextView
-                android:id="@+id/tv_click_add_to_team"
+                android:id="@+id/tv_click_add_to_team1"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:text="Add to Team"
@@ -69,7 +70,76 @@
                 />
         </RelativeLayout>
     </LinearLayout>
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:elevation="@dimen/_10sdp"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <com.cts.teamplayer.customui.CustomTextviewBold
+                android:id="@+id/tv_participants_group_name"
+                android:layout_toLeftOf="@+id/lll"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:text="Team Name : Rahul"/>
+            <LinearLayout
+
+                android:id="@+id/tv_survey_progress1"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:text="Option:"/>
+                <com.cts.teamplayer.customui.CustomTextviewBold
+                    android:id="@+id/tv_click_add_to_team"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_20sdp"
+                    android:text="Show"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:background="@color/light_blue"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_9sdp"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tv_survey_progress"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:text="No. of Participants:"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/light_grey"/>
+
+    </LinearLayout>
     <View
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1ssp"
         android:background="@color/whit_new"

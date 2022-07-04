@@ -26,8 +26,6 @@
                     android:visibility="gone"
                     android:textSize="@dimen/_10sdp" />
 
-
-
             <CheckBox
                 android:visibility="visible"
                 android:id="@+id/checkbox_answer_select"

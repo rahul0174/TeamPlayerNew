@@ -30,11 +30,13 @@ import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.MyConstants
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.google.gson.JsonObject
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_country.*
 import kotlinx.android.synthetic.main.dialog_country.recycler_country_list
 import kotlinx.android.synthetic.main.dialog_open_questionnaire.*
 import kotlinx.android.synthetic.main.fragment_brief_questionnaire.view.*
 import kotlinx.android.synthetic.main.fragment_demo_group.*
+import kotlinx.android.synthetic.main.fragment_demo_group.tv_title_header
 import kotlinx.android.synthetic.main.fragment_demo_group.view.*
 import kotlinx.android.synthetic.main.fragment_invite_group_list.*
 import kotlinx.android.synthetic.main.fragment_invite_group_list.view.*
@@ -53,6 +55,8 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
     private var mpref: TeamPlayerSharedPrefrence? = null
     var groupList: java.util.ArrayList<GroupListItem>? = null
     var REQUEST_CODE = 11
+    var dialog1:Dialog?=null
+    lateinit var homeFragment: androidx.fragment.app.Fragment
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -61,6 +65,7 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
         v = inflater.inflate(R.layout.fragment_invite_group_list, container, false)
         mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
         finid()
+
         return v
     }
 
@@ -70,7 +75,7 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
 
       //  v.edit_invite_participat_email_im.setOnClickListener(this)
       //  groupJoinList()
-      //  pendinggroupList()
+       // pendinggroupList()
     }
 
     override fun onStart() {
@@ -130,6 +135,7 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                             groupList = response.body()!!.data as ArrayList<GroupListItem>?
 
                             if (groupList!!.get(0).subscription!!.equals("false")){
+
                                 tv_app_plan_list.visibility=View.VISIBLE
                                 recycler_subscription_list.visibility=View.VISIBLE
                                 recycler_invite_group_list.visibility=View.GONE
@@ -331,9 +337,14 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                         try {
 
                             pendinggroupList = response.body()!!.data!! as ArrayList<PendingJoinGroupDataItem>?
+                            if(pendinggroupList!!.size>=0){
+                               v.tv_join_a.visibility=View.VISIBLE
+                                setPendingGroupList()
+                            }else{
+                                v.tv_join_a.visibility=View.GONE
+                             //   v.tv_join_a.visibility=View.GONE
+                            }
 
-
-                            setPendingGroupList()
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -385,6 +396,117 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                 }
 
                 override fun onFailure(call: Call<PendingJoinGroupResponse>, t: Throwable) {
+                    progress.dismiss()
+                    Toast.makeText(
+                        activity!!,
+                        resources.getString(R.string.Something_went_worng),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        } else {
+            Toast.makeText(
+                activity!!,
+                resources.getString(R.string.please_check_internet),
+                Toast.LENGTH_LONG
+            )
+                .show()
+        }
+    }
+
+   private fun joinGroup(jsonObject: JsonObject){
+        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
+            val progress = ProgressDialog(activity!!)
+            progress.setMessage(resources.getString(R.string.please_wait))
+            progress.setCancelable(false)
+            progress.isIndeterminate = true
+            progress.show()
+            val apiInterface = ApiClient.getConnection(activity!!)
+            var call: Call<JsonObject>? = null//apiInterface.profileImage(body,token);
+            call = apiInterface!!.joinGroupParameter(mpref!!.getAccessToken(""),jsonObject)
+            call!!.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: retrofit2.Response<JsonObject>
+                ) {
+                    // Log.e("log",response.body().toString());
+                    progress.dismiss()
+                    if (response.code() >= 200 && response.code() < 210) {
+                        try {
+                            Log.d("response", response.body()!!.toString())
+                            val jsonObject = JSONObject(response.body().toString())
+                            Toast.makeText(
+                                activity!!,
+                                jsonObject.optString("message"),
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            val token = jsonObject.getJSONObject("data").optString("token")
+                            val role = jsonObject.getJSONObject("data").optString("role")
+                            mpref!!.setAccessToken(token)
+                            mpref!!.setRoal(role)
+                            val i = Intent(activity!!, MainActivity::class.java).addFlags(
+                                Intent.FLAG_ACTIVITY_NEW_TASK
+                            ).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                            startActivity(i)
+
+                            //
+                            // Log.d("usertype",user_type);
+                            /*       mpref!!.setToken(token)
+                            mpref!!.setUserType(usertype)
+                            mpref!!.setUserId(usertype)
+                           */
+
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+
+                    } else if (response.code() == 500) {
+                        Toast.makeText(
+                            activity!!,
+                            "Internal server error",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        var reader: BufferedReader? = null
+                        val sb = StringBuilder()
+                        try {
+                            reader = BufferedReader(
+                                InputStreamReader(
+                                    response.errorBody()!!.byteStream()
+                                )
+                            )
+                            var line = reader.readLine()
+                            try {
+                                if (line != null) {
+                                    sb.append(line)
+                                }
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        try {
+                            val finallyError = sb.toString()
+                            val jsonObjectError = JSONObject(finallyError)
+                            val message = jsonObjectError.optString("message")
+                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                            Toast.makeText(
+                                activity!!,
+                                "Some error occurred",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
                         activity!!,
@@ -851,6 +973,38 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                                 "Payment done sucessfully",
                                 Toast.LENGTH_LONG
                             ).show()
+                            dialog1 = Dialog(activity!!)
+                            dialog1!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            dialog1!!.setCancelable(false)
+                            dialog1!!.setContentView(R.layout.dialog_next_step)
+                            dialog1!!.setCanceledOnTouchOutside(true)
+                            dialog1!!.window!!.setLayout(
+                                WindowManager.LayoutParams.MATCH_PARENT,
+                                WindowManager.LayoutParams.MATCH_PARENT
+                            )
+                            dialog1!!.window!!.setBackgroundDrawable(ColorDrawable(activity!!.resources.getColor(R.color.full_transparent)))
+
+                            dialog1!!.window!!.setGravity(Gravity.CENTER)
+
+                            val rl_no_next_step = dialog1!!.findViewById(R.id.rl_no_next_step) as RelativeLayout
+                            val rl_ok_next_step = dialog1!!.findViewById(R.id.rl_ok_next_step) as RelativeLayout
+
+                            dialog1!!.show()
+                            rl_no_next_step.setOnClickListener {
+                                dialog1!!.dismiss()
+                            }
+                            rl_ok_next_step.setOnClickListener {
+                                dialog1!!.dismiss()
+
+                                activity!!.tv_title_header.text=TeamPlayerSharedPrefrence.getInstance(activity!!).getBusinessName("")
+                                homeFragment = AppQuestionnaireFragment()
+                                val manager = activity!!.supportFragmentManager
+                                val transaction = manager.beginTransaction()
+                                transaction.replace(R.id.container, homeFragment)
+                                // transaction.addToBackStack(null);
+                                transaction.commit()
+                            }
+
                             groupList()
                             //    Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
                             /*  var cartTable = dbController!!.getCartInfo("")

@@ -11,11 +11,64 @@
         android:id="@+id/ll_1"
         android:visibility="gone"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/light_blue"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:weightSum="2"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                >
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:background="@color/whit_new"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_70sdp"
+                        android:background="@color/light_blue"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/questionnaire_complete_new"/>
+                    <com.cts.teamplayer.customui.CustomButton
+                        android:id="@+id/btn_sent_invite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_60sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_60sdp"
+                        android:layout_marginEnd="@dimen/_60sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:padding="@dimen/_10sdp"
+                        android:text="INVITE PARTICIPANT"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp"
+                        android:background="@color/light_blue"
+                        />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
         <com.cts.teamplayer.customui.CustomTextviewBold
+            android:visibility="visible"
             android:id="@+id/tv_1_web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,6 +78,7 @@
             android:textColor="@color/black"
             android:text="Completed"/>
         <com.cts.teamplayer.customui.CustomTextView
+            android:visibility="visible"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
@@ -64,13 +118,14 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_40sdp"
+                        android:visibility="gone"
                         app:cardCornerRadius="@dimen/_5sdp"
                         app:cardElevation="@dimen/_5sdp"
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text=""
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
@@ -87,7 +142,7 @@
                             android:id="@+id/tv_minutes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text=""
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
@@ -114,13 +169,14 @@
                             android:id="@+id/tv_seond"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1"
+                            android:text=""
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
                             />
                     </androidx.cardview.widget.CardView>
                     <androidx.cardview.widget.CardView
+                        android:visibility="gone"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
@@ -130,7 +186,7 @@
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text=""
                             android:layout_gravity="center"
                             android:textColor="@color/light_blue"
                             android:textSize="@dimen/_13sdp"
@@ -146,27 +202,30 @@
             android:layout_weight="1.4"
             android:background="@color/whit_new"
             >
-            <RelativeLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
-                        android:background="@color/light_blue"
-                        />
-                    <androidx.cardview.widget.CardView
+                    android:layout_height="match_parent">
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_15sdp"
-                        android:background="@color/white"
-                        android:elevation="@dimen/_5sdp"
-                        android:layout_marginTop="@dimen/_240sdp"
-                        app:cardCornerRadius="@dimen/_10sdp"
                         >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@color/light_blue"
+                            />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_15sdp"
+                            android:background="@color/white"
+                            android:elevation="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_240sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            >
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -188,7 +247,7 @@
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/recyler_question_answer"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/_100sdp"/>
+                                    android:layout_height="match_parent"/>
 
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="@dimen/_130sdp"
@@ -217,9 +276,11 @@
 
 
                             </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
 
         </LinearLayout>
 

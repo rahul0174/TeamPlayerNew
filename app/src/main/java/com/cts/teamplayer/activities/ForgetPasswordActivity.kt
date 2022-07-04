@@ -11,7 +11,6 @@ import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_forget_password.*
-import kotlinx.android.synthetic.main.activity_signin.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -20,7 +19,8 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
-class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
+class
+ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +46,8 @@ class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 }else{
-                    var forgotRequest: JsonObject = JsonObject()
-                    forgotRequest!!.addProperty("email", edit_email.text.toString().trim())
+                    val forgotRequest: JsonObject = JsonObject()
+                    forgotRequest.addProperty("email", edit_email.text.toString().trim())
                     forgotpassApi(forgotRequest)
                 }
 
@@ -64,7 +64,7 @@ class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
             val apiInterface = ApiClient.getConnection(this)
             var call: Call<JsonObject>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.forgotpass(jsonObject)
-            call!!.enqueue(object : Callback<JsonObject> {
+            call.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: retrofit2.Response<JsonObject>) {
                     // Log.e("log",response.body().toString());
                     progress.dismiss()
@@ -74,13 +74,6 @@ class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
                             val jsonObject = JSONObject(response.body().toString())
                             Toast.makeText(this@ForgetPasswordActivity, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
                             finish()
-
-                            //    mpref!!.setToken(token)
-                            // Log.d("usertype",user_type);
-                            /*       mpref!!.setToken(token)
-                                   mpref!!.setUserType(usertype)
-                                   mpref!!.setUserId(usertype)
-                                  */
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -95,7 +88,7 @@ class ForgetPasswordActivity: AppCompatActivity() , View.OnClickListener {
                         val sb = StringBuilder()
                         try {
                             reader = BufferedReader(InputStreamReader(response.errorBody()!!.byteStream()))
-                            var line=reader.readLine()
+                            val line=reader.readLine()
                             try {
                                 if (line != null) {
                                     sb.append(line)

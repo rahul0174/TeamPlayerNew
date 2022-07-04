@@ -19,14 +19,14 @@
             android:layout_height="@dimen/_45sdp"
             android:background="@color/light_blue"
             >
+
             <ImageView
                 android:id="@+id/img_side_nav"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:src="@drawable/menu"
-                />
+                android:src="@drawable/menu" />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:id="@+id/tv_title_header"
                 android:layout_width="wrap_content"
@@ -49,13 +49,13 @@
 
 
         </RelativeLayout>
+
         <include
-            android:layout_below="@+id/rl_top_bar"
+            android:id="@+id/nav_bottom_layout"
+            layout="@layout/bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:id="@+id/nav_bottom_layout"
-            layout="@layout/bottom_bar"/>
+            android:layout_below="@+id/rl_top_bar" />
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

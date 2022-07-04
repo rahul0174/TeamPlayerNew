@@ -8,101 +8,103 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_200sdp"
-                            android:background="@drawable/after_splash"
-                            android:scaleType="fitXY"
-                            />
-                    <com.cts.teamplayer.customui.CustomTextviewBold
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/_15sdp"
-                        android:layout_gravity="center"
-                        android:textColor="@color/black"
-                        android:textAllCaps="true"
-                        android:layout_marginTop="@dimen/_35sdp"
-                        android:text="Welcome"
-                        />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200sdp"
+                        android:background="@drawable/after_splash"
+                        android:scaleType="fitXY" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_200sdp">
+                        <ImageView
+                            android:layout_width="@dimen/_90sdp"
+                            android:layout_height="@dimen/_90sdp"
+                            android:layout_gravity="center"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:src="@drawable/company_logo_new">
+
+                        </ImageView>
+                    </RelativeLayout>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_70sdp"
-                        android:orientation="horizontal"
-                        android:layout_marginRight="@dimen/_30sdp"
                         android:layout_marginLeft="@dimen/_30sdp"
-                        >
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:orientation="horizontal">
+
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:weightSum="2"
-                            >
+                            android:weightSum="2">
+
                             <RelativeLayout
                                 android:id="@+id/rl_sign_in"
                                 android:layout_width="match_parent"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/rounded_blue_btn"
-                                >
+                                android:layout_weight="1"
+                                android:background="@drawable/rounded_blue_btn">
+
                                 <com.cts.teamplayer.customui.CustomTextviewBold
                                     android:id="@+id/tv_signin"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/white"
-                                    android:text="@string/sign_in"
-                                    android:padding="@dimen/_10sdp"
                                     android:layout_centerInParent="true"
-                                    android:textSize="@dimen/_12sdp"
-                                    />
+                                    android:padding="@dimen/_10sdp"
+                                    android:text="@string/sign_in"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12sdp" />
                             </RelativeLayout>
+
                             <RelativeLayout
                                 android:id="@+id/rl_new_user"
                                 android:layout_width="match_parent"
-                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/_10sdp"
-                                android:background="@drawable/rounded_corner_blue"
-                                >
+                                android:layout_weight="1"
+                                android:background="@drawable/rounded_corner_blue">
+
                                 <com.cts.teamplayer.customui.CustomTextviewBold
                                     android:id="@+id/tv_new_user"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/light_blue"
-                                    android:text="@string/new_user"
-                                    android:padding="@dimen/_10sdp"
                                     android:layout_centerInParent="true"
-                                    android:textSize="@dimen/_12sdp"
-                                    />
+                                    android:padding="@dimen/_10sdp"
+                                    android:text="@string/new_user"
+                                    android:textColor="@color/light_blue"
+                                    android:textSize="@dimen/_12sdp" />
                             </RelativeLayout>
                         </LinearLayout>
 
 
-
                     </LinearLayout>
+
                     <RelativeLayout
                         android:id="@+id/rl_demo_request"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginRight="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/rounded_corner_blue"
-                        >
+                        android:layout_marginRight="@dimen/_30sdp"
+                        android:background="@drawable/rounded_corner_blue">
+
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/_12sdp"
-                            android:padding="@dimen/_10sdp"
                             android:layout_centerInParent="true"
-                            android:textColor="@color/light_blue"
+                            android:padding="@dimen/_10sdp"
                             android:text="@string/demo_request"
-                            />
+                            android:textColor="@color/light_blue"
+                            android:textSize="@dimen/_12sdp" />
                     </RelativeLayout>
 
                 </LinearLayout>

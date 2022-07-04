@@ -47,7 +47,7 @@ class WelcomeActivity : AppCompatActivity() , View.OnClickListener{
 
             }
             R.id.rl_demo_request -> {
-                startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+                startActivity(Intent(this@WelcomeActivity, RequestDemoActivity::class.java))
 
             }
         }

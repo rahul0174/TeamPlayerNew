@@ -1,9 +1,6 @@
 package com.cts.teamplayer.network
-
 import com.cts.teamplayer.models.*
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -39,7 +36,7 @@ interface ApiInterface {
     fun forgotpass(@Body data: JsonObject): Call<JsonObject>
 
     @GET("user/profile")
-    fun getUserDetailByToken(@Header("authorization") token: String?): Call<UserProfileResponse>
+    fun getUserDetailByToken(@Header("authorization") token: String?): Call<UserProfileDetailsNResponse>
 
     @POST("user/profile/update")
     fun updateProfileRequest(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
@@ -62,8 +59,15 @@ interface ApiInterface {
     @POST("demo/questions/save_answer")
     fun saveAnswerParameter(@Header("authorization") token: String,@Body data: JsonObject): Call<AnswerResponse>
 
+    @POST("demo/delete_invite")
+    fun deleteInviteParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
     @POST("demo/send_invite")
     fun sendInviteParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<SendInviteResponse>
+
+    @POST("demo/send_multiple_invite")
+    fun sendMultipleInviteParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
 
    @GET("demo/questionnaire")
     fun groupListParameter(@Header("authorization") token: String?): Call<GroupListResponse>
@@ -72,14 +76,25 @@ interface ApiInterface {
     @GET("demo/invitation")
     fun penddingListParameter(@Header("authorization") token: String?): Call<PendingJoinGroupResponse>
 
+    @POST("demo/join_group")
+    fun joinGroupParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
+
     @GET("demo/questionnaire/detail")
     fun questionnaireGroupDetailsParameter(@Header("authorization") token: String?,@Query("id") id: String): Call<QuestionnaireGroupDetailResponse>
+
+
+   @POST("demo/questions/set_score")
+    fun setScoreParameter(@Header("authorization") token: String?,@Body data: JsonObject,): Call<JsonObject>
 
     @POST("demo/get_subgroup")
     fun subGroupListParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<SubGroupResponse>
 
     @GET("demo/plan")
     fun plabListParameter(@Header("authorization") token: String?): Call<PlanListResponse>
+
+    @GET("user/new_user_plan")
+    fun newuserplanParameter(@Header("authorization") token: String?): Call<PlanListResponse>
 
       @POST("demo/add_subgroup")
       fun addSubGroupParameter(@Header("authorization") token: String?,@Body data: JsonObject): Call<SendInviteResponse>
@@ -154,6 +169,13 @@ interface ApiInterface {
 
     @POST("user/updatePPCPayment")
     fun getUpdateupdatePPCPaymentt(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
+
+   @POST("user/updateDemoPayment")
+    fun getUpdateupdateDemoPayment(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
+
+    @POST("user/updateNewUserPayment")
+    fun updateNewUserPayment(@Header("authorization") token: String?,@Body data: JsonObject): Call<JsonObject>
 
 
 

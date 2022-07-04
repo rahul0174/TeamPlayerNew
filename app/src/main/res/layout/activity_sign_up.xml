@@ -26,6 +26,7 @@
                 android:scaleType="fitXY"
                 />
             <com.cts.teamplayer.customui.CustomTextviewBold
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_15sdp"
@@ -64,7 +65,7 @@
             </LinearLayout>
             <RelativeLayout
                 android:visibility="gone"
-                android:id="@+id/rl_upload_image"
+                android:id="@+id/rl_upload_image1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_30sdp"
@@ -75,7 +76,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/uploadImage"
+                    android:id="@+id/uploadImage1"
                     android:layout_width="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginBottom="@dimen/_15sdp"
@@ -85,7 +86,7 @@
                     >
 
                     <ImageView
-                        android:id="@+id/iv_profile_pic"
+                        android:id="@+id/iv_profile_pic1"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:src="@drawable/file"/>
@@ -171,6 +172,8 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15sdp"
                     />
+
+
                 <com.cts.teamplayer.customui.CustomTextviewBold
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -227,7 +230,13 @@
                     </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
-
+                <com.cts.teamplayer.customui.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="Attach CV/resume or purchase APP questionnaire for 99pence and receive One APP Questionnaire for you to take and a second one to invite another participant to take. Then You can compare your compatibility.You can Purchase more App questionnaire to invite more participants at 99pence each."
+                    />
 
 
                 <RelativeLayout
@@ -373,27 +382,6 @@
                         />
                 </RelativeLayout>
                 <RelativeLayout
-                    android:id="@+id/rl_orgnization_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/rounded_doted_btn"
-                    >
-                    <com.cts.teamplayer.customui.CustomEditText
-                        android:id="@+id/edit_orgnization_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:background="@null"
-                        android:textColorHint="@color/light_grey_new"
-                        android:hint="Orgnization name"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_10sdp"
-                        />
-                </RelativeLayout>
-                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
@@ -413,6 +401,8 @@
                         android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
+
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -481,7 +471,50 @@
                             />
                     </RelativeLayout>
                 </RelativeLayout>
-
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_doted_btn"
+                    >
+                    <com.cts.teamplayer.customui.CustomEditText
+                        android:id="@+id/edit_zip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@null"
+                        android:hint="@string/zip"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColorHint="@color/light_grey_new"
+                        android:maxLength="8"
+                        android:inputType=""
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_orgnization_name"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rounded_doted_btn"
+                    >
+                    <com.cts.teamplayer.customui.CustomEditText
+                        android:id="@+id/edit_orgnization_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@null"
+                        android:textColorHint="@color/light_grey_new"
+                        android:hint="Company name"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        />
+                </RelativeLayout>
                 <RelativeLayout
                     android:visibility="gone"
                     android:id="@+id/rl_sign_up_in_your_role"
@@ -551,28 +584,7 @@
                         android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/rounded_doted_btn"
-                    >
-                    <com.cts.teamplayer.customui.CustomEditText
-                        android:id="@+id/edit_zip"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:background="@null"
-                        android:hint="@string/zip"
-                        android:imeOptions="actionNext"
-                        android:singleLine="true"
-                        android:textColorHint="@color/light_grey_new"
-                        android:maxLength="6"
-                        android:inputType="number"
-                        android:padding="@dimen/_10sdp"
-                        android:textSize="@dimen/_10sdp"
-                        />
-                </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -707,8 +719,70 @@
                         android:textSize="@dimen/_10sdp"
                         />
                 </RelativeLayout>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/rl_upload_image12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/rounded_doted_grey_btn">
+
+
+                    <LinearLayout
+                        android:id="@+id/uploadImage"
+                        android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginBottom="@dimen/_15sdp"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_profile_pic"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:src="@drawable/file"/>
+                        <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_gravity="center_vertical"
+                            android:text="Upload your resume here"
+                            />
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_upload_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/rounded_doted_btn"
+                    >
+                    <com.cts.teamplayer.customui.CustomTextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/light_grey"
+                        android:background="@null"
+                        android:text="Upload your resume here"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColorHint="@color/light_grey_new"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_10sdp"
+                        />
+
+                </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="visible"
                     android:id="@+id/rl_edit_im_num"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -724,7 +798,7 @@
                         android:background="@null"
                         android:imeOptions="actionDone"
                         android:singleLine="true"
-                        android:hint="@string/do_you_have_an_im_enter_it_here"
+                        android:hint="Do You have an IM ID"
                         android:inputType="number"
                         android:padding="@dimen/_10sdp"
                         android:textSize="@dimen/_10sdp"

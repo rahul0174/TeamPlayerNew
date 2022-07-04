@@ -146,12 +146,13 @@
                             android:id="@+id/tv_questionnaire_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
                             android:text="@string/questionnaire_cts_brief"
                             />
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:visibility="gone"
                             android:id="@+id/tv_questionnaire_remaining"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -161,21 +162,22 @@
                             android:text="@string/_1_questionnaire_remaining"
                             />
                         <RelativeLayout
+                            android:id="@+id/rl_invitee"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:background="@drawable/rounded_doted_btn"
                             >
-                            <com.cts.teamplayer.customui.CustomEditText
+                            <com.cts.teamplayer.customui.CustomTextView
                                 android:id="@+id/edit_invite_participat_email_im"
                                 android:layout_toRightOf="@+id/iv_user_input"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/black"
                                 android:layout_marginLeft="@dimen/_5sdp"
                                 android:layout_centerVertical="true"
                                 android:singleLine="true"
-                                android:hint="Invite Participant by Email or IM"
+                                android:text="Invite Participant by Email or IM"
                                 android:background="@null"
                                 android:textColorHint="@color/light_grey_new"
                                 android:textSize="@dimen/_10sdp"
@@ -209,12 +211,14 @@
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
                             android:text="@string/participant"
                             />
                         <com.cts.teamplayer.customui.CustomTextviewBold
+                            android:visibility="gone"
+                            android:id="@+id/tv_which_participant_avalible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_15sdp"
@@ -224,22 +228,31 @@
                             />
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_41sdp"
-                            android:background="@drawable/rac_rounded"
+                            android:layout_height="@dimen/_30sdp"
                             >
-                            <com.cts.teamplayer.customui.CustomEditText
+                            <androidx.appcompat.widget.SearchView
+                                android:id="@+id/search_participant"
                                 android:visibility="visible"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_30sdp"
+                                app:queryHint="Search by name"
+                                app:iconifiedByDefault="false"/>
+                            <com.cts.teamplayer.customui.CustomEditText
+
+                                android:visibility="gone"
                                 android:id="@+id/seachView"
                                 android:background="@null"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:textSize="@dimen/_10sdp"
+                                android:textColorHint="@color/black"
                                 android:layout_marginStart="@dimen/_10sdp"
-                                android:hint="Search.."
+                                android:hint="Search by name"
                                 android:iconifiedByDefault="false"/>
                             <androidx.cardview.widget.CardView
-                                android:visibility="visible"
+
+                                android:visibility="gone"
                                 android:layout_width="@dimen/_68sdp"
                                 android:layout_height="@dimen/_26sdp"
                                 app:cardCornerRadius="@dimen/_10sdp"
@@ -267,10 +280,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:background="@drawable/rac_btn"
+                            android:layout_marginTop="@dimen/_5sdp"
                             >
                             <LinearLayout
+                                android:visibility="gone"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
@@ -335,7 +348,7 @@
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
                             android:text="@string/manage_team"
@@ -436,6 +449,15 @@
                                         />
                                 </RelativeLayout>
                               </LinearLayout>
+                            <ImageView
+                                android:visibility="visible"
+                                android:id="@+id/img_back_on_manage_team_list_empty"
+                                android:layout_width="@dimen/_100sdp"
+                                android:layout_height="@dimen/_100sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                               android:layout_gravity="center"
+                                android:src="@drawable/group_list_empty"
+                                />
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/recycler_sub_group_list"
                                 android:layout_width="match_parent"

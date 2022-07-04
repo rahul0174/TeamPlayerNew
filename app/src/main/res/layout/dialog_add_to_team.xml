@@ -117,16 +117,16 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:background="@drawable/rounded_black_btn"
                     >
+
                     <com.cts.teamplayer.customui.CustomTextviewBold
                         android:id="@+id/tv_new_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="@string/cancel"
-                        android:padding="@dimen/_7sdp"
                         android:layout_centerInParent="true"
-                        android:textSize="@dimen/_12sdp"
-                        />
+                        android:padding="@dimen/_7sdp"
+                        android:text="@string/cancel"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
                 </RelativeLayout>
             </LinearLayout>
 

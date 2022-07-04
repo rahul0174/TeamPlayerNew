@@ -33,7 +33,7 @@ class GroupListAdapter (val mContext: Context, var data : java.util.ArrayList<Gr
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bind(data: GroupListItem, position: Int) {
-            itemView.tv_group_list.text=data.name
+            itemView.tv_group_list.text="Manage "+data.name
             //     var  flagurl="http://35.160.227.253/SaharaGo/Flag/"+data.flag
             /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
  */

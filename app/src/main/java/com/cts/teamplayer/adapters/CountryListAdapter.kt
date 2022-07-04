@@ -8,6 +8,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import com.cts.teamplayer.R
 import com.cts.teamplayer.models.CountryList
+import com.cts.teamplayer.models.StateList
 import kotlinx.android.synthetic.main.country_list.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,6 +45,11 @@ class CountryListAdapter(val mContext: Context, var data : ArrayList<CountryList
 
     interface TextBookNow{
         fun bookSession(position: Int,data: CountryList)
+    }
+    fun filterList(filterdNames: java.util.ArrayList<CountryList>): java.util.ArrayList<CountryList> {
+        this.data = filterdNames
+        notifyDataSetChanged()
+        return data as java.util.ArrayList<CountryList>
     }
 
 

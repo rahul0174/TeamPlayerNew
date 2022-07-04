@@ -41,14 +41,14 @@ class ParticipantsGroupInList(
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bind(data: SurveyParticipantsItem, position: Int) {
-            itemView.tv_participants_group_name.text=data.userName
+            itemView.tv_participants_group_name.text="Name: "+data.userName
             //     var  flagurl="http://35.160.227.253/SaharaGo/Flag/"+data.flag
             /* Picasso.with(mContext).load(flagurl).error(R.drawable.notification).into(itemView.iv_country_image)
  */
             itemView.setOnClickListener{
                /* Toast.makeText(mContext, "In progress", Toast.LENGTH_LONG)
                     .show()*/
-                if(itemView.tv_click_add_to_team.text.toString().equals("Add To Team")){
+                if(itemView.tv_click_add_to_team.text.toString().equals("Add to Team")){
                     itemclick.onClickItem(position, MyConstants.ADD_TO_TEAM)
                 }else{
                     itemclick.onClickItem(position, MyConstants.SEND_REMINDER_REQUEST_CODE)
@@ -59,12 +59,18 @@ class ParticipantsGroupInList(
 
             }
             if(data.surveyProgress.equals("1")){
-                itemView.tv_survey_progress.text="Complete"
-                itemView.tv_click_add_to_team.text="Add To Team"
+                itemView.tv_survey_progress.text="Status: "+"Complete"
+                itemView.tv_click_add_to_team.text="Add to Team"
             }else{
-                itemView.tv_survey_progress.text="Not Complete"
+                itemView.tv_survey_progress.text="Status: "+"Not Complete"
                 itemView.tv_click_add_to_team.text="Send Remainder"
-            }
+            } /*if(data.surveyProgress.equals("true")){
+                itemView.tv_survey_progress.text="Status: "+"Complete"
+                itemView.tv_click_add_to_team.text="Add to Team"
+            }else{
+                itemView.tv_survey_progress.text="Status: "+"Not Complete"
+                itemView.tv_click_add_to_team.text="Send Remainder"
+            }*/
         }
 
     }
