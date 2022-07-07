@@ -43,9 +43,13 @@
         <entry key="..\:/chawtecproject/teamplayeralldoc/TeamPlayer/app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="..\:/chawtecproject/teamplayeralldoc/TeamPlayer/app/src/main/res/layout/yotubeplayeractivity.xml" value="0.196875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/adapter_faq.xml" value="0.11775362318840579" />
         <entry key="app/src/main/res/layout/bottom_bar.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/country_list.xml" value="0.11775362318840579" />
+        <entry key="app/src/main/res/layout/dialog_country.xml" value="0.11775362318840579" />
         <entry key="app/src/main/res/layout/fragment_app_questionnaire.xml" value="0.10461956521739131" />
         <entry key="app/src/main/res/layout/fragment_brief_questionnaire.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/fragment_faq.xml" value="0.11775362318840579" />
         <entry key="app/src/main/res/layout/fragment_request_demo.xml" value="0.14492753623188406" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.11775362318840579" />
       </map>

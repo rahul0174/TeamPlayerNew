@@ -2,24 +2,36 @@ package com.cts.teamplayer.fragments
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.cts.teamplayer.R
+import com.cts.teamplayer.adapters.CountryListAdapter
+import com.cts.teamplayer.adapters.FaqAdapter
+import com.cts.teamplayer.models.CountryList
+import com.cts.teamplayer.models.DataItem
 import com.cts.teamplayer.models.FaqResultResponse
 import com.cts.teamplayer.models.UserProfileResponse
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
+import com.cts.teamplayer.network.ItemClickListner
+import com.cts.teamplayer.util.ImageGetter
 import com.cts.teamplayer.util.MyConstants
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
+import kotlinx.android.synthetic.main.dialog_country.*
 import kotlinx.android.synthetic.main.fragment_faq.*
 import kotlinx.android.synthetic.main.fragment_faq.view.*
 import kotlinx.android.synthetic.main.fragment_participants_profile.*
+import kotlinx.android.synthetic.main.fragment_questionnairecalculator.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -27,8 +39,9 @@ import retrofit2.Callback
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.ArrayList
 
-class FaqsFragment: Fragment(), View.OnClickListener {
+class FaqsFragment: Fragment(), View.OnClickListener, ItemClickListner {
     lateinit var v: View
     private var mpref: TeamPlayerSharedPrefrence? = null
     lateinit var iv_no_data_cancel_order: ImageView
@@ -61,6 +74,7 @@ class FaqsFragment: Fragment(), View.OnClickListener {
         faqDetailByToken(mpref!!.getAccessToken("").toString())
 
     }
+    var faqList: java.util.ArrayList<DataItem>? = null
     private fun faqDetailByToken(token: String) {
         if (CheckNetworkConnection.isConnection1(activity!!, true)) {
             val progress = ProgressDialog(activity!!)
@@ -80,15 +94,26 @@ class FaqsFragment: Fragment(), View.OnClickListener {
                     Log.e("log",response.body().toString());
                     if (response.code() >= 200 && response.code() < 210) {
                         //  et_first_name.text= Editable.Factory.getInstance().newEditable(response.body()!!.metaData!!.firstName)
-
+                        faqList = response.body()!!.data as ArrayList<DataItem>?
+                        addRecylerFaq()
                       question_one  =response.body()!!.data!!.get(0)!!.question
                       answer_one  =response.body()!!.data!!.get(0)!!.answer
 
                          question_two  =response.body()!!.data!!.get(1)!!.question
                          answer_two  =response.body()!!.data!!.get(1)!!.answer
 
-                        tv_reach_out_ansswer.text=response.body()!!.data!!.get(0)!!.answer
+                    //    tv_reach_out_ansswer.text=response.body()!!.data!!.get(0)!!.answer
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            tv_reach_out_ansswer.setText(Html.fromHtml(response.body()!!.data!!.get(0)!!.answer,Html.FROM_HTML_MODE_LEGACY));
+                        } else {
+                            tv_reach_out_ansswer.setText(Html.fromHtml(response.body()!!.data!!.get(0)!!.answer));
+                        }
                         tv_what_group_answer.text=response.body()!!.data!!.get(1)!!.answer
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                            tv_what_group_answer.setText(Html.fromHtml(response.body()!!.data!!.get(0)!!.answer,Html.FROM_HTML_MODE_LEGACY));
+                        } else {
+                            tv_what_group_answer.setText(Html.fromHtml(response.body()!!.data!!.get(1)!!.answer));
+                        }
 
                         tv_question_one.text=response.body()!!.data!!.get(0)!!.question
                         tv_question_seond.text=response.body()!!.data!!.get(1)!!.question
@@ -163,6 +188,23 @@ class FaqsFragment: Fragment(), View.OnClickListener {
                 .show()
         }
     }
+    private fun displayHtml(html: String) {
+
+        // Creating object of ImageGetter class you just created
+        val imageGetter = ImageGetter(resources, tv_question)
+
+        // Using Html framework to parse html
+        val styledText= HtmlCompat.fromHtml(html,
+            HtmlCompat.FROM_HTML_MODE_LEGACY,
+            imageGetter,null)
+
+        // to enable image/link clicking
+        tv_question.movementMethod = LinkMovementMethod.getInstance()
+
+        // setting the text after formatting html and downloading and setting images
+        tv_question.text = styledText
+    }
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -202,6 +244,16 @@ class FaqsFragment: Fragment(), View.OnClickListener {
 
             }
         }
+    }
+    fun addRecylerFaq(){
+        var manager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recycler_faq.layoutManager = manager
+     val   countryListAdapter =  FaqAdapter(context!!, faqList/*, this*/)
+        recycler_faq.adapter = countryListAdapter
+    }
+
+    override fun onClickItem(position: Int, requestcode: Int) {
+
     }
 
 }
