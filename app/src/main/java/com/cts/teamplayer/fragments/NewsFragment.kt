@@ -69,7 +69,12 @@ class NewsFragment: Fragment(), View.OnClickListener {
                             .fitCenter() // scale to fit entire image within ImageView
                             .into(iv_news);
 
-                        tv_news.setText(Html.fromHtml(response.body()!!.data!!.get(0)!!.content))
+                        if(response.body()!!.data!!.get(0)!!.content.toString().equals("null")){
+                        }else{
+                            tv_news.setText(Html.fromHtml(response.body()!!.data!!.get(0)!!.content))
+
+                        }
+
                         //  et_first_name.text= Editable.Factory.getInstance().newEditable(response.body()!!.metaData!!.firstName)
 
 

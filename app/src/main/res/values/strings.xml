@@ -17,7 +17,7 @@
 
     //signup
     <string name="full_name">Enter First Name</string>
-    <string name="enter_no_of_question">Enter Number Of Questionnaire</string>
+    <string name="enter_no_of_question">Enter Number Of Questionnaires</string>
   <!--  <string name="first_name">First name</string>
     <string name="last_name">Last name</string>-->
     <string name="enter_title">Enter Title</string>
@@ -150,7 +150,7 @@
     <string name="participant_full_questionnaire">Purchase Full Questionnaire</string>
     <string name="app_questionnaire1">App Questionnaire</string>
     <string name="brief_questionnaire">App Questionnaire: </string>
-    <string name="number_of_participants">Number Of Questionnaire:</string>
+    <string name="number_of_participants">Enter Number Of Questionnaires:</string>
     <string name="plan">Plan</string>
     <string name="compare">Compare</string>
     <string name="where_do_you_suggest_the_text_is_displayed_on_mobile_app">Where do you suggest the text is displayed on mobile app?</string>

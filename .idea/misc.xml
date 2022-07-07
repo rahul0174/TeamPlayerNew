@@ -42,10 +42,16 @@
         <entry key="..\:/chawtecproject/teamplayeralldoc/TeamPlayer/app/src/main/res/layout/fragment_questionnairecalculator.xml" value="0.1" />
         <entry key="..\:/chawtecproject/teamplayeralldoc/TeamPlayer/app/src/main/res/layout/nav_header.xml" value="0.1" />
         <entry key="..\:/chawtecproject/teamplayeralldoc/TeamPlayer/app/src/main/res/layout/yotubeplayeractivity.xml" value="0.196875" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/bottom_bar.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/fragment_app_questionnaire.xml" value="0.10461956521739131" />
+        <entry key="app/src/main/res/layout/fragment_brief_questionnaire.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/fragment_request_demo.xml" value="0.14492753623188406" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.11775362318840579" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
