@@ -231,11 +231,12 @@
 
                 </LinearLayout>
                 <com.cts.teamplayer.customui.CustomTextView
+                    android:id="@+id/title_signup_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/_10sdp"
-                    android:text="Attach CV/resume or purchase APP questionnaire for 99pence and receive One APP Questionnaire for you to take and a second one to invite another participant to take. Then You can compare your compatibility.You can Purchase more App questionnaire to invite more participants at 99pence each."
+                    android:text="@string/attach_cv"
                     />
 
 

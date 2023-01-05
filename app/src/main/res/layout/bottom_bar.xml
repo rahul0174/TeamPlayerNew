@@ -33,21 +33,21 @@
                 android:id="@+id/img_home"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/home"/>
+                android:layout_marginTop="@dimen/_3sdp"
+                android:src="@drawable/home" />
+
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:id="@+id/textHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/home"
-                android:gravity="center"
                 android:layout_below="@+id/img_home"
-                android:textSize="@dimen/_8ssp"
-                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/home"
                 android:textAllCaps="false"
-                />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
 
         </RelativeLayout>
 
@@ -70,6 +70,7 @@
                 android:background="@drawable/demo" />
 
             <com.cts.teamplayer.customui.CustomTextviewBold
+                android:id="@+id/tv_invite_participant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/img_demo"
@@ -97,9 +98,9 @@
                 android:id="@+id/img_calcu"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_18sdp"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/calculator"/>
+                android:layout_marginTop="@dimen/_3sdp"
+                android:src="@drawable/calculator" />
             <com.cts.teamplayer.customui.CustomTextviewBold
                 android:id="@+id/textMore"
                 android:layout_width="wrap_content"
@@ -132,6 +133,7 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:src="@drawable/faq" />
             <com.cts.teamplayer.customui.CustomTextviewBold
+                android:id="@+id/tv_purchase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/purchase"

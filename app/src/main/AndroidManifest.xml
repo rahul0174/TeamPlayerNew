@@ -62,6 +62,15 @@
             android:theme="@style/Base.Theme.AppCompat"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
+        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+            android:launchMode="singleTask"
+            android:exported="true"> <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="com.cts.teamplayer.braintree" />
+        </intent-filter> </activity>
+
     </application>
 
 </manifest>

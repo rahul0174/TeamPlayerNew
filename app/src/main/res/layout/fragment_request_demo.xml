@@ -65,20 +65,20 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_doted_btn"
                         >
+
                         <com.cts.teamplayer.customui.CustomEditText
                             android:id="@+id/edit_ful_name_rq"
-                            android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/iv_user_input"
                             android:background="@null"
-                            android:singleLine="true"
+                            android:hint="Full Name*"
                             android:imeOptions="actionNext"
-                            android:hint="@string/full_name"
-                            android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
-                            android:textSize="@dimen/_10sdp"
-                            />
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/light_grey_new"
+                            android:textSize="@dimen/_10sdp" />
 
                     </RelativeLayout>
                     <RelativeLayout
@@ -87,20 +87,20 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/rounded_doted_btn"
                         >
+
                         <com.cts.teamplayer.customui.CustomEditText
                             android:id="@+id/edit_company_name_rq"
-                            android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/iv_user_input"
                             android:background="@null"
-                            android:singleLine="true"
+                            android:hint="Company Name*"
                             android:imeOptions="actionNext"
-                            android:hint="@string/company_name"
-                            android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
-                            android:textSize="@dimen/_10sdp"
-                            />
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/light_grey_new"
+                            android:textSize="@dimen/_10sdp" />
 
                     </RelativeLayout>
                     <RelativeLayout
@@ -119,7 +119,7 @@
                             android:singleLine="true"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:hint="@string/phone_num"
+                            android:hint="Phone*"
                             android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_10sdp"
@@ -142,7 +142,7 @@
                             android:singleLine="true"
                             android:imeOptions="actionNext"
                             android:inputType="textEmailAddress"
-                            android:hint="@string/email"
+                            android:hint="Email*"
                             android:textColorHint="@color/light_grey_new"
                             android:padding="@dimen/_10sdp"
                             android:textSize="@dimen/_10sdp"
@@ -244,6 +244,7 @@
                             />
                     </RelativeLayout>
                     <com.cts.teamplayer.customui.CustomTextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/_12sdp"
@@ -253,6 +254,7 @@
 
                         />
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -266,14 +268,14 @@
                             android:background="@drawable/rounded_doted_btn"
 
                             >
+
                             <Spinner
                                 android:id="@+id/spinner_hours"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/hours"
                                 android:gravity="center"
-                                 android:padding="@dimen/_5sdp"
-                                />
+                                android:padding="@dimen/_5sdp" />
                         </RelativeLayout>
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:layout_width="wrap_content"

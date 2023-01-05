@@ -75,7 +75,7 @@ class RequestDemoFragment : Fragment(), View.OnClickListener {
         val first = "Accept all "
         val second = "<font color='#069FBE'>Privacy & Policy</font>"
         v.simpleCheckBox_req_a_demo.setText(Html.fromHtml(first + second))
-
+        v.rl_top_bar.visibility=View.GONE
         v.btn_submit_in_request_demo.setOnClickListener(this)
         v.simpleCheckBox_req_a_demo.setOnClickListener(this)
        /* {"first_name":"Kul Bhushan","last_name":"Gupta","email":"mohitch@yopmail.com","organization_name":"CTS","phone":9999999999,"agreeTerms":true,"agreePrivacy":true,"user_role":"1","no_of_employees":"1-20","selected_date":""}

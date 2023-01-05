@@ -75,11 +75,11 @@
                           android:layout_centerInParent="true"
                             android:src="@drawable/group_list_empty"
                             />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycler_group_list"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                        </androidx.recyclerview.widget.RecyclerView>
+                            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
                     </RelativeLayout>
 

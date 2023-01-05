@@ -2,6 +2,7 @@ package com.cts.teamplayer.activities
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -117,6 +118,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         tv_participant_full_questionnaire.setOnClickListener(this)
         tv_participant_app_questionnaire.setOnClickListener(this)
     }
+    fun allBottomTebWhite(){
+        tv_title_header.text=getString(R.string.brief_ques_title)
+        textHome.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_invite_participant.setTextColor(ContextCompat.getColor(this,R.color.white))
+        textMore.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_purchase.setTextColor(ContextCompat.getColor(this,R.color.white))
+    }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -127,12 +135,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             } R.id.rl_sign_up -> {
             startActivity(Intent(this@MainActivity, SignUpActivity::class.java))
             } R.id.rl_home -> {
+            allBottomTebWhite()
                 addHomeFragment()
             }R.id.rl_demo -> {
             if(mpref!!.getAccessToken("")!!.equals("")){
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
                 finish()
             }else{
+                allBottomTebWhite()
                 addInviteGroupFragment()
             }
 
@@ -141,11 +151,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this@MainActivity, SignInActivity::class.java))
                 finish()
             }else{
+                allBottomTebWhite()
                 addPurchaseQuesFragment()
             }
 
                 //  addFaqFragment()
             }R.id.rl_calcu -> {
+            allBottomTebWhite()
            addAppQuestionnaireFragment()
            // addCompareImIntrinsicFragment()
           //  addCalculatorFragment()
@@ -154,10 +166,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
           //  addCalculatorFragment()
             }*/R.id.tv_puchase_history_frg -> {
             drawer_layout.closeDrawers()
+            allBottomTebWhite()
             addHistoryFragment()
           //  addCalculatorFragment()
             }R.id.tv_participant_app_questionnaire -> {
             drawer_layout.closeDrawers()
+            allBottomTebWhite()
             addAppQuestionnaireFragment()
            // addCalculatorFragment()
             //  addCalculatorFragment()
@@ -178,41 +192,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
           //  addCalculatorFragment()
             }R.id.tv_open_home -> {
             img_home.setColorFilter(ContextCompat.getColor(this, R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
-
+            allBottomTebWhite()
             addHomeFragment()
             drawer_layout.closeDrawers()
 
                }
             R.id.tv_open_how_work -> {
+                allBottomTebWhite()
                 addHowItFragment()
                 drawer_layout.closeDrawers()
             }R.id.tv_open_contact_us -> {
+            allBottomTebWhite()
             addContactUsFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_vision_tech -> {
+            allBottomTebWhite()
                 addAboutUsFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_news -> {
+            allBottomTebWhite()
             addNewsFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_faq -> {
+            allBottomTebWhite()
               addFaqFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_home_in_login -> {
+            allBottomTebWhite()
             addHomeFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_participant_profile_in_login -> {
+            allBottomTebWhite()
             addParticipantsProfileFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_participant_profile_in_login -> {
+            allBottomTebWhite()
             addParticipantsProfileFragment()
             drawer_layout.closeDrawers()
             }
            R.id.tv_compare_im_in_login -> {
+               allBottomTebWhite()
                addCompareImIntrinsicFragment()
                drawer_layout.closeDrawers()
 
             }R.id.tv_open_how_work_in_login -> {
+            allBottomTebWhite()
                 addHowItFragment()
             drawer_layout.closeDrawers()
 
@@ -226,24 +250,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 addAboutUsFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_faq_in_login -> {
+            allBottomTebWhite()
                 addFaqFragment()
             drawer_layout.closeDrawers()
 
             }R.id.tv_open_contact_us_in_login -> {
+            allBottomTebWhite()
                 addContactUsFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_open_subscripation_in_login -> {
+            allBottomTebWhite()
               addSubscriptionFragment()
             drawer_layout.closeDrawers()
             }R.id.tv_demo_in_login -> {
+            allBottomTebWhite()
             drawer_layout.closeDrawers()
               addReqDemoFragment()
          //   drawer_layout.closeDrawers()
             }R.id.tv_open_news_in_login -> {
+            allBottomTebWhite()
                  addNewsFragment()
             drawer_layout.closeDrawers()
 
             }R.id.tv_purchase_Ques_in_login -> {
+            allBottomTebWhite()
 
             addPurchaseQuesFragment()
             drawer_layout.closeDrawers()
@@ -256,8 +286,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         }
     }
+
     private fun addHomeFragment() {
         tv_title_header.text=""
+        textHome.setTextColor(ContextCompat.getColor(this,R.color.black))
+        tv_invite_participant.setTextColor(ContextCompat.getColor(this,R.color.white))
+        textMore.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_purchase.setTextColor(ContextCompat.getColor(this,R.color.white))
         homeFragment = HomeFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
@@ -267,7 +302,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun addInviteGroupFragment() {
-
+        textHome.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_invite_participant.setTextColor(ContextCompat.getColor(this,R.color.black))
+        textMore.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_purchase.setTextColor(ContextCompat.getColor(this,R.color.white))
         tv_title_header.text=TeamPlayerSharedPrefrence.getInstance(this).getBusinessName("")
         homeFragment = InviteGroupListFragment()
         val manager = supportFragmentManager
@@ -279,6 +317,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
     private fun addPurchaseQuesFragment() {
         tv_title_header.text=getString(R.string.brief_ques_title)
+        textHome.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_invite_participant.setTextColor(ContextCompat.getColor(this,R.color.white))
+        textMore.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_purchase.setTextColor(ContextCompat.getColor(this,R.color.black))
         homeFragment = BriefQuestionnaireFragment()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction()
@@ -286,7 +328,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
        // transaction.addToBackStack(null);
         transaction.commit()
 
-    }private fun addCompareImIntrinsicFragment() {
+    }
+    private fun addCompareImIntrinsicFragment() {
         tv_title_header.text=getString(R.string.compare_im_title)
         homeFragment = CompareImIntrinsicMatrix()
         val manager = supportFragmentManager
@@ -295,7 +338,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
       //  transaction.addToBackStack(null);
         transaction.commit()
 
-    }private fun addAppQuestionnaireFragment() {
+    }
+    private fun addAppQuestionnaireFragment() {
+        textHome.setTextColor(ContextCompat.getColor(this,R.color.white))
+        tv_invite_participant.setTextColor(ContextCompat.getColor(this,R.color.white))
+        textMore.setTextColor(ContextCompat.getColor(this,R.color.black))
+        tv_purchase.setTextColor(ContextCompat.getColor(this,R.color.white))
         tv_title_header.text=TeamPlayerSharedPrefrence.getInstance(this).getBusinessName("")
         homeFragment = AppQuestionnaireFragment()
         val manager = supportFragmentManager

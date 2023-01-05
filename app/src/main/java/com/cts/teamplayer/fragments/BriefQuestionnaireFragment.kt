@@ -60,7 +60,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_brief_questionnaire, container, false)
         mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
-       v.btn_puchase_full_que.setOnClickListener(this)
+        v.btn_puchase_full_que.setOnClickListener(this)
         groupList()
         PerQuestionPrice()
         if(TeamPlayerSharedPrefrence.getInstance(activity!!).getFullQuestion("")!!.equals("false")){
@@ -74,9 +74,9 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_puchase_full_que -> {
-               /* val i = Intent(activity, WebViewActivity::class.java)
-                    .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com/purchase")
-                startActivity(i)*/
+                /* val i = Intent(activity, WebViewActivity::class.java)
+                     .putExtra("activity", "question").putExtra("url","https://dev.teamplayerhr.com/purchase")
+                 startActivity(i)*/
                 val i = Intent(Intent.ACTION_VIEW, Uri.parse("https://dev.teamplayerhr.com/purchase"))
                 startActivity(i)
             }
@@ -198,7 +198,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             }else if (edit_number_of_participants.text.toString().trim().equals("0")){
                 Toast.makeText(activity, getString(R.string.enter_no_of_question), Toast.LENGTH_SHORT).show()
             }
-                else{
+            else{
                 getbraintreeTokenApi()
             }
 
@@ -302,7 +302,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     var brintreeToken=""
     var orderId=""
     private fun getbraintreeTokenApi() {
-     //   Log.e("json",jsonObject.toString())
+        //   Log.e("json",jsonObject.toString())
         if (CheckNetworkConnection.isConnection1(activity!!, true)) {
             val progress = ProgressDialog(activity!!)
             progress.setMessage(this.resources.getString(R.string.please_wait))
@@ -486,17 +486,17 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
 
                             val paymentUpdateRequest: JsonObject = JsonObject()
-                         //   paymentUpdateRequest.addProperty("id",planList!!.get(positioninplan!!).id )
+                            //   paymentUpdateRequest.addProperty("id",planList!!.get(positioninplan!!).id )
                             paymentUpdateRequest.addProperty("id","1")
                             paymentUpdateRequest.addProperty("number_survay", v.edit_number_of_participants.text!!.trim().toString())
                             paymentUpdateRequest.addProperty("data", "")
 
-                         /*   val paymentNewUpdateRequest: JsonObject = JsonObject()
-                            paymentNewUpdateRequest.addProperty("id",planList!!.get(positioninplan!!).id )
-                            paymentNewUpdateRequest.addProperty("transaction_id", stringNonceNew)
-*/
+                            /*   val paymentNewUpdateRequest: JsonObject = JsonObject()
+                               paymentNewUpdateRequest.addProperty("id",planList!!.get(positioninplan!!).id )
+                               paymentNewUpdateRequest.addProperty("transaction_id", stringNonceNew)
+   */
                             upDateDemoPaymentApi(paymentUpdateRequest)
-                         //   updateNewUserPayment(paymentNewUpdateRequest)
+                            //   updateNewUserPayment(paymentNewUpdateRequest)
                             edit_number_of_participants.text!!.clear()
                             //    Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
                             /*  var cartTable = dbController!!.getCartInfo("")
@@ -608,7 +608,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             rl_yes_que_purchase.setOnClickListener {
                                 dialog1!!.dismiss()
                                 activity!!.tv_title_header.text="App Questionnaire"
-                           val  homeFragment = AppQuestionnaireFragment()
+                                val  homeFragment = AppQuestionnaireFragment()
                                 val manager = activity!!.supportFragmentManager
                                 val transaction = manager.beginTransaction()
                                 transaction.replace(R.id.container, homeFragment)

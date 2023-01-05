@@ -59,7 +59,7 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_team)
         mpref = TeamPlayerSharedPrefrence.getInstance(this)
-         position= intent .getIntExtra( "POSITION",0)
+        position= intent .getIntExtra( "POSITION",0)
         findId()
     }
 
@@ -67,7 +67,7 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         SubGroupListApi()
         img_back_on_manage_team  .setOnClickListener{
             finish()
-             }
+        }
         appSubscriptionList()
     }
     private fun SubGroupListApi() {
@@ -235,29 +235,29 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-         /*   R.id.btn_send-> {
+            /*   R.id.btn_send-> {
 
-            }*/
+               }*/
         }
     }
 
     override fun onClickItem(position1: Int, requestcode: Int) {
         if(requestcode==SELECT_BEANCHMARK_REQUEST_CODE){
-       /*     {"group_id":"4","user_id":"3664","subgroup_id":"5","user_type":"benchmark"}
-       */
+            /*     {"group_id":"4","user_id":"3664","subgroup_id":"5","user_type":"benchmark"}
+            */
             var surveyRequest: JsonObject = JsonObject()
-          /*  surveyRequest!!.addProperty("group_id", userListItem!!.get(position).groupId)
-            surveyRequest!!.addProperty("user_id", userListItem!!.get(position).userId)
-          */  surveyRequest!!.addProperty("id", userListNew!!.get(position1).id)
+            /*  surveyRequest!!.addProperty("group_id", userListItem!!.get(position).groupId)
+              surveyRequest!!.addProperty("user_id", userListItem!!.get(position).userId)
+            */  surveyRequest!!.addProperty("id", userListNew!!.get(position1).id)
             surveyRequest!!.addProperty("user_type","benchmark" )
 
             SurveyResulttApi(surveyRequest)
         }
 
 
-       /* userListItemBanchMark!!.add(userListItem!!.get(position))
-        userListItemParticipant!!.remove(userListItem!!.get(position))
-*/
+        /* userListItemBanchMark!!.add(userListItem!!.get(position))
+         userListItemParticipant!!.remove(userListItem!!.get(position))
+ */
 
         if(requestcode==SELECT_PARTICIPANT_REQUEST_CODE){
 
@@ -271,18 +271,18 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
             which_report_generate="beanchmark"
             position_report=position1
             getbraintreeTokenApi()
-       /*     val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
-                .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
-            this@ManageTeamActivity.startActivity(i)*/
+            /*     val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
+                     .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
+                 this@ManageTeamActivity.startActivity(i)*/
 
         }
         if(requestcode== GENERATE_PARTICIPANT_VIEW_REPORT){
             which_report_generate="participant"
             position_report=position1
             getbraintreeTokenApi()
-         /*   val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
-                .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
-            this@ManageTeamActivity.startActivity(i)*/
+            /*   val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
+                   .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
+               this@ManageTeamActivity.startActivity(i)*/
 
         }
         if(requestcode==DELETE_PARTICIPANT_REQUEST_CODE){
@@ -534,8 +534,8 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
                 val stringNonce = nonce!!.nonce
                 if(which_report_generate.equals("beanchmark")){
 
-                 val amount1=   BigDecimal(userListItemParticipant!!.size+1)
-                 val amount2=   BigDecimal(ppclist!!.get(0).amount)
+                    val amount1=   BigDecimal(userListItemParticipant!!.size+1)
+                    val amount2=   BigDecimal(ppclist!!.get(0).amount)
                     val total_amount:BigDecimal=amount1.multiply(amount2)
                     val jsonObject = JsonObject()
                     jsonObject.addProperty("transaction_id", stringNonce)
@@ -584,13 +584,13 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
 // Assign two BigDecimal objects
 
                 // Assign two BigDecimal objects
-         /*          val b1 = BigDecimal(v.edit_number_of_participants.text!!.trim().toString())
-                    val b2 = BigDecimal(PerQuestionPriceResponseDataItem!!.get(0).amount)*/
+                /*          val b1 = BigDecimal(v.edit_number_of_participants.text!!.trim().toString())
+                           val b2 = BigDecimal(PerQuestionPriceResponseDataItem!!.get(0).amount)*/
 
                 // Multiply b1 with b2 and assign result to b3
 
                 // Multiply b1 with b2 and assign result to b3
-               //    val b3: BigDecimal = b1.multiply(b2)
+                //    val b3: BigDecimal = b1.multiply(b2)
                 /*     val b3: BigDecimal = b1.multiply(b2)
                      val y = 13
                      val z = x * y*/
@@ -621,9 +621,9 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
             val apiInterface = ApiClient.getConnection(this@ManageTeamActivity)
             var call: Call<PPCResponse>? = null//apiInterface.profileImage(body,token);
 
-       
-                call = apiInterface!!.getPPCAmount(mpref!!.getAccessToken(""))
-            
+
+            call = apiInterface!!.getPPCAmount(mpref!!.getAccessToken(""))
+
 
 
             call!!.enqueue(object : Callback<PPCResponse> {

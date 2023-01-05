@@ -43,6 +43,7 @@
                         >
                         <com.cts.teamplayer.customui.CustomTextviewBold
                             android:id="@+id/tv_signup"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="@dimen/_7sdp"
@@ -290,6 +291,7 @@
                             />
                     </RelativeLayout>
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"

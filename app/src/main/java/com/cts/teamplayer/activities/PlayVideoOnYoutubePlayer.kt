@@ -2,6 +2,7 @@ package com.cts.teamplayer.activities
 
 import android.os.Bundle
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.cts.teamplayer.R
 import com.google.android.youtube.player.YouTubeBaseActivity
@@ -15,6 +16,9 @@ class PlayVideoOnYoutubePlayer :YouTubeBaseActivity(), YouTubePlayer.OnInitializ
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.yotubeplayeractivity)
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
 
         ytPlayer.initialize(
             "AIzaSyAF5oDfirRQXvCz_-J_DmaArB77-rNSpEs",
@@ -52,4 +56,10 @@ class PlayVideoOnYoutubePlayer :YouTubeBaseActivity(), YouTubePlayer.OnInitializ
     ) {
 
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
 }

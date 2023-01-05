@@ -1,11 +1,13 @@
 package com.cts.teamplayer.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.cts.teamplayer.R
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
+
 
 class SplashActivity: AppCompatActivity() {
     private var mpref: TeamPlayerSharedPrefrence? = null

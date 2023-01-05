@@ -73,9 +73,9 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
 
 
 
-      //  v.edit_invite_participat_email_im.setOnClickListener(this)
-      //  groupJoinList()
-       // pendinggroupList()
+        //  v.edit_invite_participat_email_im.setOnClickListener(this)
+        //  groupJoinList()
+        // pendinggroupList()
     }
 
     override fun onStart() {
@@ -89,26 +89,26 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
 
     override fun onResume() {
         super.onResume()
-       /* groupList()*/
+        /* groupList()*/
 
     }
 
     fun setGroupList(){
         var manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-       v.recycler_invite_group_list.layoutManager = manager
+        v.recycler_invite_group_list.layoutManager = manager
         val   groupListAdapter =  GroupListAdapter(activity!!, groupList,this)
         v.recycler_invite_group_list.adapter = groupListAdapter
     }
     fun setSubscriptionList(){
         var manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-       v.recycler_subscription_list.layoutManager = manager
+        v.recycler_subscription_list.layoutManager = manager
         val   groupListAdapter =  SubscriptionListAdapter(activity!!, appSubscriptionList,this)
         v.recycler_subscription_list.adapter = groupListAdapter
     }
 
     fun setPendingGroupList(){
         var manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-       v.recycler_pending_group_list.layoutManager = manager
+        v.recycler_pending_group_list.layoutManager = manager
         val   groupListAdapter =  PendingGroupListAdapter(activity!!, pendinggroupList,this)
         v.recycler_pending_group_list.adapter = groupListAdapter
     }
@@ -142,7 +142,7 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                                 tv_some_txt.visibility=View.GONE
                                 tv_your_match.visibility=View.GONE
                                 appSubscriptionList()
-                                
+
 
                             }else{
                                 tv_app_plan_list.visibility=View.GONE
@@ -338,11 +338,11 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
 
                             pendinggroupList = response.body()!!.data!! as ArrayList<PendingJoinGroupDataItem>?
                             if(pendinggroupList!!.size>=0){
-                               v.tv_join_a.visibility=View.VISIBLE
+                                v.tv_join_a.visibility=View.VISIBLE
                                 setPendingGroupList()
                             }else{
                                 v.tv_join_a.visibility=View.GONE
-                             //   v.tv_join_a.visibility=View.GONE
+                                //   v.tv_join_a.visibility=View.GONE
                             }
 
 
@@ -414,7 +414,7 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
         }
     }
 
-   private fun joinGroup(jsonObject: JsonObject){
+    private fun joinGroup(jsonObject: JsonObject){
         if (CheckNetworkConnection.isConnection1(activity!!, true)) {
             val progress = ProgressDialog(activity!!)
             progress.setMessage(resources.getString(R.string.please_wait))
@@ -678,13 +678,13 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
 
         }
         if(requestcode== MyConstants.APP_SUBSCRIPTION){
-                getbraintreeTokenApi()
-            }
+            getbraintreeTokenApi()
+        }
 
 
         if(requestcode== MyConstants.JOIN_GROUP_LIST){
-         /*   {"id":2,"name":"Test Demo Group","group_id":73,"code":"1234","max_size":"1","test":"2"}
-         */   /*{"id":2,"name":"Test Demo Group","code":"1234","max_size":"1","test":"2"}*/
+            /*   {"id":2,"name":"Test Demo Group","group_id":73,"code":"1234","max_size":"1","test":"2"}
+            */   /*{"id":2,"name":"Test Demo Group","code":"1234","max_size":"1","test":"2"}*/
             var sendReminderRequestRequest: JsonObject = JsonObject()
             sendReminderRequestRequest!!.addProperty("id", pendinggroupList!!.get(position).id)
             sendReminderRequestRequest!!.addProperty("name", pendinggroupList!!.get(position).group!!.name)
@@ -813,17 +813,17 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                   ""nonceFromTheClient"" : ""nonce123""
               }"*/
                 /* {"nonce":"tokencc_bh_q67qb6_ntvz2q_qs9yxp_qnzm3y_k84","chargeAmount":0.99}*/
-             //   val x=v.edit_number_of_participants.text!!.trim()
+                //   val x=v.edit_number_of_participants.text!!.trim()
 // Assign two BigDecimal objects
 
                 // Assign two BigDecimal objects
-             //   val b1 = BigDecimal(v.edit_number_of_participants.text!!.trim().toString())
-            //    val b2 = BigDecimal(PerQuestionPriceResponseDataItem!!.get(0).amount)
+                //   val b1 = BigDecimal(v.edit_number_of_participants.text!!.trim().toString())
+                //    val b2 = BigDecimal(PerQuestionPriceResponseDataItem!!.get(0).amount)
 
                 // Multiply b1 with b2 and assign result to b3
 
                 // Multiply b1 with b2 and assign result to b3
-             //   val b3: BigDecimal = b1.multiply(b2)
+                //   val b3: BigDecimal = b1.multiply(b2)
                 /*     val b3: BigDecimal = b1.multiply(b2)
                      val y = 13
                      val z = x * y*/

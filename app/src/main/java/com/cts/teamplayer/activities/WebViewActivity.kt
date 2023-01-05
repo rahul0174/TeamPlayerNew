@@ -41,9 +41,9 @@ class WebViewActivity: AppCompatActivity() , View.OnClickListener {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebViewClient(MyWebClient())
         webview.getSettings().setDomStorageEnabled(true)
-        webview.getSettings().setAppCacheEnabled(true)
+   /*     webview.getSettings().setAppCacheEnabled(true)
         webview.getSettings()
-            .setAppCachePath(applicationContext.filesDir.absolutePath + "/cache")
+            .setAppCachePath(applicationContext.filesDir.absolutePath + "/cache")*/
         webview.getSettings().setDatabaseEnabled(true)
         webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true)
         webview.settings.databasePath = applicationContext.filesDir.absolutePath + "/databases";

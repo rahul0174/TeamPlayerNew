@@ -1106,7 +1106,7 @@ class GroupManageActivity: AppCompatActivity() , View.OnClickListener,ItemClickL
         )
         dialog!!.window!!.setGravity(Gravity.CENTER)
         val recycler_country_list = dialog!!.findViewById(R.id.recycler_country_list) as RecyclerView
-        val city_search = dialog!!.findViewById(R.id.city_search) as RelativeLayout
+       // val city_search = dialog!!.findViewById(R.id.city_search) as RelativeLayout
 
 
         var manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

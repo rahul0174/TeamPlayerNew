@@ -342,6 +342,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 finish()
             }
             R.id.tv_orgnization -> {
+                title_signup_text.text=getString(R.string.org_signup_title_text)
                 company_which_type="company"
                 edit_im_num.hint="Account Number"
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_blue))
@@ -359,6 +360,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
             }
             R.id.tv_signup -> {
+                title_signup_text.text=getString(R.string.attach_cv)
                 company_which_type=""
                 edit_im_num.hint="Do You have an IM ID"
                 tv_orgnization.setBackgroundColor(resources.getColor(R.color.light_grey1))
@@ -884,7 +886,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                         try {
                             val jsonObject = JSONObject(response.body()!!.toString())
                             userIamge = jsonObject.getJSONObject("data").optString("filename").toString()
-                            Toast.makeText(this@SignUpActivity, userIamge, Toast.LENGTH_LONG).show()
+                          //  Toast.makeText(this@SignUpActivity, "upload image", Toast.LENGTH_LONG).show()
 
                         } catch (e: Exception) {
                             e.printStackTrace()
