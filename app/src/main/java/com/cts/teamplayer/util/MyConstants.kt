@@ -2,7 +2,8 @@ package com.cts.teamplayer.util
 
 object MyConstants {
     var X_API_KEY = "JDJ5JDEwJEJjd3NaamtFMWQzZUk1QzAwVUE1T3VlZWViWndFb00uQ1RSc3RodVJsQXFzWGtENGNhM01H"
-    val BASE_URL = "https://admin.teamplayerhr.com/api/"
+   // val BASE_URL = "https://admin.teamplayerhr.com/api/"
+    val BASE_URL = "https://superadmin.teamplayerhr.com/api/"
     //Image Baseurls
    // var USERS_IMAGE = BASE_URL.replace("api/","")+"storage/app/users/"
     var USERS_IMAGE = "https://admin.teamplayerhr.com/storage/app/public/"

@@ -2,8 +2,6 @@ package com.cts.teamplayer.activities
 
 import android.os.Bundle
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
-import androidx.appcompat.app.AppCompatActivity
 import com.cts.teamplayer.R
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult

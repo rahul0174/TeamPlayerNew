@@ -10,9 +10,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.billingclient.api.*
 import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
 import com.braintreepayments.api.dropin.DropInResult
@@ -34,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_brief_questionnaire.*
 import kotlinx.android.synthetic.main.fragment_brief_questionnaire.view.*
 import kotlinx.android.synthetic.main.fragment_demo_group.*
 import kotlinx.android.synthetic.main.fragment_invite_group_list.view.*
+import kotlinx.android.synthetic.main.select_questionaire_dialog.*
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -43,8 +46,11 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.math.BigDecimal
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickListner {
+    private var billingClient: BillingClient? = null
+    private  var skuDetails: SkuDetails?=null
     lateinit var v: View
     private var mpref: TeamPlayerSharedPrefrence? = null
     var planList: java.util.ArrayList<PlanList>? = null
@@ -63,10 +69,12 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         v.btn_puchase_full_que.setOnClickListener(this)
         groupList()
         PerQuestionPrice()
+       // setUpBillingClient()
         if(TeamPlayerSharedPrefrence.getInstance(activity!!).getFullQuestion("")!!.equals("false")){
             v.tv_plan.visibility=View.VISIBLE
             newUserList()
         }
+
 
         return v
     }
@@ -201,13 +209,70 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             else{
                 getbraintreeTokenApi()
             }
-
+            skuDetails?.let {
+                val billingFlowParams = BillingFlowParams.newBuilder()
+                    .setSkuDetails(it)
+                    .build()
+                billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)?.responseCode
+            }
+          //  setUpBillingClient()
         }
         if(requestcode== MyConstants.NEW_PAYPAL_CLICK_REQUEST_CODE){
             whichplan="newuser"
             positioninplan=position
-            getbraintreeTokenApi()
+          //  setUpBillingClient()
+
+           getbraintreeTokenApi()
         }
+    }
+    private var dialog: Dialog? = null
+    private fun openDialog(orderId:String) {
+        dialog = Dialog(requireActivity())
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.setContentView(R.layout.select_questionaire_dialog)
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.full_transparent)))
+        dialog!!.setCanceledOnTouchOutside(true)
+
+        val   tvBuy1 = dialog!!.findViewById(R.id.tvBuy1) as TextView
+   /*     val tvBuy5 = dialog!!.findViewById(R.id.tvBuy5) as TextView
+        val tvBuy10 = dialog!!.findViewById(R.id.tvBuy10) as TextView
+        val tvBuy15 = dialog!!.findViewById(R.id.tvBuy15) as TextView
+        val tvBuy25 = dialog!!.findViewById(R.id.tvBuy25) as TextView
+        val  tvBuy50 = dialog!!.findViewById(R.id.tvBuy50) as TextView
+        val  tvBuy75 = dialog!!.findViewById(R.id.tvBuy75) as TextView
+        val  tvBuy100 = dialog!!.findViewById(R.id.tvBuy100) as TextView*/
+
+        dialog!!.tvBuy1.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy5.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy15.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy25.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy50.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy75.setOnClickListener{
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy100.setOnClickListener{
+            dialog!!.dismiss()
+        }
+       dialog!!.tv_dismiss.setOnClickListener{
+            dialog!!.dismiss()
+        }
+
+        dialog!!.show()
     }
     var PerQuestionPriceResponseDataItem: java.util.ArrayList<PerQuestionPriceResponseDataItem>? = null
     private fun PerQuestionPrice(){
@@ -844,6 +909,75 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             )
                 .show()
         }
+    }
+
+   // Initialize the billing client
+
+    private fun setUpBillingClient() {
+        billingClient = BillingClient.newBuilder(requireActivity())
+            .setListener(purchaseUpdateListener)
+            .enablePendingPurchases()
+            .build()
+        startConnection()
+
+    }
+
+    private val purchaseUpdateListener =  PurchasesUpdatedListener { billingResult, purchases ->
+
+    }
+    private fun startConnection() {
+        billingClient?.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
+                    Log.v("TAG_INAPP","Setup Billing Done")
+                    // The BillingClient is ready. You can query purchases here.
+                    queryAvaliableProducts()
+                }
+            }
+            override fun onBillingServiceDisconnected() {
+                Log.v("TAG_INAPP","Billing client Disconnected")
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+            }
+        })
+    }
+
+    private fun queryAvaliableProducts() {
+        val skuList = ArrayList<String>()
+        skuList.add("test_product_two")
+        val params = SkuDetailsParams.newBuilder()
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
+
+        billingClient?.querySkuDetailsAsync(params.build()) { billingResult, skuDetailsList ->
+            // Process the result.
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && !skuDetailsList.isNullOrEmpty()) {
+                for (skuDetails in skuDetailsList) {
+                    Log.v("TAG_INAPP","skuDetailsList : ${skuDetailsList}")
+                    skuDetails?.let {
+                        val billingFlowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetails)
+                            .build()
+                        billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)?.responseCode
+                    }
+                    //This list should contain the products added above
+                  //  updateUI(skuDetails)
+                }
+            }
+        }
+    }
+    private fun updateUI(skuDetails: SkuDetails?) {
+        skuDetails?.let {
+            this.skuDetails = it
+            //txt_product_name?.text = skuDetails.title
+           // txt_product_description?.text = skuDetails.description
+            showUIElements()
+        }
+    }
+
+    private fun showUIElements() {
+       // txt_product_name?.visibility = View.VISIBLE
+      //  txt_product_description?.visibility = View.VISIBLE
+       // txt_product_buy?.visibility = View.VISIBLE
     }
 
 

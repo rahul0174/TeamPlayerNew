@@ -171,7 +171,7 @@
     <string name="compare_im_s">Compare IM’s</string>
     <string name="app_questionnaire">App Questionnaire</string>
     <string name="team_name">Team Name</string>
-    <string name="enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire">Enter number of questionnaire and click Buy Now. After your purchase is complete you will be assigned Questionnaire to allow others to take the questionnaire.</string>
+    <string name="enter_number_of_questionnaire_and_click_buy_now_after_your_purchase_is_complete_you_will_be_assigned_questionnaire_to_allow_others_to_take_the_questionnaire">Enter number of Questionnaire and click Buy Now. After your purchase is complete you will be assigned Questionnaire to allow others to take the questionnaire.</string>
     <string name="select_team">Select Team</string>
     <string name="group_list">Group List</string>
     <string name="beanchmark">Benchmark:</string>
@@ -192,6 +192,14 @@
     <string name="org_signup_title_text">You need to subscribe to Organization Mobile App subscription and purchase  a minimum of 100 APP questionnaires.\nDisclaimer*: To Get an accurate compatibility results the full questionnaire must be taken. The Mobile App questionnaire is a sample of the full questionnaire</string>
     <string name="attach_cv">Attach CV/resume or purchase APP questionnaire for 0.99 pence and receive One APP Questionnaire for you to take and a second one to invite another participant to take.\nThen You can compare your compatibility.\nYou can Purchase more App questionnaire to invite more participants at 0.99 pence each.\nDisclaimer*: To Get an accurate compatibility results the full questionnaire must be taken. The Mobile App questionnaire is a sample of the full questionnaire.</string>
     <string name="single_user_can_purchase_an_unlimited_number_of_app_questionnaires_for_invitees_at_0_99_pence_etc_individual_can_signup_for_full_questionnaire_im_50_purchased_through_mobile_app">Single user can purchase an unlimited number of APP questionnaires for invitees at 0.99 pence etc. Individual can signup for full questionnaire IM <b><i>- £50</i></b> purchased through mobile App.</string>
+    <string name="buy_1">Buy 1 Questionaire at $0.99</string>
+    <string name="buy_5">Buy 5 Questionaire at $4.99</string>
+    <string name="buy_10">Buy 10 Questionaire at $9.99</string>
+    <string name="buy_15">Buy 14 Questionaire at $14.99</string>
+    <string name="buy_25">Buy 25 Questionaire at $24.99</string>
+    <string name="buy_50">Buy 50 Questionaire at $49.99</string>
+    <string name="buy_75">Buy 75 Questionaire at $74.99</string>
+    <string name="buy_100">Buy 1 Questionaire at $99.99</string>
 
 
     <string-array name="selector">
