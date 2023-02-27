@@ -120,7 +120,15 @@
                         android:layout_marginTop="@dimen/_6sdp"
                         android:background="@drawable/rounded_doted_btn"
                         >
+                        <com.cts.teamplayer.customui.CustomTextView
+                            android:id="@+id/tvPurchaseQuestion"
+                            android:layout_width="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Purchase Questionaire"
+                            android:layout_height="@dimen/_30sdp"
+                            />
                         <com.cts.teamplayer.customui.CustomEditText
+                            android:visibility="gone"
                             android:id="@+id/edit_number_of_participants"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

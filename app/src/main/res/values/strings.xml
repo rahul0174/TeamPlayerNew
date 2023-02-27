@@ -195,11 +195,12 @@
     <string name="buy_1">Buy 1 Questionaire at $0.99</string>
     <string name="buy_5">Buy 5 Questionaire at $4.99</string>
     <string name="buy_10">Buy 10 Questionaire at $9.99</string>
-    <string name="buy_15">Buy 14 Questionaire at $14.99</string>
+    <string name="buy_15">Buy 15 Questionaire at $14.99</string>
     <string name="buy_25">Buy 25 Questionaire at $24.99</string>
     <string name="buy_50">Buy 50 Questionaire at $49.99</string>
     <string name="buy_75">Buy 75 Questionaire at $74.99</string>
-    <string name="buy_100">Buy 1 Questionaire at $99.99</string>
+    <string name="buy_100">Buy 100 Questionaire at $99.99</string>
+    <string name="buy_500">Buy 500 Questionaire at $499.99</string>
 
 
     <string-array name="selector">

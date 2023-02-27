@@ -32,7 +32,7 @@
         </RelativeLayout>
 
 
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
             />
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy5"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_5"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:layout_marginTop="@dimen/_5sdp"
@@ -66,7 +66,7 @@
             android:background="@color/light_grey"
             />
 
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy10"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_10"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:layout_marginTop="@dimen/_5sdp"
@@ -83,7 +83,7 @@
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
             />
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy15"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -100,7 +100,7 @@
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
             />
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy25"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -109,7 +109,7 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_25"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:visibility="visible"
@@ -117,7 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
-            /><com.cts.teamplayer.customui.CustomTextView
+            /><com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy50"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -126,7 +126,7 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_50"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:visibility="visible"
@@ -135,7 +135,7 @@
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
             />
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy75"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -144,7 +144,7 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_75"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:visibility="visible"
@@ -153,7 +153,7 @@
             android:layout_height="@dimen/_1ssp"
             android:background="@color/light_grey"
             />
-        <com.cts.teamplayer.customui.CustomTextView
+        <com.cts.teamplayer.customui.CustomTextviewBold
             android:id="@+id/tvBuy100"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_width="match_parent"
@@ -162,7 +162,25 @@
             android:textColor="@color/bt_text_blue"
             android:textAlignment="center"
             android:text="@string/buy_100"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_12sdp"
+            />
+        <View
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1ssp"
+            android:background="@color/light_grey"
+            />
+        <com.cts.teamplayer.customui.CustomTextviewBold
+            android:id="@+id/tvBuy500"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_7sdp"
+            android:textColor="@color/bt_text_blue"
+            android:textAlignment="center"
+            android:text="@string/buy_500"
+            android:textSize="@dimen/_12sdp"
             />
         <View
             android:visibility="visible"

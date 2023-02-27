@@ -1,6 +1,7 @@
 package com.cts.teamplayer.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class PlanListAdapter  (val mContext: Context, var data : java.util.ArrayList<Pl
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         fun bind(data: PlanList, position: Int) {
+            Log.e("planList",data.id.toString())
             if(data.amount.equals("50.00")){
                 itemView.tv_plan_amount.text="New User Plan: £"+data.amount+" or CV"
 

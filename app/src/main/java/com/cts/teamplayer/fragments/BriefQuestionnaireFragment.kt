@@ -1,5 +1,6 @@
 package com.cts.teamplayer.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
@@ -59,6 +60,8 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     var positioninplan:Int?=null
     var stringNonceNew:String=""
     var whichplan:String=""
+    var noOfQuestion:String?=null
+    var product_id:String?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -69,10 +72,14 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         v.btn_puchase_full_que.setOnClickListener(this)
         groupList()
         PerQuestionPrice()
-       // setUpBillingClient()
+
         if(TeamPlayerSharedPrefrence.getInstance(activity!!).getFullQuestion("")!!.equals("false")){
             v.tv_plan.visibility=View.VISIBLE
             newUserList()
+        }
+
+       v.tvPurchaseQuestion.setOnClickListener {
+            openDialog()
         }
 
 
@@ -201,32 +208,27 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         if(requestcode==PAYPAL_CLICK_REQUEST_CODE){
             positioninplan=position
             whichplan="olduser"
-            if(edit_number_of_participants.text.toString().trim().isEmpty()){
-                Toast.makeText(activity, getString(R.string.enter_no_of_question), Toast.LENGTH_SHORT).show()
-            }else if (edit_number_of_participants.text.toString().trim().equals("0")){
-                Toast.makeText(activity, getString(R.string.enter_no_of_question), Toast.LENGTH_SHORT).show()
-            }
-            else{
-                getbraintreeTokenApi()
-            }
-            skuDetails?.let {
-                val billingFlowParams = BillingFlowParams.newBuilder()
-                    .setSkuDetails(it)
-                    .build()
-                billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)?.responseCode
-            }
-          //  setUpBillingClient()
+
+            purchaseNoOfQueByInAppPurchase()
+
         }
         if(requestcode== MyConstants.NEW_PAYPAL_CLICK_REQUEST_CODE){
             whichplan="newuser"
             positioninplan=position
-          //  setUpBillingClient()
 
-           getbraintreeTokenApi()
+            setUpBillingClient()
+          // getbraintreeTokenApi()
         }
     }
+    private fun purchaseNoOfQueByInAppPurchase(){
+        if (noOfQuestion!=null)
+        setUpBillingClient() else
+            Toast.makeText(activity, getString(R.string.enter_no_of_question), Toast.LENGTH_SHORT).show()
+
+    }
     private var dialog: Dialog? = null
-    private fun openDialog(orderId:String) {
+    @SuppressLint("SuspiciousIndentation")
+    private fun openDialog() {
         dialog = Dialog(requireActivity())
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.setContentView(R.layout.select_questionaire_dialog)
@@ -238,34 +240,49 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(getResources().getColor(R.color.full_transparent)))
         dialog!!.setCanceledOnTouchOutside(true)
 
-        val   tvBuy1 = dialog!!.findViewById(R.id.tvBuy1) as TextView
-   /*     val tvBuy5 = dialog!!.findViewById(R.id.tvBuy5) as TextView
-        val tvBuy10 = dialog!!.findViewById(R.id.tvBuy10) as TextView
-        val tvBuy15 = dialog!!.findViewById(R.id.tvBuy15) as TextView
-        val tvBuy25 = dialog!!.findViewById(R.id.tvBuy25) as TextView
-        val  tvBuy50 = dialog!!.findViewById(R.id.tvBuy50) as TextView
-        val  tvBuy75 = dialog!!.findViewById(R.id.tvBuy75) as TextView
-        val  tvBuy100 = dialog!!.findViewById(R.id.tvBuy100) as TextView*/
-
         dialog!!.tvBuy1.setOnClickListener{
+         noOfQuestion="1"
+            product_id="1questionaire"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy5.setOnClickListener{
+            product_id="5questionaire"
+            noOfQuestion="5"
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy10.setOnClickListener{
+            product_id="10questionaire"
+            noOfQuestion="10"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy15.setOnClickListener{
+            product_id="15questionaire"
+            noOfQuestion="15"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy25.setOnClickListener{
+            product_id="25questionaire"
+            noOfQuestion="25"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy50.setOnClickListener{
+            product_id="50questionaire"
+            noOfQuestion="50"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy75.setOnClickListener{
+            product_id="75questionaire"
+            noOfQuestion="75"
             dialog!!.dismiss()
         }
         dialog!!.tvBuy100.setOnClickListener{
+            product_id="100questionaire"
+            noOfQuestion="100"
+            dialog!!.dismiss()
+        }
+        dialog!!.tvBuy500.setOnClickListener{
+            product_id="100questionaire"
+            noOfQuestion="500"
             dialog!!.dismiss()
         }
        dialog!!.tv_dismiss.setOnClickListener{
@@ -649,7 +666,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                         var jsonObject = JSONObject(response.body()!!.toString())
                         try {
                             Log.d("response", response.body()!!.toString())
-
+                            noOfQuestion=null
                             dialog1 = Dialog(activity!!)
                             dialog1!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
                             dialog1!!.setCancelable(false)
@@ -760,9 +777,9 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                     if (response.code() >= 200 && response.code() < 210) {
                         var jsonObject = JSONObject(response.body()!!.toString())
                         try {
+                            noOfQuestion=null
                             Log.d("response", response.body()!!.toString())
                             Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
-
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -911,6 +928,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         }
     }
 
+
    // Initialize the billing client
 
     private fun setUpBillingClient() {
@@ -921,30 +939,28 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         startConnection()
 
     }
-
-    private val purchaseUpdateListener =  PurchasesUpdatedListener { billingResult, purchases ->
-
-    }
     private fun startConnection() {
         billingClient?.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
                     Log.v("TAG_INAPP","Setup Billing Done")
                     // The BillingClient is ready. You can query purchases here.
-                    queryAvaliableProducts()
+                    if(whichplan.equals("newuser"))
+                        queryAvaliableProducts("userplan")
+                    else
+                        queryAvaliableProducts(product_id!!)
+
                 }
             }
             override fun onBillingServiceDisconnected() {
                 Log.v("TAG_INAPP","Billing client Disconnected")
-                // Try to restart the connection on the next request to
-                // Google Play by calling the startConnection() method.
+
             }
         })
     }
-
-    private fun queryAvaliableProducts() {
+    private fun queryAvaliableProducts(id:String) {
         val skuList = ArrayList<String>()
-        skuList.add("test_product_two")
+        skuList.add(id)
         val params = SkuDetailsParams.newBuilder()
         params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
 
@@ -957,30 +973,36 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                         val billingFlowParams = BillingFlowParams.newBuilder()
                             .setSkuDetails(skuDetails)
                             .build()
-                        billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)?.responseCode
-                    }
-                    //This list should contain the products added above
-                  //  updateUI(skuDetails)
+                        billingClient?.launchBillingFlow(requireActivity(), billingFlowParams)?.responseCode.toString()
+
+                          }
                 }
             }
         }
     }
-    private fun updateUI(skuDetails: SkuDetails?) {
-        skuDetails?.let {
-            this.skuDetails = it
-            //txt_product_name?.text = skuDetails.title
-           // txt_product_description?.text = skuDetails.description
-            showUIElements()
+
+    private val purchaseUpdateListener =  PurchasesUpdatedListener { billingResult, purchases ->
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            for (purchase in purchases) {
+                if(whichplan.equals("newuser")){
+                    val paymentNewUpdateRequest: JsonObject = JsonObject()
+                    paymentNewUpdateRequest.addProperty("id",planList!!.get(positioninplan!!).id )
+                    paymentNewUpdateRequest.addProperty("transaction_id", "")
+                    updateNewUserPayment(paymentNewUpdateRequest)
+                }else{
+                    val paymentUpdateRequest: JsonObject = JsonObject()
+                    paymentUpdateRequest.addProperty("id","1")
+                    paymentUpdateRequest.addProperty("number_survay", noOfQuestion)
+                    paymentUpdateRequest.addProperty("data", "")
+                    upDateDemoPaymentApi(paymentUpdateRequest)
+                }
+
+            }
+        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle an error caused by a user cancelling the purchase flow.
+        } else {
+            // Handle any other error codes.
         }
     }
-
-    private fun showUIElements() {
-       // txt_product_name?.visibility = View.VISIBLE
-      //  txt_product_description?.visibility = View.VISIBLE
-       // txt_product_buy?.visibility = View.VISIBLE
-    }
-
-
-
 
 }
