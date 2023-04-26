@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.billingclient.api.*
 import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
 import com.braintreepayments.api.dropin.DropInResult
@@ -46,6 +47,7 @@ import java.util.ArrayList
 
 class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickListner {
     private var mpref: TeamPlayerSharedPrefrence? = null
+    private var billingClient: BillingClient? = null
     var position: Int? = null
     var which_report_generate: String? = null
     var position_report: Int? = null
@@ -270,7 +272,8 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         if(requestcode==GENERATE_BEANCHMARK_VIEW_REPORT){
             which_report_generate="beanchmark"
             position_report=position1
-            getbraintreeTokenApi()
+            setUpBillingClient()
+           // getbraintreeTokenApi()
             /*     val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
                      .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
                  this@ManageTeamActivity.startActivity(i)*/
@@ -279,7 +282,8 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         if(requestcode== GENERATE_PARTICIPANT_VIEW_REPORT){
             which_report_generate="participant"
             position_report=position1
-            getbraintreeTokenApi()
+            setUpBillingClient()
+          //  getbraintreeTokenApi()
             /*   val i = Intent(this@ManageTeamActivity, WebViewActivity::class.java).putExtra("group_id",userListItemBanchMark!!.get(position1).groupId)
                    .putExtra("user_id",userListItemBanchMark!!.get(position1).userId).putExtra("subgroup_id",userListItemBanchMark!!.get(position1).subgroupId).putExtra("user_type",userListItemBanchMark!!.get(position1).userType).putExtra("activity", "report")
                this@ManageTeamActivity.startActivity(i)*/
@@ -812,6 +816,81 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         }
     }
 
+    private fun setUpBillingClient() {
+        billingClient = BillingClient.newBuilder(this)
+            .setListener(purchaseUpdateListener)
+            .enablePendingPurchases()
+            .build()
+        startConnection()
+
+    }
+    private fun startConnection() {
+        billingClient?.startConnection(object : BillingClientStateListener {
+            override fun onBillingSetupFinished(billingResult: BillingResult) {
+                if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
+                    Log.v("TAG_INAPP","Setup Billing Done")
+                    // The BillingClient is ready. You can query purchases here.
+
+                    queryAvaliableProducts("userplan")
+
+
+                }
+            }
+            override fun onBillingServiceDisconnected() {
+                Log.v("TAG_INAPP","Billing client Disconnected")
+
+            }
+        })
+    }
+    private fun queryAvaliableProducts(id:String) {
+        val skuList = ArrayList<String>()
+        skuList.add(id)
+        val params = SkuDetailsParams.newBuilder()
+        params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP)
+
+        billingClient?.querySkuDetailsAsync(params.build()) { billingResult, skuDetailsList ->
+            // Process the result.
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && !skuDetailsList.isNullOrEmpty()) {
+                for (skuDetails in skuDetailsList) {
+                    Log.v("TAG_INAPP","skuDetailsList : ${skuDetailsList}")
+                    skuDetails?.let {
+                        val billingFlowParams = BillingFlowParams.newBuilder()
+                            .setSkuDetails(skuDetails)
+                            .build()
+                        billingClient?.launchBillingFlow(this, billingFlowParams)?.responseCode.toString()
+
+                    }
+                }
+            }
+        }
+    }
+
+    private val purchaseUpdateListener =  PurchasesUpdatedListener { billingResult, purchases ->
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+            for (purchase in purchases) {
+                val jsonObject = JsonObject()
+                jsonObject.addProperty("transaction_id", "")
+                jsonObject.addProperty("id", userListItemBanchMark!!.get(position_report!!).id)
+                jsonObject.addProperty("amount", "0.99")
+                jsonObject.addProperty(
+                    "sub_group_id",
+                    userListItemBanchMark!!.get(position_report!!).subgroupId
+                )
+                jsonObject.addProperty(
+                    "data",
+                    ""
+                )
+
+                Log.e("json", jsonObject.toString())
+                updateAppSubscriptionPayment(jsonObject)
+
+            }
+        } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
+            // Handle an error caused by a user cancelling the purchase flow.
+        } else {
+            // Handle any other error codes.
+        }
+    }
 
 
 

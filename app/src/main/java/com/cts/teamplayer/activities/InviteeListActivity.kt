@@ -94,14 +94,18 @@ class InviteeListActivity : AppCompatActivity() , View.OnClickListener, ItemClic
         //countryFilterList1 = data!! as ArrayList<SurveyParticipantsItem>?
 
         //looping through existing elements
-        for (s in this!!.inviteeListDataItem!!) {
-            //if the existing elements contains the search input
-            if (s!!.email!!.toLowerCase().contains(text.toLowerCase())) {
-                //adding the element to filtered list
-                filterdNames.add(s)
+        if(inviteeListDataItem!!.isNotEmpty()){
+            for (s in this!!.inviteeListDataItem!!) {
+                //if the existing elements contains the search input
+                if (s!!.email!!.toLowerCase().contains(text.toLowerCase())) {
+                    //adding the element to filtered list
+                    filterdNames.add(s)
+                }
             }
+            filterdNames = groupListAdapter!!.filterList(filterdNames)
         }
-        filterdNames = groupListAdapter!!.filterList(filterdNames)
+
+
 
     }
 

@@ -1,18 +1,26 @@
 package com.cts.teamplayer.activities
 
 import android.Manifest
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.text.Html
+import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -33,20 +41,13 @@ import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.network.ItemClickListner
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
-import com.cts.teamplayer.util.UriUtils
 import com.cts.teamplayer.util.Utility
 import com.google.gson.JsonObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.activity_invitees_list.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_sign_up.edit_password
-import kotlinx.android.synthetic.main.activity_sign_up.view.*
-import kotlinx.android.synthetic.main.activity_signin.*
-import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.dialog_country.*
 import kotlinx.android.synthetic.main.dialog_open_image_doc.*
-import kotlinx.android.synthetic.main.fragment_request_demo.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,11 +55,8 @@ import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
-import java.io.BufferedReader
-import java.io.File
-import java.io.IOException
-import java.io.InputStreamReader
-import java.util.*
+import java.io.*
+
 
 class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.OnItemSelectedListener
     ,CountryListAdapter.TextBookNow,ItemClickListner
@@ -66,6 +64,8 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     ,SectorListAdapter.TextSectorBookNow,OccupationListAdapter.TextBookOccupationNow {
 
     private var mpref: TeamPlayerSharedPrefrence? = null
+    val REQUEST_ID_MULTIPLE_PERMISSIONS = 101
+    val PERMISSION_REQUEST_CODE = 10001
     var countryList: java.util.ArrayList<CountryList>? = null
     var sectotList: java.util.ArrayList<SectorList>? = null
     var occupationsList: java.util.ArrayList<OccupationsList>? = null
@@ -83,6 +83,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var ischeck = false
     var text_your_role:String?=""
     var text_no_of_empl:String?=""
+    private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
 
     var stateListAdapter: StateListAdapter? = null
     var countryListAdapter: CountryListAdapter? = null
@@ -754,18 +755,18 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     private fun checkPermission(): Boolean {
         val currentAPIVersion = Build.VERSION.SDK_INT
         if (currentAPIVersion >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this!!, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                    this!!,
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                    this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                    this!!,
+                    this,
                     Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED) {
                 return true
 
             } else {
                 ActivityCompat.requestPermissions(
-                    this!!, arrayOf(
+                    this, arrayOf(
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA
@@ -779,11 +780,12 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     }
     val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
 
-    override fun onRequestPermissionsResult(
+/*    override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE -> if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // if (imageFor == "profile") {
@@ -794,28 +796,38 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             } else {
                 //code for deny
             }
+
         }
-    }
+    }*/
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode==101&&resultCode== RESULT_OK) {
             try {
-                val uploadfileuri: Uri = data!!.data!!
-                val FilePath = UriUtils.getPathFromUri(this, uploadfileuri)
+
+
+                val filePath = getActivityResult(data)
+                tvUploadPdf.text=filePath.name
+                uploadUserImageApi(filePath,filePath.name)
+
+
+                //   getPDFPath(uploadfileuri)
+
+             /*   val FilePath = UriUtils.getPathFromUri(this, uploadfileuri)
                 print("Path  = $FilePath")
                 val extension = FilePath.substring(FilePath.lastIndexOf("."))
                 if (extension == ".pdf") {
                     val filename = FilePath.substring(FilePath.lastIndexOf("/") + 1)
                     val file: File = File(FilePath)
-                       uploadUserImageApi(file)
-                }
+                    uploadUserImageApi(file)
+                }*/
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 Toast.makeText(
                     this,
-                    getString(R.string.invalid_Url),
+                    getString(R.string.user_can),
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -830,7 +842,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 iv_profile_pic.setImageURI(result.uri)
                 //profile_image=profileImageFile!!.path.toString()
                 iv_profile_pic.setImageURI(result.uri)
-                uploadUserImageApi(imageFile)
+                uploadUserImageApi(imageFile,imageFile.name)
 
 
 
@@ -839,6 +851,79 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         }
 
     }
+
+
+    @SuppressLint("Range")
+    fun getPDFPath(data: Uri?){
+        val uriString = data.toString()
+
+        val myFile = File(uriString)
+        val path = myFile.absolutePath
+        var displayName: String? = null
+
+        if (uriString.startsWith("content://")) {
+            var cursor: Cursor? = null
+            try {
+                // Setting the PDF to the TextView
+                cursor = applicationContext!!.contentResolver.query(data!!, null, null, null, null)
+                if (cursor != null && cursor.moveToFirst()) {
+                  val  pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                   // pdfTextView.text = pdfName
+                    uploadUserImageApi(myFile,pdfName)
+                }
+            } finally {
+                cursor?.close()
+            }
+          /*  try {
+                cursor = this.getContentResolver().query(data!!, null, null, null, null)
+                if (cursor != null && cursor.moveToFirst()) {
+                  val  pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+
+                    displayName = cursor.toString()
+
+                }
+            } finally {
+                cursor!!.close()
+            }*/
+        } else if (uriString.startsWith("file://")) {
+            displayName = myFile.name
+        }
+    }
+
+    fun getFilePathFromURI(context: Context?, contentUri: Uri?): String? {
+        //copy file and send new file path
+        val fileName: String = getFileName(contentUri)!!
+     /*   val wallpaperDirectory: File = File(
+            Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY
+        )*/
+        val wallpaperDirectory = File(contentUri.toString())
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdirs()
+        }
+        if (!TextUtils.isEmpty(fileName)) {
+            val copyFile = File(wallpaperDirectory.toString() + File.separator + fileName)
+            // create folder if not exists
+            return copyFile.absolutePath
+        }
+        return null
+    }
+
+
+
+
+    fun getFileName(uri: Uri?): String? {
+        if (uri == null) return null
+        var fileName: String? = null
+        val path = uri.path
+        val cut = path!!.lastIndexOf('/')
+        if (cut != -1) {
+            fileName = path.substring(cut + 1)
+        }
+        return fileName
+    }
+
+
     fun getPath(uri: Uri?): String? {
         // just some safety built in
         if (uri == null) {
@@ -862,7 +947,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     }
 
     var userIamge=""
-    private fun uploadUserImageApi(uri: File?) {
+    private fun uploadUserImageApi(uri: File?,name:String) {
         if (CheckNetworkConnection.isConnection1(this, true)) {
             val progressDialog = ProgressDialog(this@SignUpActivity)
             progressDialog.setMessage(getString(R.string.please_wait))
@@ -872,7 +957,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             val apiInterface = ApiClient.getConnection(this)
             var call: Call<JsonObject>? = null//apiInterface.profileImage(body,token);
             val bodyList = ArrayList<MultipartBody.Part>()
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), uri!!)
+            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), uri!!.path)
             val bodydata = MultipartBody.Part.createFormData("file", uri.name, requestFile)
             bodyList.add(bodydata)
             call = apiInterface!!.uploadSingleFile(bodyList)
@@ -1656,21 +1741,29 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         dialog!!.setCanceledOnTouchOutside(true)
 
         dialog!!.tv_open_image.setOnClickListener{
-            if (checkPermission())
+            if (checkPermission1()){
                 CropImage.activity().setAutoZoomEnabled(true).setAspectRatio(1, 1)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .start(this!!)
-            dialog!!.dismiss()
+                dialog!!.dismiss()
+            }else{
+                requestPermission()
+                dialog!!.dismiss()
+            }
+
+
+             /*   CropImage.activity().setAutoZoomEnabled(true).setAspectRatio(1, 1)
+                    .setGuidelines(CropImageView.Guidelines.ON)
+                    .start(this!!)*/
+
              }
         dialog!!.tv_open_doc.setOnClickListener{
           //  val mimeTypes = arrayOf("image/*", "application/pdf")
-            val mimeTypes = arrayOf("application/pdf")
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = if (mimeTypes.size == 1) mimeTypes[0] else "*/*"
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-            startActivityForResult(Intent.createChooser(intent, "File"), 101)
-            dialog!!.dismiss()
+            val  chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+            chooseFile.type = "*/*"
+            val intent = Intent.createChooser(chooseFile, "Choose a file")
+            startActivityForResult(intent, 101)
+           dialog!!.dismiss()
              }
         dialog!!.tv_cancel.setOnClickListener{
 
@@ -1738,6 +1831,112 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         occupation_id=data.id.toString()
         tv_occupation.text=data.text
         dialog!!.dismiss()
+    }
+    fun checkAndRequestPermissions(context: Activity?): Boolean {
+        val WExtstorePermission = ContextCompat.checkSelfPermission(
+            context!!,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val cameraPermission = ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.CAMERA
+        )
+        val listPermissionsNeeded: MutableList<String> = ArrayList()
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA)
+        }
+        if (WExtstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                .add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(
+                context, listPermissionsNeeded
+                    .toTypedArray(),
+                REQUEST_ID_MULTIPLE_PERMISSIONS
+            )
+            return false
+        }
+        return true
+    }
+    fun choosePhotoFromGallary() {
+        val galleryIntent = Intent(Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        startActivityForResult(galleryIntent, 101)
+    }
+    private fun checkPermission1(): Boolean {
+        return if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted
+            false
+        } else true
+    }
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.CAMERA),
+            PERMISSION_REQUEST_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(applicationContext, "Permission Granted", Toast.LENGTH_SHORT).show()
+
+                // main logic
+            } else {
+                Toast.makeText(applicationContext, "Permission Denied", Toast.LENGTH_SHORT).show()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        showMessageOKCancel("You need to allow access permissions",
+                            DialogInterface.OnClickListener { dialog, which ->
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                    requestPermission()
+                                }
+                            })
+                    }
+                }
+            }
+        }
+    }
+    private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK", okListener)
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show()
+    }
+    fun getActivityResult( data: Intent?):File {
+        var url:String?=null
+        val uri = data?.data
+        val filePath = uri?.path!!
+        val picturePath: List<String> = filePath.split(":")
+        val first = picturePath[0]
+        val second = picturePath[1]
+        if (first == "/document/raw" || first == "/document/primary") {
+            url = "/storage/emulated/0/$second"
+        }
+        return File(url!!)
+    }
+    private val PERMISSION_REQUEST_CODE1 = 200
+    private fun checkPermissionNew(): Boolean {
+        return (ContextCompat.checkSelfPermission(
+            this,
+            WRITE_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(
+            this,
+            READ_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED)
     }
 
 

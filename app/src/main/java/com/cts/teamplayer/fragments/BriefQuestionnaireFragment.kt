@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +19,6 @@ import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
 import com.braintreepayments.api.dropin.DropInResult
 import com.cts.teamplayer.R
-import com.cts.teamplayer.activities.WebViewActivity
 import com.cts.teamplayer.adapters.PlanListAdapter
 import com.cts.teamplayer.models.*
 import com.cts.teamplayer.network.ApiClient
@@ -47,7 +45,6 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.math.BigDecimal
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickListner {
     private var billingClient: BillingClient? = null
@@ -60,6 +57,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     var positioninplan:Int?=null
     var stringNonceNew:String=""
     var whichplan:String=""
+    var dialogShow = true
     var noOfQuestion:String?=null
     var product_id:String?=null
 
@@ -68,12 +66,12 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     ): View? {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_brief_questionnaire, container, false)
-        mpref = TeamPlayerSharedPrefrence.getInstance(activity!!)
+        mpref = TeamPlayerSharedPrefrence.getInstance(requireActivity())
         v.btn_puchase_full_que.setOnClickListener(this)
         groupList()
         PerQuestionPrice()
 
-        if(TeamPlayerSharedPrefrence.getInstance(activity!!).getFullQuestion("")!!.equals("false")){
+        if(TeamPlayerSharedPrefrence.getInstance(requireActivity()).getFullQuestion("")!!.equals("false")){
             v.tv_plan.visibility=View.VISIBLE
             newUserList()
         }
@@ -99,13 +97,13 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
     }
     private fun groupList(){
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<PlanListResponse>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.plabListParameter(mpref!!.getAccessToken(""))
             call.enqueue(object : Callback<PlanListResponse> {
@@ -127,7 +125,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
                     } else if (response.code() == 500) {
                         Toast.makeText(
-                            activity!!,
+                            requireActivity(),
                             "Internal server error",
                             Toast.LENGTH_LONG
                         ).show()
@@ -157,11 +155,11 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             Toast.makeText(
-                                activity!!,
+                                requireActivity(),
                                 "Some error occurred",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -173,7 +171,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<PlanListResponse>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -181,7 +179,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -191,16 +189,16 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
 
     fun setGroupList(){
-        val manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        val manager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         v.recycler_plan_list.layoutManager = manager
-        val   groupListAdapter =  PlanListAdapter(activity!!, planList, this)
+        val   groupListAdapter =  PlanListAdapter(requireActivity(), planList, this)
         v.recycler_plan_list.adapter = groupListAdapter
     }
 
     fun setNewUserPlanList(){
-        val manager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        val manager = LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         v.recycler_new_user_plan_list.layoutManager = manager
-        val   groupListAdapter =  PlanListAdapter(activity!!, planList, this)
+        val   groupListAdapter =  PlanListAdapter(requireActivity(), planList, this)
         v.recycler_new_user_plan_list.adapter = groupListAdapter
     }
 
@@ -293,13 +291,13 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     }
     var PerQuestionPriceResponseDataItem: java.util.ArrayList<PerQuestionPriceResponseDataItem>? = null
     private fun PerQuestionPrice(){
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<PerQuestionPriceResponse>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.getDemoPlan()
             call!!.enqueue(object : Callback<PerQuestionPriceResponse> {
@@ -320,7 +318,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
                     } else if (response.code() == 500) {
                         Toast.makeText(
-                            activity!!,
+                            requireActivity(),
                             "Internal server error",
                             Toast.LENGTH_LONG
                         ).show()
@@ -350,11 +348,11 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             Toast.makeText(
-                                activity!!,
+                                requireActivity(),
                                 "Some error occurred",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -366,7 +364,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<PerQuestionPriceResponse>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -374,7 +372,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -385,17 +383,17 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     var orderId=""
     private fun getbraintreeTokenApi() {
         //   Log.e("json",jsonObject.toString())
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(this.resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<JsonObject>?
             call = apiInterface!!.getclienttokenParameter(
                 TeamPlayerSharedPrefrence.getInstance(
-                    activity!!
+                    requireActivity()
                 ).getAccessToken("")
             )
             call!!.enqueue(object : Callback<JsonObject> {
@@ -422,7 +420,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                                     true
                                 )
                             startActivityForResult(
-                                dropInRequest.getIntent(activity!!),
+                                dropInRequest.getIntent(requireActivity()),
                                 REQUEST_CODE
                             )
 
@@ -457,7 +455,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
@@ -468,7 +466,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -476,7 +474,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -537,16 +535,16 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
     }
     private fun authenticatePaymentApi(jsonObject: JsonObject) {
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(this.resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<JsonObject>?
             call = apiInterface!!.authenticatePayment(
-                TeamPlayerSharedPrefrence.getInstance(activity!!).getAccessToken(
+                TeamPlayerSharedPrefrence.getInstance(requireActivity()).getAccessToken(
                     ""
                 ), jsonObject
             )
@@ -561,7 +559,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                         try {
                             Log.d("response", response.body()!!.toString())
                             Toast.makeText(
-                                activity!!,
+                                requireActivity(),
                                 "Payment done sucessfully",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -580,12 +578,12 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             upDateDemoPaymentApi(paymentUpdateRequest)
                             //   updateNewUserPayment(paymentNewUpdateRequest)
                             edit_number_of_participants.text!!.clear()
-                            //    Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
+                            //    Toast.makeText(requireActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show()
                             /*  var cartTable = dbController!!.getCartInfo("")
                             cartTable.clear()*/
 
                             /*  startActivity(
-                                Intent(activity!!, OrderDoneActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(
+                                Intent(requireActivity(), OrderDoneActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK))*/
 
                         } catch (e: JSONException) {
@@ -618,7 +616,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
@@ -629,7 +627,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -637,7 +635,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -645,16 +643,16 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         }
     }
     private fun upDateDemoPaymentApi(jsonObject: JsonObject) {
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(this.resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<JsonObject>?
             call = apiInterface!!.getUpdateupdateDemoPayment(
-                TeamPlayerSharedPrefrence.getInstance(activity!!).getAccessToken(""), jsonObject
+                TeamPlayerSharedPrefrence.getInstance(requireActivity()).getAccessToken(""), jsonObject
             )
             call!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(
@@ -667,37 +665,44 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                         try {
                             Log.d("response", response.body()!!.toString())
                             noOfQuestion=null
-                            dialog1 = Dialog(activity!!)
-                            dialog1!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                            dialog1!!.setCancelable(false)
-                            dialog1!!.setContentView(R.layout.dialog_question_purchase_done)
-                            dialog1!!.setCanceledOnTouchOutside(true)
-                            dialog1!!.window!!.setLayout(
-                                WindowManager.LayoutParams.MATCH_PARENT,
-                                WindowManager.LayoutParams.MATCH_PARENT
-                            )
-                            dialog1!!.window!!.setBackgroundDrawable(ColorDrawable(activity!!.resources.getColor(R.color.full_transparent)))
 
-                            dialog1!!.window!!.setGravity(Gravity.CENTER)
+                            if (dialogShow){
+                                dialogShow=false
+                                dialog1 = Dialog(requireActivity())
+                                dialog1!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                                dialog1!!.setCancelable(false)
+                                dialog1!!.setContentView(R.layout.dialog_question_purchase_done)
+                                dialog1!!.setCanceledOnTouchOutside(true)
+                                dialog1!!.window!!.setLayout(
+                                    WindowManager.LayoutParams.MATCH_PARENT,
+                                    WindowManager.LayoutParams.MATCH_PARENT
+                                )
+                                dialog1!!.window!!.setBackgroundDrawable(ColorDrawable(requireActivity().resources.getColor(R.color.full_transparent)))
 
-                            val rl_yes_que_purchase = dialog1!!.findViewById(R.id.rl_yes_que_purchase) as RelativeLayout
-                            val rl_not_now_app_ques = dialog1!!.findViewById(R.id.rl_not_now_app_ques) as RelativeLayout
+                                dialog1!!.window!!.setGravity(Gravity.CENTER)
 
-                            dialog1!!.show()
-                            rl_not_now_app_ques.setOnClickListener {
-                                dialog1!!.dismiss()
+                                val rl_yes_que_purchase = dialog1!!.findViewById(R.id.rl_yes_que_purchase) as RelativeLayout
+                                val rl_not_now_app_ques = dialog1!!.findViewById(R.id.rl_not_now_app_ques) as RelativeLayout
+
+                                dialog1!!.show()
+                                rl_not_now_app_ques.setOnClickListener {
+                                    dialogShow=true
+                                    dialog1!!.dismiss()
+                                }
+                                rl_yes_que_purchase.setOnClickListener {
+                                    dialogShow=true
+                                    dialog1!!.dismiss()
+                                    requireActivity().tv_title_header.text="App Questionnaire"
+                                    val  homeFragment = AppQuestionnaireFragment()
+                                    val manager = requireActivity().supportFragmentManager
+                                    val transaction = manager.beginTransaction()
+                                    transaction.replace(R.id.container, homeFragment)
+                                    // transaction.addToBackStack(null);
+                                    transaction.commit()
+                                }
+
+
                             }
-                            rl_yes_que_purchase.setOnClickListener {
-                                dialog1!!.dismiss()
-                                activity!!.tv_title_header.text="App Questionnaire"
-                                val  homeFragment = AppQuestionnaireFragment()
-                                val manager = activity!!.supportFragmentManager
-                                val transaction = manager.beginTransaction()
-                                transaction.replace(R.id.container, homeFragment)
-                                // transaction.addToBackStack(null);
-                                transaction.commit()
-                            }
-
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -729,7 +734,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
@@ -740,7 +745,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -748,7 +753,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -757,16 +762,16 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
     }
 
     private fun updateNewUserPayment(jsonObject: JsonObject) {
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(this.resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<JsonObject>?
             call = apiInterface!!.updateNewUserPayment(
-                TeamPlayerSharedPrefrence.getInstance(activity!!).getAccessToken(""), jsonObject
+                TeamPlayerSharedPrefrence.getInstance(requireActivity()).getAccessToken(""), jsonObject
             )
             call!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(
@@ -779,7 +784,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                         try {
                             noOfQuestion=null
                             Log.d("response", response.body()!!.toString())
-                            Toast.makeText(activity!!, jsonObject.optString("message"), Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), jsonObject.optString("message"), Toast.LENGTH_LONG).show()
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -811,7 +816,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                         }
@@ -822,7 +827,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -830,7 +835,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -838,13 +843,13 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         }
     }
     private fun newUserList(){
-        if (CheckNetworkConnection.isConnection1(activity!!, true)) {
-            val progress = ProgressDialog(activity!!)
+        if (CheckNetworkConnection.isConnection1(requireActivity(), true)) {
+            val progress = ProgressDialog(requireActivity())
             progress.setMessage(resources.getString(R.string.please_wait))
             progress.setCancelable(false)
             progress.isIndeterminate = true
             progress.show()
-            val apiInterface = ApiClient.getConnection(activity!!)
+            val apiInterface = ApiClient.getConnection(requireActivity())
             var call: Call<PlanListResponse>? = null//apiInterface.profileImage(body,token);
             call = apiInterface!!.newuserplanParameter(mpref!!.getAccessToken(""))
             call.enqueue(object : Callback<PlanListResponse> {
@@ -866,7 +871,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
 
                     } else if (response.code() == 500) {
                         Toast.makeText(
-                            activity!!,
+                            requireActivity(),
                             "Internal server error",
                             Toast.LENGTH_LONG
                         ).show()
@@ -896,11 +901,11 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             val finallyError = sb.toString()
                             val jsonObjectError = JSONObject(finallyError)
                             val message = jsonObjectError.optString("message")
-                            Toast.makeText(activity!!, message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
                         } catch (e: JSONException) {
                             e.printStackTrace()
                             Toast.makeText(
-                                activity!!,
+                                requireActivity(),
                                 "Some error occurred",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -912,7 +917,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 override fun onFailure(call: Call<PlanListResponse>, t: Throwable) {
                     progress.dismiss()
                     Toast.makeText(
-                        activity!!,
+                        requireActivity(),
                         resources.getString(R.string.Something_went_worng),
                         Toast.LENGTH_LONG
                     ).show()
@@ -920,7 +925,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
             })
         } else {
             Toast.makeText(
-                activity!!,
+                requireActivity(),
                 resources.getString(R.string.please_check_internet),
                 Toast.LENGTH_LONG
             )
@@ -994,7 +999,12 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                     paymentUpdateRequest.addProperty("id","1")
                     paymentUpdateRequest.addProperty("number_survay", noOfQuestion)
                     paymentUpdateRequest.addProperty("data", "")
-                    upDateDemoPaymentApi(paymentUpdateRequest)
+                    val activity: Activity? = activity
+                    if (activity != null) {
+                        upDateDemoPaymentApi(paymentUpdateRequest)
+                        // etc ...
+                    }
+
                 }
 
             }
