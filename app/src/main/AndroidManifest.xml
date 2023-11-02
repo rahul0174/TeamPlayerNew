@@ -7,6 +7,10 @@
     key alias:chawtech
     key pass:chawtech-->
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -22,7 +26,10 @@
         </intent>
     </queries>
     <application
-        android:allowBackup="true"
+
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:allowBackup="false"
         android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="false"
         android:icon="@drawable/new_logo"
@@ -69,15 +76,16 @@
             android:theme="@style/Base.Theme.AppCompat"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
-        <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
+      <!--  <activity android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"
             android:launchMode="singleTask"
-            android:exported="true"> <intent-filter>
+            android:exported="true">
+            <intent-filter>
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="com.cts.teamplayer.braintree" />
         </intent-filter> </activity>
-
+-->
     </application>
 
 </manifest>

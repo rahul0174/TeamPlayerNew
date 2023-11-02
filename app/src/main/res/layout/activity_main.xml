@@ -49,7 +49,6 @@
 
 
         </RelativeLayout>
-
         <include
             android:id="@+id/nav_bottom_layout"
             layout="@layout/bottom_bar"

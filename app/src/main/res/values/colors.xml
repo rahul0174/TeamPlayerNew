@@ -9,6 +9,7 @@
     <color name="white">#ffffff</color>
    <!-- <color name="light_blue">#3BC5E1</color>-->
     <color name="light_blue">#069fbe</color>
+    <color name="bt_text_blue">#069fbe</color>
     <color name="light_blue_new">#069fbe</color>
 
     <color name="light_grey">#e0e0e0</color>

@@ -1,6 +1,8 @@
 package com.cts.teamplayer.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -22,8 +24,15 @@ class WebViewActivity: AppCompatActivity() , View.OnClickListener {
     }
 
     private fun findId() {
+        ivBack.setOnClickListener { finish() }
+        ivShare.setOnClickListener {
+            val i = Intent(Intent.ACTION_SEND)
+            i.type = "text/plain"
+            i.putExtra(Intent.EXTRA_SUBJECT, "Sharing URL")
+            i.putExtra(Intent.EXTRA_TEXT, url)
+            startActivity(Intent.createChooser(i, "Share URL")) }
         if (intent.getStringExtra("activity")!!.equals("report")){
-            url="https://dev.teamplayerhr.com/app-survey-result-team"+"?"+"group_id"+"="+intent.getStringExtra(
+            url="https://teamplayerhr.com/app-survey-result-team"+"?"+"group_id"+"="+intent.getStringExtra(
                 "group_id"
             )+"&"+"user_id"+"="+intent.getStringExtra("user_id")+
                     "&"+"subgroup_id"+"="+intent.getStringExtra("subgroup_id")+"&"+"user_type"+"="+intent.getStringExtra(
@@ -36,6 +45,7 @@ class WebViewActivity: AppCompatActivity() , View.OnClickListener {
         else{
             url=intent.getStringExtra("url")
         }
+        Log.e("urlNewone",url.toString())
 
 
         webview.getSettings().setJavaScriptEnabled(true);

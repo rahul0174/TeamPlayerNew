@@ -15,9 +15,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.*
-import com.braintreepayments.api.dropin.DropInActivity
+/*import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
-import com.braintreepayments.api.dropin.DropInResult
+import com.braintreepayments.api.dropin.DropInResult*/
 import com.cts.teamplayer.R
 import com.cts.teamplayer.adapters.PlanListAdapter
 import com.cts.teamplayer.models.*
@@ -415,14 +415,14 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                             //    orderId = jsonObject.optString("orderId").toString()
                             brintreeToken = jsonObject.optString("token").toString()
 
-                            val dropInRequest =
+                          /*  val dropInRequest =
                                 DropInRequest().clientToken(brintreeToken).collectDeviceData(
                                     true
-                                )
-                            startActivityForResult(
+                                )*/
+                         /*   startActivityForResult(
                                 dropInRequest.getIntent(requireActivity()),
                                 REQUEST_CODE
-                            )
+                            )*/
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -486,9 +486,9 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
-                val nonce = result!!.paymentMethodNonce
-                val stringNonce = nonce!!.nonce
+             //   val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
+                val nonce = "result!!.paymentMethodNonce"
+                val stringNonce = "nonce!!.nonce"
                 stringNonceNew=stringNonce
 
                 if(whichplan!!.equals("newuser")){
@@ -526,9 +526,9 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 Log.e("mylog", "user canceled")
             } else {
                 // handle errors here, an exception may be available in
-                val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
+             //   val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
 
-                Log.e("error", error.toString())
+               // Log.e("error", error.toString())
 
             }
         }
@@ -950,9 +950,7 @@ class BriefQuestionnaireFragment : Fragment(), View.OnClickListener, ItemClickLi
                 if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
                     Log.v("TAG_INAPP","Setup Billing Done")
                     // The BillingClient is ready. You can query purchases here.
-                    if(whichplan.equals("newuser"))
-                        queryAvaliableProducts("userplan")
-                    else
+
                         queryAvaliableProducts(product_id!!)
 
                 }

@@ -363,12 +363,13 @@
                     </RelativeLayout>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rlAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/rounded_doted_btn"
                     >
-                    <com.cts.teamplayer.customui.CustomEditText
+                    <com.cts.teamplayer.customui.CustomTextView
                         android:id="@+id/edit_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

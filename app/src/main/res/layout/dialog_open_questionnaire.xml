@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="App Questionnaire Group Joined"
                 android:textSize="@dimen/_12sdp"
-                android:textColor="@color/bt_text_blue"
+                android:textColor="@color/light_blue"
                 />
             <ImageView
                 android:id="@+id/iv_cancel_dialog_add_to_team"

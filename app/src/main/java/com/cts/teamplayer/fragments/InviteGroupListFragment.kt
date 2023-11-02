@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.billingclient.api.*
-import com.braintreepayments.api.dropin.DropInActivity
+/*import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
-import com.braintreepayments.api.dropin.DropInResult
+import com.braintreepayments.api.dropin.DropInResult*/
 import com.cts.teamplayer.R
 import com.cts.teamplayer.activities.GroupManageActivity
 import com.cts.teamplayer.activities.MainActivity
@@ -732,14 +732,14 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                             //    orderId = jsonObject.optString("orderId").toString()
                             brintreeToken = jsonObject.optString("token").toString()
 
-                            val dropInRequest =
+                           /* val dropInRequest =
                                 DropInRequest().clientToken(brintreeToken).collectDeviceData(
                                     true
-                                )
-                            startActivityForResult(
+                                )*/
+                           /* startActivityForResult(
                                 dropInRequest.getIntent(requireActivity()),
                                 REQUEST_CODE
-                            )
+                            )*/
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -802,9 +802,9 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
-                val nonce = result!!.paymentMethodNonce
-                val stringNonce = nonce!!.nonce
+              //  val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
+                val nonce = "result!!.paymentMethodNonce"
+                val stringNonce = "nonce!!.nonce"
                 /*  "{
                   ""orderId"" : ""ORD12345"",
                   ""amount"" : 450,
@@ -840,9 +840,9 @@ class InviteGroupListFragment: Fragment(), View.OnClickListener, ItemClickListne
                 Log.e("mylog", "user canceled")
             } else {
                 // handle errors here, an exception may be available in
-                val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
+              //  val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
 
-                Log.e("error", error.toString())
+               // Log.e("error", error.toString())
 
             }
         }

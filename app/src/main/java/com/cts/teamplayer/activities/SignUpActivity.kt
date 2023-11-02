@@ -14,6 +14,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -40,8 +42,15 @@ import com.cts.teamplayer.models.*
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
 import com.cts.teamplayer.network.ItemClickListner
+import com.cts.teamplayer.util.MyConstants
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.cts.teamplayer.util.Utility
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.gson.JsonObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -56,6 +65,8 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import java.io.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.OnItemSelectedListener
@@ -82,6 +93,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
     var text_occupation:String?=""
     var ischeck = false
     var text_your_role:String?=""
+    var address:String?=""
     var text_no_of_empl:String?=""
     private val IMAGE_DIRECTORY = "/demonuts_upload_gallery"
 
@@ -174,6 +186,9 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
         rl_signup_upload_dov_on_click.setOnClickListener(this)
         rl_signup_upload_dov_layout.setOnClickListener(this)
         rl_upload_image_submit.setOnClickListener(this)
+        rlAddress.setOnClickListener {
+            onSearchCalled()
+        }
 
 
     }
@@ -219,7 +234,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             requestBodyuser.addProperty("organization_name", edit_orgnization_name.text.toString().trim())
                             requestBodyuser.addProperty(
                                 "address_line_1",
-                                edit_address.text.toString().trim()
+                                address
                             )
                             requestBodyuser.addProperty(
                                 "address_line_2",
@@ -258,7 +273,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                             requestBodyuser.addProperty("cv", userIamge)
                             requestBodyuser.addProperty(
                                 "address_line_1",
-                                edit_address.text.toString().trim()
+                                address
                             )
                             requestBodyuser.addProperty(
                                 "address_line_2",
@@ -307,7 +322,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                     requestBodyuser.addProperty("cv", userIamge)
                     requestBodyuser.addProperty(
                         "address_line_1",
-                        edit_address.text.toString().trim()
+                        address
                     )
                     requestBodyuser.addProperty(
                         "address_line_2",
@@ -527,7 +542,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 return false
             }
 
-            else  if (edit_address.text.toString().trim().length === 0) {
+            else  if (edit_address.text.isEmpty()) {
                 Toast.makeText(
                     this@SignUpActivity,
                     getString(R.string.enter_address),
@@ -832,6 +847,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
                 ).show()
             }
         }
+
         val result = CropImage.getActivityResult(data)
         if (result != null && resultCode == Activity.RESULT_OK) {
 
@@ -849,6 +865,31 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
 
             }
         }
+
+        if (requestCode == MyConstants.AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        Log.i("TAG", "Place: ${place.name}, ${place.id}")
+                        getFullAddress(place.latLng)
+                        //  tvAddressSugg.text=place.name
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        //  Log.i(TAG, status.statusMessage ?: "")
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+            return
+        }
+
 
     }
 
@@ -960,6 +1001,7 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), uri!!.path)
             val bodydata = MultipartBody.Part.createFormData("file", uri.name, requestFile)
             bodyList.add(bodydata)
+
             call = apiInterface!!.uploadSingleFile(bodyList)
             call!!.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(
@@ -1938,6 +1980,65 @@ class SignUpActivity: AppCompatActivity() , View.OnClickListener, AdapterView.On
             READ_EXTERNAL_STORAGE
         ) != PackageManager.PERMISSION_GRANTED)
     }
+
+    fun onSearchCalled() {
+
+        //address inisilize
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), MyConstants.GoogleAddressApiKey);
+        }
+        // Set the fields to specify which types of place data to return.
+        val fields = Arrays.asList(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.ADDRESS,
+            Place.Field.LAT_LNG
+        )
+        // Start the autocomplete intent.
+        val intent = Autocomplete.IntentBuilder(
+            AutocompleteActivityMode.FULLSCREEN, fields
+        ) //NIGERIA
+            .build(this)
+        startActivityForResult(intent, MyConstants.AUTOCOMPLETE_REQUEST_CODE)
+    }
+
+    private fun getFullAddress(latLng: LatLng?) {
+        var city: String=""
+        var state: String=""
+        var country: String=""
+        var postalCode: String=""
+
+        val addresses: List<Address>?
+        val geocoder = Geocoder(this, Locale.getDefault())
+        addresses = geocoder.getFromLocation(latLng!!.latitude, latLng.longitude, 1) // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        var address = addresses?.get(0)!!.getAddressLine(0) // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        address=address
+        if (addresses[0].locality!=null){
+            city =   addresses[0].locality
+        }
+        if (addresses[0].adminArea!=null){
+            state  = addresses[0].adminArea
+        }
+        if (addresses[0].countryName!=null){
+            country = addresses[0].countryName
+        }
+        if (addresses[0].postalCode!=null){
+            postalCode = addresses[0].postalCode
+        }
+
+        edit_address.text = address.toString()
+       /* tv_state.text = state
+        tv_city.text = city*/
+        edit_zip.setText(postalCode)
+
+       /* countryNameCompanyInf = country
+        stateNameCompanyInf = state
+        cityNameCompanyInf = city*/
+
+
+    }
+
+
 
 
 }

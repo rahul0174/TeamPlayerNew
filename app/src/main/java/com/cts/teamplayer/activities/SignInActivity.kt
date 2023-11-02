@@ -1,6 +1,7 @@
 package com.cts.teamplayer.activities
 
-import android.app.Dialog
+
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -19,8 +20,14 @@ import com.cts.teamplayer.R
 import com.cts.teamplayer.adapters.CustomParticipantTeamList
 import com.cts.teamplayer.network.ApiClient
 import com.cts.teamplayer.network.CheckNetworkConnection
+import com.cts.teamplayer.util.MyConstants
 import com.cts.teamplayer.util.TeamPlayerSharedPrefrence
 import com.cts.teamplayer.util.Utility
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signin.*
 import org.json.JSONException
@@ -30,6 +37,7 @@ import retrofit2.Callback
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.*
 
 class SignInActivity: AppCompatActivity() , View.OnClickListener {
 
@@ -82,6 +90,7 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                 }
             }
             R.id.tv_forgot_pass -> {
+               // onSearchCalled()
                 val i = Intent(this@SignInActivity, ForgetPasswordActivity::class.java)
                 startActivity(i)
             }R.id.ll_skip_sign_in_screen -> {
@@ -96,7 +105,8 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                     edit_password.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                     iv_user_password.setImageResource(R.drawable.password_show_new)
                     passwordNotVisible = 1
-                } else {
+                }
+                else {
                     edit_password.inputType =
                         InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                     iv_user_password.setImageResource(R.drawable.password_hidden)
@@ -222,4 +232,50 @@ class SignInActivity: AppCompatActivity() , View.OnClickListener {
                 .show()
         }
     }
+    fun onSearchCalled() {
+
+        //address inisilize
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), MyConstants.GoogleAddressApiKey);
+        }
+        // Set the fields to specify which types of place data to return.
+        val fields = Arrays.asList(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.ADDRESS,
+            Place.Field.LAT_LNG
+        )
+        // Start the autocomplete intent.
+        val intent = Autocomplete.IntentBuilder(
+            AutocompleteActivityMode.FULLSCREEN, fields
+        ).setCountry("NG") //NIGERIA
+            .build(this)
+        startActivityForResult(intent, MyConstants.AUTOCOMPLETE_REQUEST_CODE)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == MyConstants.AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        Log.i("TAG", "Place: ${place.name}, ${place.id}")
+                      //  tvAddressSugg.text=place.name
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        //  Log.i(TAG, status.statusMessage ?: "")
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 }

@@ -1,7 +1,8 @@
 package com.cts.teamplayer.util
 
 object MyConstants {
-    var X_API_KEY = "JDJ5JDEwJEJjd3NaamtFMWQzZUk1QzAwVUE1T3VlZWViWndFb00uQ1RSc3RodVJsQXFzWGtENGNhM01H"
+
+ var X_API_KEY = "JDJ5JDEwJEJjd3NaamtFMWQzZUk1QzAwVUE1T3VlZWViWndFb00uQ1RSc3RodVJsQXFzWGtENGNhM01H"
    // val BASE_URL = "https://admin.teamplayerhr.com/api/"
     val BASE_URL = "https://superadmin.teamplayerhr.com/api/"
     //Image Baseurls
@@ -38,5 +39,9 @@ object MyConstants {
     var GENERATE_BEANCHMARK_VIEW_REPORT = 25
     var GENERATE_PARTICIPANT_VIEW_REPORT = 26
     var NEW_PAYPAL_CLICK_REQUEST_CODE = 27
+    var AUTOCOMPLETE_REQUEST_CODE = 201
+
+    var GoogleAddressApiKey= "AIzaSyDVB3k-rFkbVioA_rSpdOlWqSb1RrgjERo"
+
 
 }

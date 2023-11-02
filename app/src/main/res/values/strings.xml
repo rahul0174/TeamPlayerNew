@@ -44,7 +44,7 @@
     <string name="enter_title">Enter Title</string>
     <string name="last_name1">Enter Last name</string>
     <string name="enter_phone">Enter Phone no.</string>
-    <string name="enter_address">Enter Address</string>
+    <string name="enter_address">Select Address</string>
     <string name="enter_user_role">Enter User Role</string>
     <string name="enter_number_employee">Enter Number Of Emplayee</string>
     <string name="select_hours">Select Hours</string>

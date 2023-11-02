@@ -3,7 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@color/light_blue">
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/back"/>
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_alignParentRight="true"
+            android:tint="@color/white"
+            android:src="@drawable/share"/>
+
+    </RelativeLayout>
     <WebView
+        android:layout_below="@+id/toolbar"
         android:id="@+id/webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

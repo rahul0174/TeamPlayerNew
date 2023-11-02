@@ -21,7 +21,6 @@ class AnswerAdapterNew (
     var itemclick: ItemClickListner,
     var mian_answer: Int,
     var questionnaireCalculator: QuestionnaireCalculatorActivity,
-
     ) :
     androidx.recyclerview.widget.RecyclerView.Adapter<AnswerAdapterNew.MyHolderView>(){
     var answerFilterList : ArrayList<AnswersItemNew> = ArrayList()

@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.*
-import com.braintreepayments.api.dropin.DropInActivity
+/*import com.braintreepayments.api.dropin.DropInActivity
 import com.braintreepayments.api.dropin.DropInRequest
-import com.braintreepayments.api.dropin.DropInResult
+import com.braintreepayments.api.dropin.DropInResult*/
 import com.cts.teamplayer.R
 import com.cts.teamplayer.adapters.BenchmarkListAdapter
 import com.cts.teamplayer.adapters.GroupListInManageTeamAdapter
@@ -463,14 +463,14 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
                             //    orderId = jsonObject.optString("orderId").toString()
                             brintreeToken = jsonObject.optString("token").toString()
 
-                            val dropInRequest =
+                           /* val dropInRequest =
                                 DropInRequest().clientToken(brintreeToken).collectDeviceData(
                                     true
-                                )
-                            startActivityForResult(
+                                )*/
+                           /* startActivityForResult(
                                 dropInRequest.getIntent(this@ManageTeamActivity),
                                 REQUEST_CODE
-                            )
+                            )*/
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -533,9 +533,9 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
-                val nonce = result!!.paymentMethodNonce
-                val stringNonce = nonce!!.nonce
+             //   val result: DropInResult? = data!!.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT)
+                val nonce = "result!!.paymentMethodNonce"
+                val stringNonce = "nonce!!.nonce"
                 if(which_report_generate.equals("beanchmark")){
 
                     val amount1=   BigDecimal(userListItemParticipant!!.size+1)
@@ -605,9 +605,9 @@ class ManageTeamActivity : AppCompatActivity() , View.OnClickListener,ItemClickL
                 Log.e("mylog", "user canceled")
             } else {
                 // handle errors here, an exception may be available in
-                val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
+             //   val error = data!!.getSerializableExtra(DropInActivity.EXTRA_ERROR)
 
-                Log.e("error", error.toString())
+                //Log.e("error", error.toString())
 
             }
         }
