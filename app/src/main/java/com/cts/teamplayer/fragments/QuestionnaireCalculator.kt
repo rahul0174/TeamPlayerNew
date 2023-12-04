@@ -108,7 +108,8 @@ class QuestionnaireCalculator: Fragment(), View.OnClickListener, ItemClickListne
                         saveanswerRequest(jsonObject)
 
                         countDownTimer.start()
-                    }else if(radioButton.equals("0")){
+                    }
+                    else if(radioButton.equals("0")){
                         Toast.makeText(
                             activity!!,
                             "Please select answer ",
@@ -122,13 +123,13 @@ class QuestionnaireCalculator: Fragment(), View.OnClickListener, ItemClickListne
                             tv_seond.text=""
                             saveAnswerJson()
                             countDownTimer.start()
-                        }/*else{
+                        }else{
                             Toast.makeText(
                                 activity!!,
-                                "Please select max 3 ",
+                                "Please select atleast 3 Answer.",
                                 Toast.LENGTH_LONG
                             ).show()
-                        }*/
+                        }
 
 
                     }

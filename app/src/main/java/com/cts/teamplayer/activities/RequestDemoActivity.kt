@@ -217,7 +217,8 @@ class RequestDemoActivity : AppCompatActivity() , View.OnClickListener, ItemClic
                         "no_of_employees",
                         text_no_of_empl
                     )
-                    demoRequest!!.addProperty("selected_date", text_date+" "+text_hours+":"+tv_mint)
+                    demoRequest!!.addProperty("selected_date", text_date)
+                   /* demoRequest!!.addProperty("selected_date", text_date+" "+text_hours+":"+tv_mint)*/
                     requestDemoApi(demoRequest)
                 }
             }
@@ -249,6 +250,7 @@ class RequestDemoActivity : AppCompatActivity() , View.OnClickListener, ItemClic
                                 jsonObject.optString("message"),
                                 Toast.LENGTH_LONG
                             ).show()
+                            finish()
                             /*
 
                             val token = jsonObject.getJSONObject("data").optString("token")
@@ -340,7 +342,7 @@ class RequestDemoActivity : AppCompatActivity() , View.OnClickListener, ItemClic
             return false
         }
         else  if (edit_company_name_rq.text.toString().trim().length == 0) {
-            Toast.makeText(this@RequestDemoActivity, getString(R.string.enter_title), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RequestDemoActivity,"Enter company name.", Toast.LENGTH_SHORT).show()
             return false
         }else  if (edit_phone_num_rq.text.toString().trim().length == 0) {
             Toast.makeText(this@RequestDemoActivity, getString(R.string.phone_num), Toast.LENGTH_SHORT).show()
@@ -353,28 +355,35 @@ class RequestDemoActivity : AppCompatActivity() , View.OnClickListener, ItemClic
             ).show()
             return false
         }
-        else  if (text_your_role.equals(null)) {
+        else  if (text_your_role!!.equals("0")) {
             Toast.makeText(
                 this@RequestDemoActivity,
                 getString(R.string.enter_user_role),
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        } else  if (text_no_of_empl.equals(null)) {
+        } else  if (text_no_of_empl!!.equals("Number Of Employees")) {
             Toast.makeText(
                 this@RequestDemoActivity,
                 getString(R.string.enter_number_employee),
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        }else  if (text_no_of_empl.equals(null)) {
+        }else  if (text_no_of_empl!!.isEmpty()) {
             Toast.makeText(
                 this@RequestDemoActivity,
                 getString(R.string.enter_number_employee),
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        }else  if (text_hours.equals(null)) {
+        }else  if (tv_date_select_in_request_demo_page!!.text.isEmpty()) {
+            Toast.makeText(
+                this@RequestDemoActivity,
+                "Select Sehedule appointment date",
+                Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }/*else  if (text_hours.equals(null)) {
             Toast.makeText(
                 this@RequestDemoActivity,
                 getString(R.string.select_hours),
@@ -388,7 +397,7 @@ class RequestDemoActivity : AppCompatActivity() , View.OnClickListener, ItemClic
                 Toast.LENGTH_SHORT
             ).show()
             return false
-        }
+        }*/
         return true
     }
 }

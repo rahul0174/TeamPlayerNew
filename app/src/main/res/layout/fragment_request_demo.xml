@@ -231,7 +231,6 @@
                         >
                         <com.cts.teamplayer.customui.CustomTextView
                             android:id="@+id/tv_date_select_in_request_demo_page"
-                            android:layout_toRightOf="@+id/iv_user_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
